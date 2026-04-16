@@ -10,6 +10,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Bread">
 <link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -391,6 +392,27 @@ body{background:#100804;font-family:'Nunito',sans-serif;color:var(--cream);backg
 .bk-shop-card:hover{background:rgba(255,200,80,0.04)}
 .bk-shop-card.bk-shop-buyable{border-left:2px solid rgba(255,200,80,0.35);background:linear-gradient(90deg,rgba(255,200,80,0.06),rgba(255,200,80,0.01))}
 .bk-crumbs-badge{font-family:'Fredoka One',cursive;font-size:0.7rem;color:rgba(255,220,100,0.55);background:rgba(255,200,80,0.08);border:1px solid rgba(255,200,80,0.18);border-radius:20px;padding:2px 8px}
+
+/* ===== IOS INSTALL ===== */
+#ios-install-btn{display:none;position:fixed;bottom:72px;right:14px;width:46px;height:46px;border-radius:50%;background:rgba(16,8,3,0.92);border:1px solid rgba(196,138,47,0.35);color:rgba(232,201,122,0.7);cursor:pointer;z-index:450;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(0,0,0,0.6);transition:all 0.2s;-webkit-tap-highlight-color:transparent;animation:install-nudge 4s 3s ease-in-out infinite}
+#ios-install-btn:active{transform:scale(0.9)}
+@keyframes install-nudge{0%,85%,100%{transform:scale(1)}90%{transform:scale(1.12)}95%{transform:scale(0.96)}}
+#ios-install-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:800;align-items:flex-end;justify-content:center;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+#ios-install-sheet{background:rgba(18,10,4,0.98);border:1px solid rgba(196,138,47,0.25);border-radius:20px 20px 0 0;padding:20px 20px calc(20px + env(safe-area-inset-bottom,0));width:100%;max-width:480px;transform:translateY(100%);transition:transform 0.32s cubic-bezier(0.32,0.72,0,1)}
+#ios-install-sheet.open{transform:translateY(0)}
+.ios-sheet-handle{width:36px;height:4px;background:rgba(196,138,47,0.2);border-radius:99px;margin:0 auto 18px}
+.ios-sheet-title{font-family:'Fredoka One',cursive;font-size:1rem;color:var(--wheat);margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.ios-sheet-sub{font-size:0.65rem;color:rgba(232,201,122,0.35);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:18px}
+.ios-step{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+.ios-step-num{flex-shrink:0;width:24px;height:24px;border-radius:50%;background:rgba(196,138,47,0.12);border:1px solid rgba(196,138,47,0.25);display:flex;align-items:center;justify-content:center;font-family:'Fredoka One',cursive;font-size:0.72rem;color:rgba(232,201,122,0.6)}
+.ios-step-text{font-size:0.72rem;font-weight:700;color:rgba(232,201,122,0.6);line-height:1.5;padding-top:3px}
+.ios-step-text strong{color:var(--wheat)}
+.ios-step-icon{display:inline-block;background:rgba(196,138,47,0.1);border:1px solid rgba(196,138,47,0.2);border-radius:5px;padding:1px 5px;font-size:0.75rem;margin:0 2px}
+.ios-sheet-dismiss{width:100%;margin-top:18px;padding:11px;border:none;border-radius:12px;background:rgba(196,138,47,0.1);border:1px solid rgba(196,138,47,0.2);color:rgba(232,201,122,0.7);font-family:'Fredoka One',cursive;font-size:0.82rem;letter-spacing:1px;cursor:pointer}
+.ios-not-safari{text-align:center;padding:10px 0}
+.ios-not-safari-icon{font-size:2rem;margin-bottom:8px}
+.ios-not-safari-text{font-size:0.72rem;font-weight:700;color:rgba(232,201,122,0.5);line-height:1.6}
+.ios-not-safari-text strong{color:var(--wheat)}
 
 /* ===== MOBILE TAB BAR ===== */
 #mobile-tabbar{display:none;position:fixed;bottom:0;left:0;right:0;height:56px;background:rgba(12,6,2,0.98);border-top:1px solid rgba(196,138,47,0.25);z-index:600;padding-bottom:env(safe-area-inset-bottom,0)}
@@ -3303,6 +3325,22 @@ if(hadSave)showNotif('💾 Save loaded!');
 })();
 </script>
 
+<!-- IOS INSTALL BUTTON -->
+<button id="ios-install-btn" aria-label="Add to Home Screen" onclick="showIOSInstall()">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3v13"/><path d="M7 11l5 5 5-5"/><line x1="4" y1="20" x2="20" y2="20"/>
+  </svg>
+</button>
+
+<!-- IOS INSTALL SHEET -->
+<div id="ios-install-overlay" onclick="hideIOSInstall()">
+  <div id="ios-install-sheet" onclick="event.stopPropagation()">
+    <div class="ios-sheet-handle"></div>
+    <div id="ios-install-body"></div>
+    <button class="ios-sheet-dismiss" onclick="hideIOSInstall()">Got it 👍</button>
+  </div>
+</div>
+
 <!-- MOBILE TAB BAR -->
 <div id="mobile-tabbar">
   <button class="mob-tab active" id="tab-bake" onclick="setMobileTab('bake')"><span class="mob-tab-icon">🍞</span><span>Bake</span></button>
@@ -3319,6 +3357,63 @@ function setMobileTab(tab){
   document.getElementById('tab-bake').classList.toggle('active', tab==='bake');
   document.getElementById('tab-shop').classList.toggle('active', tab==='shop');
 }
+
+// ===== IOS INSTALL PROMPT =====
+(function(){
+  const isIOS=/iPhone|iPad|iPod/.test(navigator.userAgent)&&!window.MSStream;
+  const isStandalone=window.navigator.standalone===true;
+  if(!isIOS||isStandalone)return;
+
+  // Show the button
+  const btn=document.getElementById('ios-install-btn');
+  btn.style.display='flex';
+
+  const isSafari=/Safari/.test(navigator.userAgent)&&!/CriOS|FxiOS|OPiOS|EdgiOS/.test(navigator.userAgent);
+
+  window.showIOSInstall=function(){
+    const body=document.getElementById('ios-install-body');
+    if(isSafari){
+      body.innerHTML=`
+        <div class="ios-sheet-title">🍞 Add to Home Screen</div>
+        <div class="ios-sheet-sub">We Love Bread · Safari required</div>
+        <div class="ios-step">
+          <div class="ios-step-num">1</div>
+          <div class="ios-step-text">Tap the <strong>Share</strong> button <span class="ios-step-icon">⬆ Share</span> at the bottom of Safari</div>
+        </div>
+        <div class="ios-step">
+          <div class="ios-step-num">2</div>
+          <div class="ios-step-text">Scroll down and tap <strong>"Add to Home Screen"</strong></div>
+        </div>
+        <div class="ios-step">
+          <div class="ios-step-num">3</div>
+          <div class="ios-step-text">Tap <strong>"Add"</strong> in the top-right corner</div>
+        </div>
+        <div class="ios-step">
+          <div class="ios-step-num">4</div>
+          <div class="ios-step-text">Open <strong>We Love Bread</strong> from your home screen — it runs fullscreen, no browser bar 🍞</div>
+        </div>`;
+    } else {
+      body.innerHTML=`
+        <div class="ios-sheet-title">🍞 Install the Game</div>
+        <div class="ios-sheet-sub">Action required</div>
+        <div class="ios-not-safari">
+          <div class="ios-not-safari-icon">🧭</div>
+          <div class="ios-not-safari-text">
+            Installing on iPhone requires <strong>Safari</strong>.<br><br>
+            Copy this page's URL, open <strong>Safari</strong>, paste it in the address bar, then tap the install button again.
+          </div>
+        </div>`;
+    }
+    const overlay=document.getElementById('ios-install-overlay');
+    overlay.style.display='flex';
+    requestAnimationFrame(()=>requestAnimationFrame(()=>document.getElementById('ios-install-sheet').classList.add('open')));
+  };
+
+  window.hideIOSInstall=function(){
+    document.getElementById('ios-install-sheet').classList.remove('open');
+    setTimeout(()=>document.getElementById('ios-install-overlay').style.display='none',340);
+  };
+})();
 
 // ===== SERVICE WORKER =====
 if('serviceWorker' in navigator && location.protocol !== 'file:'){
