@@ -1,0 +1,19 @@
+{
+  "name": "We Love Bread",
+  "short_name": "Bread",
+  "description": "An idle bread-baking clicker game",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#100804",
+  "theme_color": "#C48A2F",
+  "orientation": "any",
+  "categories": ["games", "entertainment"],
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
