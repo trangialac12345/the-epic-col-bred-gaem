@@ -947,6 +947,10 @@ const ACH=[
   {id:'moon10', n:'🌕 Lunar Addict',        d:'Harvest the Loaf Moon 10 times', f:2,c:()=>(S.loafMoonClicks||0)>=10},
   {id:'ovenk1', n:'🔴 The Ovenkind',        d:'Unlock The Ovenkind Pact',       f:2,c:()=>S.ovenkindUnlocked},
   {id:'pecho1', n:'🏆 Echo of Greatness',   d:'Unlock Prestige Echo',           f:2,c:()=>S.prestigeEchoDone},
+  // ── Grand Furnace ──
+  {id:'gf1',    n:'🔥 Kindling',             d:'Light the Grand Furnace',        f:3,c:()=>S.furnaceIgnitionDone},
+  {id:'gf2',    n:'⚗️ Infernal Baker',        d:'Unlock Infernal Mix',            f:5,c:()=>S.infernalMixDone},
+  {id:'gf3',    n:'✨ Grand Furnace Master',  d:'Complete the entire Grand Furnace chain', f:10,c:()=>S.furnaceAscensionDone},
   // ── Endgame bread milestones ──
   {id:'b1t',    n:'🍞 Bread Trillionaire',   d:'1 Trillion bread baked',         f:2,c:()=>S.bread>=1e12},
   {id:'b1qa',   n:'🍞 Quadrillionaire',      d:'1 Quadrillion bread',            f:2,c:()=>S.bread>=1e15},
@@ -1370,7 +1374,7 @@ window.addEventListener('beforeunload',saveGame);
 
 // ===== HELPERS =====
 
-function countUpg(){return['cakeMixDone','wheatFieldsDone','sourdoughDone','swiftLoavesDone','yeastBoostDone','miningGlovesDone','oreMagnetDone','loafRushDone','doubleKneadDone','enchantedBreadDone','goldenRatioDone','fermentFuryDone','crustHardeningDone','glutenOverdriveDone','thermalExpansionDone','yieldMultiplyDone','compoundRiseDone','steadfastOveneryDone','exploringDeeperDone','ancientGrainDone','prismBakeDone','veinTapDone','loafSurgeDone','crustEchoDone','deepFermentDone','oreAmplifyDone','breadNovaDone','resonanceLinkDone','harvestMoonDone','titansOvenDone','infiniteYeastDone','breadStormDone','cosmicCrustDone'].filter(k=>S[k]).length}
+function countUpg(){return['cakeMixDone','wheatFieldsDone','sourdoughDone','swiftLoavesDone','yeastBoostDone','miningGlovesDone','oreMagnetDone','loafRushDone','doubleKneadDone','enchantedBreadDone','goldenRatioDone','fermentFuryDone','crustHardeningDone','glutenOverdriveDone','thermalExpansionDone','yieldMultiplyDone','compoundRiseDone','steadfastOveneryDone','exploringDeeperDone','ancientGrainDone','prismBakeDone','veinTapDone','loafSurgeDone','crustEchoDone','deepFermentDone','oreAmplifyDone','breadNovaDone','resonanceLinkDone','harvestMoonDone','titansOvenDone','infiniteYeastDone','breadStormDone','cosmicCrustDone','furnaceIgnitionDone','thermalRecipeDone','infernalMixDone','coreMeltdownDone','furnaceAscensionDone'].filter(k=>S[k]).length}
 function getBreadGain(){
   let g=S.baseBreadGain,p=S.powerloafLevel*0.01;
   // ── Flat % upgrades — max +1% each ──
@@ -1392,6 +1396,9 @@ function getBreadGain(){
   if(S.titansOvenDone)      p+=0.007;  // Greaaaat Bread Output +0.7%
   if(S.breadStormDone)      p+=S.powerloafLevel*0.0004; // Powerloaf Increase I +0.04%/PL
   if(S.cosmicCrustDone)     p+=0.010;  // Amazing Bread Output +1.0% (hard cap)
+  if(S.furnaceIgnitionDone) p+=0.008;  // Furnace Ignition +25%
+  if(S.infernalMixDone)     p+=0.012;  // Infernal Mix +45%
+  if(S.furnaceAscensionDone)p+=Math.min(0.025,(S.breadfuel||0)/1000*0.002); // Furnace Ascension BF-scaled
   if(S.transcendBakeDone)   p+=0.008;  // Ascendant Breadarts +0.8% (was 75%)
   if(S.doughAscensionDone)  p+=0.015;  // Ascendant Breadarts I +1.5% (was 150%, capped at ~1%)
   if(S.infiniteRiseDone)    p+=Math.min(0.10,Object.values(S.buildings).reduce((s,v)=>s+v,0)*0.00002);
@@ -1482,7 +1489,7 @@ function updateComboDisplay(){const el=document.getElementById('combo-display');
 document.getElementById('bread-clicker').addEventListener('click',function(e){
   const comboHits=S.singularityTapDone?3:1;
   for(let i=0;i<comboHits;i++)hitCombo();
-  const fm=isFrenzy()?1.5:1;
+  const fm=isFrenzy()?(S.coreMeltdownDone?2.0:1.5):1;
   const cm=getComboMult();
   const g=Math.ceil(getClick()*fm*cm);
   S.bread+=g;
@@ -1496,7 +1503,7 @@ document.getElementById('bread-clicker').addEventListener('click',function(e){
 });
 
 // ===== TIMERS =====
-let bTT;function startBreadTick(){if(bTT)clearInterval(bTT);bTT=setInterval(()=>{const fm=isFrenzy()?1.5:1;const g=getBreadGain()*fm;S.bread+=g;sfx('breadTick');spawnP(`+${g%1===0?g:g.toFixed(1)}🍞${fm>1?' 🔥':''}`);checkAch();updateUI()},S.breadTickMs)}
+let bTT;function startBreadTick(){if(bTT)clearInterval(bTT);bTT=setInterval(()=>{const fm=isFrenzy()?(S.coreMeltdownDone?2.0:1.5):1;const g=getBreadGain()*fm;S.bread+=g;sfx('breadTick');spawnP(`+${g%1===0?g:g.toFixed(1)}🍞${fm>1?' 🔥':''}`);checkAch();updateUI()},S.breadTickMs)}
 let lTT;function startLoafTick(){if(lTT)clearInterval(lTT);lTT=setInterval(()=>{S.loaves++;sfx('loaf');
   if(S.gUpg_bloomSurge){const bonus=Math.ceil(getBreadGain()*0.1);S.bread+=bonus;}
   const plCap=S.sw_endlessLoaf?750:500;
@@ -1894,6 +1901,12 @@ const SHOP=[
     {id:'iyeast',icon:'♾️',name:'The Bread Engine',desc:'Tick -0.08s',sk:'infiniteYeastDone',act:()=>{S.bread-=300000;S.breadTickMs=Math.max(TICK_MIN,S.breadTickMs-80);S.infiniteYeastDone=true;startBreadTick()},costs:[{l:'300K',c:()=>S.bread>=300000}],st:'buy'},
     {id:'bstorm',icon:'⛈️',name:'Powerloaf Increase I',desc:'+5%/PL bread',sk:'breadStormDone',act:()=>{S.bread-=1000000;S.ores.jewel-=3;S.breadStormDone=true},costs:[{l:'1M',c:()=>S.bread>=1000000},{l:'3 Jewel',c:()=>S.ores.jewel>=3}],st:'buy'},
     {id:'ccrust',icon:'🌌',name:'Amazing Bread Output',desc:'+50% bread',sk:'cosmicCrustDone',act:()=>{S.bread-=5000000;S.ores.jewel-=5;S.ores.ruby-=10;S.cosmicCrustDone=true},costs:[{l:'5M',c:()=>S.bread>=5000000},{l:'5 Jewel',c:()=>S.ores.jewel>=5},{l:'10 Ruby',c:()=>S.ores.ruby>=10}],st:'buy'},
+    // ── GRAND FURNACE CHAIN ──
+    {id:'furnace1',icon:'🔥',name:'Furnace Ignition',desc:'+25% bread gain',sk:'furnaceIgnitionDone',act:()=>{S.bread-=250000;S.breadfuel=Math.max(0,(S.breadfuel||0)-300);S.furnaceIgnitionDone=true},costs:[{l:'250K',c:()=>S.bread>=250000},{l:'300 BF',c:()=>(S.breadfuel||0)>=300},{l:'Drilling',c:()=>S.drillingUnlocked}],st:'buy'},
+    {id:'furnace2',icon:'🌋',name:'Thermal Recipe',desc:'Loaf tick −12%',sk:'thermalRecipeDone',act:()=>{S.bread-=550000;S.breadfuel=Math.max(0,(S.breadfuel||0)-700);S.loafTickMs=Math.max(LOAF_MIN,Math.floor(S.loafTickMs*0.88));S.thermalRecipeDone=true;startLoafTick()},costs:[{l:'550K',c:()=>S.bread>=550000},{l:'700 BF',c:()=>(S.breadfuel||0)>=700},{l:'Furnace Ignition',c:()=>S.furnaceIgnitionDone}],st:'buy'},
+    {id:'furnace3',icon:'⚗️',name:'Infernal Mix',desc:'+45% bread gain',sk:'infernalMixDone',act:()=>{S.bread-=1300000;S.breadfuel=Math.max(0,(S.breadfuel||0)-1500);S.infernalMixDone=true},costs:[{l:'1.3M',c:()=>S.bread>=1300000},{l:'1.5K BF',c:()=>(S.breadfuel||0)>=1500},{l:'Thermal Recipe',c:()=>S.thermalRecipeDone}],st:'buy'},
+    {id:'furnace4',icon:'💥',name:'Core Meltdown',desc:'Frenzy: ×2 bread (was ×1.5)',sk:'coreMeltdownDone',act:()=>{S.bread-=2800000;S.breadfuel=Math.max(0,(S.breadfuel||0)-3000);S.coreMeltdownDone=true},costs:[{l:'2.8M',c:()=>S.bread>=2800000},{l:'3K BF',c:()=>(S.breadfuel||0)>=3000},{l:'Infernal Mix',c:()=>S.infernalMixDone}],st:'buy'},
+    {id:'furnace5',icon:'✨',name:'Furnace Ascension',desc:'+0.2% per 1K BF stored (cap +25%)',sk:'furnaceAscensionDone',act:()=>{S.bread-=6500000;S.breadfuel=Math.max(0,(S.breadfuel||0)-6000);S.furnaceAscensionDone=true},costs:[{l:'6.5M',c:()=>S.bread>=6500000},{l:'6K BF',c:()=>(S.breadfuel||0)>=6000},{l:'Core Meltdown',c:()=>S.coreMeltdownDone}],st:'buy'},
     // v1.4 Part 3 — click/cursor scaling
     {id:'nimble',icon:'👆',name:'Stronger Cursors',desc:'Clicks +1%/Wandering Finger (cap +50%)',sk:'nimbleDigitsDone',act:()=>{S.bread-=5000;S.nimbleDigitsDone=true},costs:[{l:'10 Fingers',c:()=>bCount('b_cursor')>=10},{l:'5K bread',c:()=>S.bread>=5000}],st:'buy'},
     {id:'hstrike',icon:'🏚️',name:'Warmth',desc:'Clicks +0.5%/Stone Hearth (cap +25%)',sk:'hearthStrikeDone',act:()=>{S.bread-=8000;S.hearthStrikeDone=true},costs:[{l:'5 Hearths',c:()=>bCount('b_oven')>=5},{l:'8K bread',c:()=>S.bread>=8000}],st:'buy'},
