@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>We Love Bread v1.5</title>
+<title>We Love Bread v1.6</title>
 <meta name="theme-color" content="#C48A2F">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -478,7 +478,7 @@ body{background:#100804;font-family:'Nunito',sans-serif;color:var(--cream);backg
 <body>
 <div id="loading-screen"><div class="loading-loaf-wrap"><div class="loading-loaf">🍞</div></div><div class="loading-bar-track"><div class="loading-bar-fill" id="loading-bar"></div></div><div class="loading-text" id="loading-text">baking...</div></div>
 <div id="title-screen" onclick="startGame()">
-  <div class="title-version">v1.4</div>
+  <div class="title-version">v1.6</div>
   <div class="title-bg-bread" style="left:5%;font-size:5rem;opacity:0.04;animation-delay:0s;animation-duration:18s;">🍞</div>
   <div class="title-bg-bread" style="left:18%;font-size:3.5rem;opacity:0.03;animation-delay:4s;animation-duration:24s;">🥖</div>
   <div class="title-bg-bread" style="left:38%;font-size:6rem;opacity:0.025;animation-delay:9s;animation-duration:20s;">🌾</div>
@@ -568,6 +568,7 @@ body{background:#100804;font-family:'Nunito',sans-serif;color:var(--cream);backg
   <button class="bottom-btn" onclick="toggleAchievements()" title="Achievements"><span>🏆</span><span class="bb-label">Achieve</span></button>
   <button class="bottom-btn" onclick="openBakery()" title="Bakery" id="bakery-btn" style="display:none;"><span>🏪</span><span class="bb-label">Bakery</span></button>
   <button class="bottom-btn" onclick="toggleDrilling()" title="Drilling" id="drilling-btn" style="display:none;"><span>⛡</span><span class="bb-label">Drill</span></button>
+  <button class="bottom-btn" onclick="toggleStarCrafting()" title="Star Crafting" id="star-crafting-btn" style="display:none;"><span>🌟</span><span class="bb-label">Stars</span></button>
   <button class="bottom-btn" onclick="toggleRebakeTree()" title="Rebake Tree" id="rebake-tree-btn" style="display:none;"><span>🌳</span><span class="bb-label">Tree</span></button>
   <button class="bottom-btn" onclick="openTaskoffice()" title="Taskoffice" id="taskoffice-btn" style="display:none;"><span>💼</span><span class="bb-label">Jobs</span></button>
   <button class="bottom-btn" onclick="toggleSettings()" title="Settings"><span>⚙️</span><span class="bb-label">Settings</span></button>
@@ -576,6 +577,7 @@ body{background:#100804;font-family:'Nunito',sans-serif;color:var(--cream);backg
 <div id="settings-modal" class="modal-overlay" style="width:320px;"><div class="modal-inner"><div class="modal-header"><span>⚙️ settings</span><button class="modal-close" onclick="toggleSettings()">✕</button></div><div class="modal-body" style="display:flex;flex-direction:column;gap:12px;"><div><div class="sett-label">🔊 Master Volume</div><input type="range" id="sett-volume" min="0" max="1" step="0.05" value="0.5" oninput="setVolume(this.value)" style="width:100%;accent-color:var(--crust);margin-top:4px;"></div><div><div class="sett-label">🎵 Music Volume</div><input type="range" id="sett-music-volume" min="0" max="0.3" step="0.005" value="0.049" oninput="setMusicVolume(this.value)" style="width:100%;accent-color:var(--crust);margin-top:4px;"></div><div><div class="sett-label">🎵 Sounds</div><div style="display:flex;flex-direction:column;gap:4px;margin-top:4px;"><label class="sett-toggle"><input type="checkbox" id="snd-ui" checked onchange="setSoundToggle('ui',this.checked)"><span>UI</span></label><label class="sett-toggle"><input type="checkbox" id="snd-mine" checked onchange="setSoundToggle('mine',this.checked)"><span>Mining</span></label><label class="sett-toggle"><input type="checkbox" id="snd-ambient" checked onchange="setSoundToggle('ambient',this.checked)"><span>Ambient</span></label></div></div><div><div class="sett-label">✨ Visual</div><label class="sett-toggle" style="margin-top:4px;"><input type="checkbox" id="sett-particles" checked onchange="setParticles(this.checked)"><span>Particles</span></label></div><div style="border-top:1px solid var(--border);padding-top:10px;"><div class="sett-label" style="margin-bottom:6px;">💾 Save</div><div style="font-size:0.55rem;color:rgba(232,201,122,0.25);font-weight:700;text-align:center;margin-bottom:6px;" id="last-save-time"></div><button onclick="saveGame();showNotif('💾 Saved!')" style="width:100%;padding:7px;border:none;border-radius:8px;background:rgba(100,180,100,0.08);border:1px solid rgba(100,180,100,0.2);color:rgba(150,220,150,0.7);font-family:'Nunito',sans-serif;font-size:0.7rem;font-weight:700;cursor:pointer;margin-bottom:6px;">💾 Save Now</button><div style="display:flex;gap:6px;margin-bottom:6px;"><button onclick="exportSave()" style="flex:1;padding:7px;border:none;border-radius:8px;background:rgba(100,150,255,0.08);border:1px solid rgba(100,150,255,0.2);color:rgba(150,180,255,0.7);font-family:'Nunito',sans-serif;font-size:0.7rem;font-weight:700;cursor:pointer;">📤 Export</button><button onclick="importSave()" style="flex:1;padding:7px;border:none;border-radius:8px;background:rgba(180,100,255,0.08);border:1px solid rgba(180,100,255,0.2);color:rgba(200,150,255,0.7);font-family:'Nunito',sans-serif;font-size:0.7rem;font-weight:700;cursor:pointer;">📥 Import</button></div></div><div style="border-top:1px solid var(--border);padding-top:10px;"><div id="reset-hint" style="font-size:0.6rem;color:rgba(255,120,120,0.35);font-weight:700;text-align:center;margin-bottom:4px;min-height:12px;"></div><button id="reset-btn" onclick="handleResetClick()" style="width:100%;padding:7px;border:none;border-radius:8px;background:rgba(200,60,60,0.1);border:1px solid rgba(200,60,60,0.2);color:rgba(255,150,150,0.6);font-family:'Nunito',sans-serif;font-size:0.7rem;font-weight:700;cursor:pointer;">🗑️ RESET SAVE</button></div></div></div></div>
 <div id="ach-modal" class="modal-overlay"><div class="modal-inner"><div class="modal-header"><span>🏆 achievements</span><button class="modal-close" onclick="toggleAchievements()">✕</button></div><div class="modal-body" id="ach-list"></div></div></div>
 <div id="log-modal" class="modal-overlay"><div class="modal-inner"><div class="modal-header"><span>📋 log</span><button class="modal-close" onclick="toggleLog()">✕</button></div><div class="modal-body">
+  <div class="g-section"><div class="g-title" style="color:rgba(180,255,160,0.9)">v1.6 — GRAND FURNACE &amp; BALANCE</div><div class="g-table"><div class="g-row">+ 🔥 Grand Furnace chain — 5 upgrades gated by Breadfuel: Ignition, Thermal Recipe, Infernal Mix, Core Meltdown, Furnace Ascension</div><div class="g-row">+ 💥 Core Meltdown: Frenzy multiplier ×1.75 (up from ×1.5)</div><div class="g-row">+ ✨ Furnace Ascension: +0.2% bread per 1K BF stored (cap +25%)</div><div class="g-row">+ 📱 PWA support — installable on iOS &amp; Android, offline-capable via service worker</div><div class="g-row">+ 🍎 iOS install prompt + safe area insets (notch &amp; home indicator)</div><div class="g-row">+ ⚖️ Balance: all upgrade bread costs ×1.2, building base prices ×1.2</div><div class="g-row">+ ⚖️ Balance: persistent upgrade costs ×1.75</div><div class="g-row">+ 📈 Rebake curve steeper after level 10 (~15% harder exponent)</div></div></div>
   <div class="g-section"><div class="g-title" style="color:rgba(255,220,100,0.9)">v1.5 — WORK &amp; DRILL</div><div class="g-table"><div class="g-row">+ 🏪 Bakery minigame — run 2-min service days, assign staff &amp; ovens, earn Crumbs</div><div class="g-row">+ 🪙 Crumb Shop — 22 items across 3 tiers: basic supplies, rare ores, game-changers</div><div class="g-row">+ ⚡ Surge Token: 5-min ×2 BpS burst · 🌕 Moon Call · 🌟 Frenzy Bottle (10 min)</div><div class="g-row">+ ⛡ Drilling minigame — 12 drill plots, 6 drill tiers, passive Breadfuel generation</div><div class="g-row">+ ⚡ Breadfuel Boosts — 7 timed power-ups (Bread Rush, Void Pulse, The Burn...)</div><div class="g-row">+ 💼 The Developer's Taskoffice — up to 4 active contracts for ore, flour &amp; seeds</div><div class="g-row">+ 🌳 Rebake Upgrade Tree — 99 nodes across Bread, Prestige &amp; Mining branches</div><div class="g-row">+ ⭐ Building Prestige — prestige up to 3× per building for ×2 BpS each level</div><div class="g-row">+ 🌈 15 Transcendent upgrades — endgame T4 ore &amp; rebake-gated power unlocks</div><div class="g-row">+ 🥪 Sandwich Shop Tier 2 — 15 additional permanent upgrades</div><div class="g-row">+ 🐛 Bug fixes: ore panel crash, duplicate functions, loaf moon variable, drill tree bonuses</div></div></div>
   <div class="g-section"><div class="g-title" style="color:var(--wheat)">v1.4 — GARDEN AWAKENING</div><div class="g-table"><div class="g-row">+ 🌱 Garden upgrades: 10 new plant-based passive unlocks</div><div class="g-row">+ 🌾 Verdant Flow, Root Network, Barley Resonance & more</div><div class="g-row">+ ⛏️ Tier 4 ores unlocked via Into the Abyss upgrade</div><div class="g-row">+ 🥪 Sandwich Shop expanded with new recipe tiers</div><div class="g-row">+ 🔄 Synergy Book bug fixed — now opens correctly</div><div class="g-row">+ 🌀 Tier 5: Unobtainium — unlock via Beyond the Void (1 Quintillion bread)</div><div class="g-row">+ 📦 Bulk buy ×1/×10/×100 toggle on buildings</div><div class="g-row">+ 🔍 Building hover tooltips with BpS breakdown</div><div class="g-row">+ ✨ Visual overhaul: title screen, loading screen, UI polish</div></div></div>
   <div class="g-section"><div class="g-title" style="color:rgba(212,135,74,0.8)">v1.3 — TRANSCENDENCE</div><div class="g-table"><div class="g-row">+ 🌌 3 Transcendence upgrades: Transcend Bake, Dough Ascension, Infinite Rise</div><div class="g-row">+ 🏗️ New late-game buildings: Quasar, Singularity, Multiverse, Omnibake</div><div class="g-row">+ ⚡ Even Further & Into the Abyss deep-mine upgrades</div><div class="g-row">+ 🔗 Synergy Book added with Building & Upgrade tabs</div></div></div>
@@ -584,6 +586,7 @@ body{background:#100804;font-family:'Nunito',sans-serif;color:var(--cream);backg
   <div class="g-section"><div class="g-title" style="color:var(--toast)">v1.0 — THE BIG ONE</div><div class="g-table"><div class="g-row">+ 🏗️ 15 buildings · 15 new upgrades · 3 flour shop items</div></div></div>
   <div class="g-section"><div class="g-title" style="color:var(--toast)">v0.1–0.9</div><div class="g-table"><div class="g-row">Core: bread, loaves, ores, mining, garden, BpS, sound</div></div></div>
 </div></div></div>
+<div id="star-crafting-modal" class="modal-overlay"><div class="modal-inner" style="max-width:560px;"><div class="modal-header"><span>🌟 Star Crafting</span><button class="modal-close" onclick="toggleStarCrafting()">✕</button></div><div class="modal-body" id="star-crafting-body"></div></div></div>
 <div id="guide-modal" class="modal-overlay"><div class="modal-inner"><div class="modal-header"><span>📖 guide</span><button class="modal-close" onclick="toggleGuide()">✕</button></div><div class="modal-body">
   <div class="g-section"><div class="g-title">🍞 bread</div><p>Ticks every 3s. <strong>Click</strong> for 15% of tick. Rapid clicks build a <strong>combo</strong> (up to ×5). Buildings add BpS.</p></div>
   <div class="g-section"><div class="g-title">🌟 golden bread</div><p>A <strong>🌟 golden bread</strong> spawns randomly every 2–5 min. Click it within 30s to trigger <strong>Bread Frenzy</strong> — 1.5× bread for 90 seconds.</p></div>
@@ -830,7 +833,9 @@ const PERSIST={ironPickaxeDone:false,diamondPickaxeDone:false,voidPickaxeDone:fa
   gUpg_sproutMemory:false,gUpg_barleyResonance:false,gUpg_cloverFortune:false,
   gUpg_bloomSurge:false,gUpg_fernAura:false,gUpg_jadeMastery:false,gUpg_ancientEcho:false,
   _cloverBuffEnd:0,
-  gardenPlots:[null,null,null,null,null,null]};
+  gardenPlots:[null,null,null,null,null,null],
+  starCraftingUnlocked:false,
+  starCraftingGateUnlocked:false};
 const DEF={bread:0,loaves:0,powerloafLevel:0,baseBreadGain:1,
   cakeMixDone:false,sourdoughDone:false,yeastBoostDone:false,wheatFieldsDone:false,swiftLoavesDone:false,
   miningGlovesDone:false,doubleKneadDone:false,oreMagnetDone:false,loafRushDone:false,
@@ -886,182 +891,496 @@ const DEF={bread:0,loaves:0,powerloafLevel:0,baseBreadGain:1,
   sw_endlessLoaf:false,sw_foundationStone:false,sw_rootedLegacy:false,sw_deepInstinct:false,
   // tracking
   totalClicks:0,totalHarvests:0,totalSeedsPlanted:0,contractsCompleted:0,sessionStartMs:0,totalPlayMs:0,synergyCount:0,
-  lifetimeBread:0,frenzyEndMs:0,oreRushEndMs:0,voidDoneAt:0,voidTriggered:false,
+  lifetimeBread:0,frenzyEndMs:0,oreRushEndMs:0,frenzyCount:0,oreRushCount:0,voidDoneAt:0,voidTriggered:false,
   buildingMilestones:{},luckyDrops:0,goldenCrumbs:0,rebakeLevel:0,sandwiches:0,_cascadeTick:false,_ironVein:false,
   breadTickMs:3000,loafTickMs:60000,mineOreBonus:0,particlesEnabled:true,warpBuys:0,warpLoafBonus:0,surgeTokenEnd:0,contracts:[],...PERSIST};
 const S=JSON.parse(JSON.stringify(DEF));
 
 // ===== BUILDINGS (15 Cookie Clicker style) — always available =====
 const BLDG=[
-  {id:'b_cursor',    icon:'👆',name:'Wandering Finger',     bps:0.1,         price:15},
-  {id:'b_toaster',   icon:'🔥',name:'Ember Coil',           bps:0.5,         price:150},
-  {id:'b_oven',      icon:'🏚️',name:'Stone Hearth',         bps:3,           price:1000},
-  {id:'b_bakery',    icon:'🏪',name:'Corner Shop',          bps:2.5,         price:6000},
-  {id:'b_mill',      icon:'⚙️',name:'Iron Grinder',         bps:9,           price:30000},
-  {id:'b_farm',      icon:'🌾',name:'Harvest Field',        bps:30,          price:150000},
-  {id:'b_mine2',     icon:'⛏️',name:'Ore Crucible',         bps:100,         price:700000},
-  {id:'b_temple',    icon:'🏛️',name:'Gilded Sanctum',       bps:300,         price:3000000},
-  {id:'b_lab',       icon:'🧪',name:'Alchemic Chamber',     bps:1000,        price:15000000},
-  {id:'b_portal',    icon:'🌀',name:'Rift Engine',           bps:3000,        price:70000000},
-  {id:'b_station',   icon:'🛸',name:'Orbital Platform',     bps:10000,       price:350000000},
-  {id:'b_dimension', icon:'🌌',name:'Void Cradle',           bps:30000,       price:2000000000},
-  {id:'b_antimatter',icon:'⚛️',name:'Antimatter Core',      bps:100000,      price:12000000000},
-  {id:'b_prism',     icon:'💎',name:'Prism Array',           bps:300000,      price:70000000000},
-  {id:'b_infinity',  icon:'♾️',name:'Infinite Loop',         bps:1000000,     price:500000000000},
-  {id:'b_nebula',    icon:'🌠',name:'Nebula Forge',          bps:4000000,     price:4000000000000},
-  {id:'b_quasar',    icon:'🔆',name:'Quasar Tap',            bps:15000000,    price:30000000000000},
-  {id:'b_singularity',icon:'🕳️',name:'Singularity Well',   bps:60000000,    price:300000000000000},
-  {id:'b_multiverse',icon:'🌐',name:'Multiverse Shard',     bps:250000000,   price:3000000000000000},
-  {id:'b_omnibake',  icon:'✨',name:'The Omniforge',         bps:1200000000,  price:30000000000000000},
+  {id:'b_cursor',    icon:'👆',name:'Wandering Finger',     bps:0.1,         price:20},
+  {id:'b_toaster',   icon:'🔥',name:'Ember Coil',           bps:0.5,         price:198},
+  {id:'b_oven',      icon:'🏚️',name:'Stone Hearth',         bps:3,           price:1320},
+  {id:'b_bakery',    icon:'🏪',name:'Corner Shop',          bps:2.5,         price:7920},
+  {id:'b_mill',      icon:'⚙️',name:'Iron Grinder',         bps:9,           price:39600},
+  {id:'b_farm',      icon:'🌾',name:'Harvest Field',        bps:30,          price:198000},
+  {id:'b_mine2',     icon:'⛏️',name:'Ore Crucible',         bps:100,         price:924000},
+  {id:'b_temple',    icon:'🏛️',name:'Gilded Sanctum',       bps:300,         price:3960000},
+  {id:'b_lab',       icon:'🧪',name:'Alchemic Chamber',     bps:1000,        price:19800000},
+  {id:'b_portal',    icon:'🌀',name:'Rift Engine',           bps:3000,        price:92400000},
+  {id:'b_station',   icon:'🛸',name:'Orbital Platform',     bps:10000,       price:462000000},
+  {id:'b_dimension', icon:'🌌',name:'Void Cradle',           bps:30000,       price:2640000000},
+  {id:'b_antimatter',icon:'⚛️',name:'Antimatter Core',      bps:100000,      price:15840000000},
+  {id:'b_prism',     icon:'💎',name:'Prism Array',           bps:300000,      price:92400000000},
+  {id:'b_infinity',  icon:'♾️',name:'Infinite Loop',         bps:1000000,     price:660000000000},
+  {id:'b_nebula',    icon:'🌠',name:'Nebula Forge',          bps:4000000,     price:5280000000000},
+  {id:'b_quasar',    icon:'🔆',name:'Quasar Tap',            bps:15000000,    price:39600000000000},
+  {id:'b_singularity',icon:'🕳️',name:'Singularity Well',   bps:60000000,    price:396000000000000},
+  {id:'b_multiverse',icon:'🌐',name:'Multiverse Shard',     bps:250000000,   price:3960000000000000},
+  {id:'b_omnibake',  icon:'✨',name:'The Omniforge',         bps:1200000000,  price:39600000000000000},
+  {id:'b_temporal',  icon:'⏳',name:'Temporal Kiln',          bps:6000000000,  price:3.96e17},
+  {id:'b_eternal',   icon:'🔮',name:'Eternal Core',           bps:30000000000, price:3.96e18},
 ];
 function totalBldgs(){return Object.values(S.buildings).reduce((s,v)=>s+v,0)}
 const ACH=[
-  // ── Bread ──
-  {id:'b1',    n:'🍞 Baby Loaf',         d:'Bake your first bread',f:2,c:()=>S.bread>=1},
-  {id:'b100',  n:'🍞 Centenarian',        d:'100 bread',f:2,c:()=>S.bread>=100},
-  {id:'b500',  n:'🍞 Dough Tycoon',       d:'500 bread',f:2,c:()=>S.bread>=500},
-  {id:'b1k',   n:'🍞 Thousandaire',       d:'1,000 bread',f:2,c:()=>S.bread>=1000},
-  {id:'b5k',   n:'🍞 Bread Magnate',      d:'5,000 bread',f:2,c:()=>S.bread>=5000},
-  {id:'b10k',  n:'🍞 Bread Baron',        d:'10,000 bread',f:2,c:()=>S.bread>=10000},
-  {id:'b50k',  n:'🍞 Bread Mogul',        d:'50,000 bread',f:2,c:()=>S.bread>=50000},
-  {id:'b1m',   n:'🍞 Millionaire Baker',  d:'1,000,000 bread',f:2,c:()=>S.bread>=1000000},
-  {id:'b1b',   n:'🍞 Bread Billionaire',  d:'1,000,000,000 bread',f:2,c:()=>S.bread>=1000000000},
-  // ── Ore ──
-  {id:'o1',    n:'⛏️ Rock Bottom',        d:'Mine your first ore',f:2,c:()=>S.totalOre>=1},
-  {id:'o100',  n:'⛏️ Ore Hoarder',        d:'100 total ore',f:2,c:()=>S.totalOre>=100},
-  {id:'o500',  n:'⛏️ Ore Lord',           d:'500 total ore',f:2,c:()=>S.totalOre>=500},
-  {id:'o1k',   n:'⛏️ Ore Emperor',        d:'1K total ore',f:2,c:()=>S.totalOre>=1000},
-  {id:'o5k',   n:'⛏️ Ore Overlord',       d:'5K total ore',f:2,c:()=>S.totalOre>=5000},
-  {id:'o50k',  n:'⛏️ Ore Maniac',         d:'50K total ore',f:2,c:()=>S.totalOre>=50000},
-  {id:'d1',    n:'💎 Shiny',              d:'Find your first Diamond',f:2,c:()=>S.ores.diamond>=1},
-  {id:'j1',    n:'💚 Jade Eye',           d:'Find your first Jade',f:2,c:()=>S.ores.jade>=1},
-  {id:'r1',    n:'🔴 Ruby Rush',          d:'Find your first Ruby',f:2,c:()=>S.ores.ruby>=1},
-  {id:'jw1',    n:'💜 Crown Jewel',         d:'Find your first Jewel',f:2,c:()=>S.ores.jewel>=1},
-  {id:'allbase',n:'⛏️ Collector',           d:'Own all 6 Tier 1 ore types',f:2,c:()=>['rock','iron','gold','diamond','sapphire','jade'].every(o=>(S.ores[o]||0)>=1)},
-  {id:'allore', n:'⛏️ Completionist',       d:'Own all 9 Tier 1 & 2 ore types',f:2,c:()=>ALL_ORES.slice(0,9).every(o=>(S.ores[o]||0)>=1)},
-  {id:'expl',   n:'🗺️ Deep Delver',         d:'Unlock Exploring Deeper',f:2,c:()=>S.exploringDeeperDone},
-  {id:'efd',    n:'🕳️ Even Further Down',   d:'Unlock the third tier of mining',f:2,c:()=>S.evenFurtherDone},
-  {id:'spirit1',n:'🌾 The Spirit Stirs',    d:'Awaken the Loaf Spirit',         f:2,c:()=>S.loafSpiritStage>=1},
-  {id:'spirit5',n:'🌟 Omni Spirit',         d:'Reach stage 5 of the Loaf Spirit',f:2,c:()=>S.loafSpiritStage>=5},
-  {id:'moon1',  n:'🌕 Moon Baker',          d:'Harvest the Loaf Moon once',     f:2,c:()=>(S.loafMoonClicks||0)>=1},
-  {id:'moon10', n:'🌕 Lunar Addict',        d:'Harvest the Loaf Moon 10 times', f:2,c:()=>(S.loafMoonClicks||0)>=10},
-  {id:'ovenk1', n:'🔴 The Ovenkind',        d:'Unlock The Ovenkind Pact',       f:2,c:()=>S.ovenkindUnlocked},
-  {id:'pecho1', n:'🏆 Echo of Greatness',   d:'Unlock Prestige Echo',           f:2,c:()=>S.prestigeEchoDone},
+  // ── Bread (scaled up) ──
+  {id:'b1',     n:'🍞 Baby Loaf',          d:'Bake your first bread',              f:2, c:()=>S.bread>=1},
+  {id:'b100',   n:'🍞 Centenarian',         d:'1,000 bread',                        f:2, c:()=>S.bread>=1000},
+  {id:'b500',   n:'🍞 Dough Tycoon',        d:'15,000 bread',                       f:2, c:()=>S.bread>=15000},
+  {id:'b1k',    n:'🍞 Thousandaire',        d:'200,000 bread',                      f:2, c:()=>S.bread>=200000},
+  {id:'b5k',    n:'🍞 Bread Magnate',       d:'5,000,000 bread',                    f:2, c:()=>S.bread>=5000000},
+  {id:'b10k',   n:'🍞 Bread Baron',         d:'100,000,000 bread',                  f:2, c:()=>S.bread>=100000000},
+  {id:'b50k',   n:'🍞 Bread Mogul',         d:'2,000,000,000 bread',                f:2, c:()=>S.bread>=2000000000},
+  {id:'b1m',    n:'🍞 Millionaire Baker',   d:'100,000,000,000 bread',              f:2, c:()=>S.bread>=100000000000},
+  {id:'b1b',    n:'🍞 Bread Billionaire',   d:'5,000,000,000,000 bread',            f:2, c:()=>S.bread>=5000000000000},
+  // ── Bread gaps (new) ──
+  {id:'b_1e15', n:'🍞 Quadrillion Rise',    d:'1 Quadrillion bread',                f:3, c:()=>S.bread>=1e15},
+  {id:'b_1e18', n:'🍞 Quintillion Crust',   d:'1 Quintillion bread',                f:3, c:()=>S.bread>=1e18},
+  {id:'b_1e21', n:'🍞 Sextillion Surplus',  d:'1 Sextillion bread',                 f:3, c:()=>S.bread>=1e21},
+  {id:'b_1e24', n:'🍞 Septillion Throne',   d:'1 Septillion bread',                 f:4, c:()=>S.bread>=1e24},
+  {id:'b_1e27', n:'🍞 Octillion Ascent',    d:'1 Octillion bread',                  f:4, c:()=>S.bread>=1e27},
+  {id:'b_1e30', n:'🍞 Nonillionaire',       d:'1 Nonillion bread',                  f:4, c:()=>S.bread>=1e30},
+  {id:'b_1e33', n:'🍞 Decillion Overlord',  d:'1 Decillion bread',                  f:5, c:()=>S.bread>=1e33},
+  {id:'b_1e36', n:'🍞 Undecillion God',     d:'1 Undecillion bread',                f:5, c:()=>S.bread>=1e36},
+  {id:'b_1e42', n:'🍞 Tredecillion Dream',  d:'1 Tredecillion bread',               f:6, c:()=>S.bread>=1e42},
+  {id:'b_1e50', n:'🍞 Bread Eternal',       d:'1e50 bread — the infinite loaf',     f:8, c:()=>S.bread>=1e50},
+  {id:'b_1e60', n:'🍞 Bread Beyond Bread',  d:'1e60 bread',                         f:10,c:()=>S.bread>=1e60},
+  {id:'b_1e75', n:'🍞 The Final Crust',     d:'1e75 bread',                         f:15,c:()=>S.bread>=1e75},
+  // ── Lifetime bread (new) ──
+  {id:'lb_1e20',n:'🍞 Baked Forever',       d:'1e20 lifetime bread baked',          f:4, c:()=>(S.lifetimeBread||0)>=1e20},
+  {id:'lb_1e30',n:'🍞 The Great Oven',      d:'1e30 lifetime bread baked',          f:6, c:()=>(S.lifetimeBread||0)>=1e30},
+  {id:'lb_1e45',n:'🍞 Eternal Breadworks',  d:'1e45 lifetime bread baked',          f:9, c:()=>(S.lifetimeBread||0)>=1e45},
+  {id:'lb_1e60',n:'🍞 The Bread Continuum', d:'1e60 lifetime bread baked',          f:12,c:()=>(S.lifetimeBread||0)>=1e60},
+  // ── Ore (scaled up) ──
+  {id:'o1',     n:'⛏️ Rock Bottom',         d:'Mine your first ore',                f:2, c:()=>S.totalOre>=1},
+  {id:'o100',   n:'⛏️ Ore Hoarder',         d:'1,000 total ore',                    f:2, c:()=>S.totalOre>=1000},
+  {id:'o500',   n:'⛏️ Ore Lord',            d:'10,000 total ore',                   f:2, c:()=>S.totalOre>=10000},
+  {id:'o1k',    n:'⛏️ Ore Emperor',         d:'100,000 total ore',                  f:2, c:()=>S.totalOre>=100000},
+  {id:'o5k',    n:'⛏️ Ore Overlord',        d:'1,000,000 total ore',                f:2, c:()=>S.totalOre>=1000000},
+  {id:'o50k',   n:'⛏️ Ore Maniac',          d:'25,000,000 total ore',               f:2, c:()=>S.totalOre>=25000000},
+  // ── Ore gaps (new) ──
+  {id:'o_250m', n:'⛏️ Ore Sovereign',       d:'250,000,000 total ore',              f:3, c:()=>S.totalOre>=250000000},
+  {id:'o_1b',   n:'⛏️ Ore God',             d:'1,000,000,000 total ore',            f:4, c:()=>S.totalOre>=1000000000},
+  {id:'o_10b',  n:'⛏️ Ore Absolute',        d:'10,000,000,000 total ore',           f:5, c:()=>S.totalOre>=10000000000},
+  {id:'o_100b', n:'⛏️ Ore Transcendent',    d:'100,000,000,000 total ore',          f:7, c:()=>S.totalOre>=100000000000},
+  {id:'o_1t',   n:'⛏️ Ore Beyond',          d:'1,000,000,000,000 total ore',        f:10,c:()=>S.totalOre>=1000000000000},
+  // ── Specific ore counts (new) ──
+  {id:'rock50k',  n:'🪨 Rock Solid',        d:'50,000 rock ore',                    f:2, c:()=>(S.ores.rock||0)>=50000},
+  {id:'iron25k',  n:'⚙️ Iron Will',         d:'25,000 iron ore',                    f:2, c:()=>(S.ores.iron||0)>=25000},
+  {id:'gold10k',  n:'🥇 Gold Rush',         d:'10,000 gold ore',                    f:2, c:()=>(S.ores.gold||0)>=10000},
+  {id:'diamond5k',n:'💎 Diamond Dynasty',   d:'5,000 diamonds',                     f:3, c:()=>(S.ores.diamond||0)>=5000},
+  {id:'ruby5k',   n:'🔴 Ruby Throne',       d:'5,000 rubies',                       f:3, c:()=>(S.ores.ruby||0)>=5000},
+  {id:'jade5k',   n:'💚 Jade Empire',       d:'5,000 jade',                         f:3, c:()=>(S.ores.jade||0)>=5000},
+  {id:'sapphire2k',n:'🔷 Sapphire Sea',     d:'2,000 sapphires',                    f:3, c:()=>(S.ores.sapphire||0)>=2000},
+  {id:'jewel2k',  n:'💜 Crown Jewels',      d:'2,000 jewels',                       f:3, c:()=>(S.ores.jewel||0)>=2000},
+  {id:'topaz2k',  n:'🟡 Topaz Tower',       d:'2,000 topaz',                        f:3, c:()=>(S.ores.topaz||0)>=2000},
+  {id:'sapphire10k',n:'🔷 Sapphire Throne', d:'10,000 sapphires',                   f:5, c:()=>(S.ores.sapphire||0)>=10000},
+  {id:'topaz10k', n:'🟡 Topaz Ascendant',   d:'10,000 topaz',                       f:5, c:()=>(S.ores.topaz||0)>=10000},
+  {id:'ruby15k',  n:'🔴 Ruby God',          d:'15,000 rubies',                      f:5, c:()=>(S.ores.ruby||0)>=15000},
+  {id:'diamond15k',n:'💎 Diamond God',      d:'15,000 diamonds',                    f:5, c:()=>(S.ores.diamond||0)>=15000},
+  {id:'gold50k',  n:'🥇 All That Glitters', d:'50,000 gold ore',                    f:5, c:()=>(S.ores.gold||0)>=50000},
+  {id:'iron100k', n:'⚙️ Iron Mountain',     d:'100,000 iron ore',                   f:5, c:()=>(S.ores.iron||0)>=100000},
+  {id:'rock500k', n:'🪨 The Boulder',       d:'500,000 rock ore',                   f:5, c:()=>(S.ores.rock||0)>=500000},
+  {id:'nullite50',n:'🖤 Null Storm',        d:'50 Nullite',                         f:6, c:()=>(S.ores.nullite||0)>=50},
+  {id:'nullite200',n:'🖤 The Void Consumed',d:'200 Nullite',                        f:8, c:()=>(S.ores.nullite||0)>=200},
+  {id:'crumb50',  n:'🌈 Crumb Cascade',     d:'50 The Crumb',                       f:6, c:()=>(S.ores.the_crumb||0)>=50},
+  {id:'crumb200', n:'🌈 Crumb Singularity', d:'200 The Crumb',                      f:8, c:()=>(S.ores.the_crumb||0)>=200},
+  {id:'starforge10',n:'⭐ Star Forged',     d:'10 Starforge ore',                   f:4, c:()=>(S.ores.starforge||0)>=10},
+  {id:'starforge50',n:'⭐ Solar Furnace',   d:'50 Starforge ore',                   f:6, c:()=>(S.ores.starforge||0)>=50},
+  {id:'unobtain25',n:'🌀 Paradox Hoard',   d:'25 Unobtainium',                     f:7, c:()=>(S.ores.unobtainium||0)>=25},
+  {id:'unobtain50',n:'🌀 Reality Breaker',  d:'50 Unobtainium',                     f:10,c:()=>(S.ores.unobtainium||0)>=50},
+  {id:'unobtain100',n:'🌀 The Impossible', d:'100 Unobtainium',                    f:15,c:()=>(S.ores.unobtainium||0)>=100},
+  // ── Ore tier unlocks ──
+  {id:'d1',     n:'💎 Shiny',               d:'Find your first Diamond',            f:2, c:()=>S.ores.diamond>=1},
+  {id:'j1',     n:'💚 Jade Eye',            d:'Find your first Jade',               f:2, c:()=>S.ores.jade>=1},
+  {id:'r1',     n:'🔴 Ruby Rush',           d:'Find your first Ruby',               f:2, c:()=>S.ores.ruby>=1},
+  {id:'jw1',    n:'💜 Crown Jewel',         d:'Find your first Jewel',              f:2, c:()=>S.ores.jewel>=1},
+  {id:'allbase',n:'⛏️ Collector',           d:'Own all 6 Tier 1 ore types',         f:2, c:()=>['rock','iron','gold','diamond','sapphire','jade'].every(o=>(S.ores[o]||0)>=1)},
+  {id:'allore', n:'⛏️ Completionist',       d:'Own all 9 Tier 1 & 2 ore types',     f:2, c:()=>ALL_ORES.slice(0,9).every(o=>(S.ores[o]||0)>=1)},
+  {id:'expl',   n:'🗺️ Deep Delver',         d:'Unlock Exploring Deeper',            f:2, c:()=>S.exploringDeeperDone},
+  {id:'efd',    n:'🕳️ Even Further Down',   d:'Unlock the third tier of mining',    f:2, c:()=>S.evenFurtherDone},
+  {id:'spirit1',n:'🌾 The Spirit Stirs',    d:'Awaken the Loaf Spirit',             f:2, c:()=>S.loafSpiritStage>=1},
+  {id:'spirit5',n:'🌟 Omni Spirit',         d:'Reach stage 5 of the Loaf Spirit',   f:2, c:()=>S.loafSpiritStage>=5},
+  {id:'moon1',  n:'🌕 Moon Baker',          d:'Harvest the Loaf Moon once',         f:2, c:()=>(S.loafMoonClicks||0)>=1},
+  {id:'moon10', n:'🌕 Lunar Addict',        d:'Harvest the Loaf Moon 25 times',     f:2, c:()=>(S.loafMoonClicks||0)>=25},
+  {id:'moon50', n:'🌕 Lunar Devotee',       d:'Harvest the Loaf Moon 50 times',     f:3, c:()=>(S.loafMoonClicks||0)>=50},
+  {id:'moon100',n:'🌕 Child of the Moon',   d:'Harvest the Loaf Moon 100 times',    f:5, c:()=>(S.loafMoonClicks||0)>=100},
+  {id:'moon250',n:'🌕 Moon Eternal',        d:'Harvest the Loaf Moon 250 times',    f:8, c:()=>(S.loafMoonClicks||0)>=250},
+  {id:'ovenk1', n:'🔴 The Ovenkind',        d:'Unlock The Ovenkind Pact',           f:2, c:()=>S.ovenkindUnlocked},
+  {id:'pecho1', n:'🏆 Echo of Greatness',   d:'Unlock Prestige Echo',               f:2, c:()=>S.prestigeEchoDone},
   // ── Grand Furnace ──
-  {id:'gf1',    n:'🔥 Kindling',             d:'Light the Grand Furnace',        f:3,c:()=>S.furnaceIgnitionDone},
-  {id:'gf2',    n:'⚗️ Infernal Baker',        d:'Unlock Infernal Mix',            f:5,c:()=>S.infernalMixDone},
-  {id:'gf3',    n:'✨ Grand Furnace Master',  d:'Complete the entire Grand Furnace chain', f:10,c:()=>S.furnaceAscensionDone},
-  // ── Endgame bread milestones ──
-  {id:'b1t',    n:'🍞 Bread Trillionaire',   d:'1 Trillion bread baked',         f:2,c:()=>S.bread>=1e12},
-  {id:'b1qa',   n:'🍞 Quadrillionaire',      d:'1 Quadrillion bread',            f:2,c:()=>S.bread>=1e15},
-  {id:'b1qi',   n:'🍞 Quintillionaire',      d:'1 Quintillion bread',            f:2,c:()=>S.bread>=1e18},
-  {id:'b1sx',   n:'🍞 Sextillion Club',      d:'1 Sextillion bread',             f:2,c:()=>S.bread>=1e21},
-  {id:'b1sp',   n:'🍞 Beyond Reason',        d:'1 Septillion bread',             f:2,c:()=>S.bread>=1e24},
-  {id:'b1oc',   n:'🍞 Octillion Baker',      d:'1 Octillion bread',              f:2,c:()=>S.bread>=1e27},
-  {id:'b1no',   n:'🍞 Nonillionaire',        d:'1 Nonillion bread',              f:2,c:()=>S.bread>=1e30},
+  {id:'gf1',    n:'🔥 Kindling',            d:'Light the Grand Furnace',            f:3, c:()=>S.furnaceIgnitionDone},
+  {id:'gf2',    n:'⚗️ Infernal Baker',       d:'Unlock Infernal Mix',                f:5, c:()=>S.infernalMixDone},
+  {id:'gf3',    n:'✨ Grand Furnace Master', d:'Complete the entire Grand Furnace chain',f:10,c:()=>S.furnaceAscensionDone},
   // ── Building prestige ──
-  {id:'pres1',  n:'⭐ First Prestige',        d:'Prestige any building once',     f:2,c:()=>Object.values(S.buildingPrestige||{}).some(v=>v>=1)},
-  {id:'pres3',  n:'🌟 Triple Crown',          d:'Max prestige any building',      f:2,c:()=>Object.values(S.buildingPrestige||{}).some(v=>v>=3)},
-  {id:'presAll',n:'✨ Prestige Master',        d:'Prestige every building at least once',f:2,c:()=>BLDG.every(b=>(S.buildingPrestige||{})[b.id]>=1)},
+  {id:'pres1',  n:'⭐ First Prestige',       d:'Prestige any building once',         f:2, c:()=>Object.values(S.buildingPrestige||{}).some(v=>v>=1)},
+  {id:'pres3',  n:'🌟 Triple Crown',         d:'Max prestige any building',          f:2, c:()=>Object.values(S.buildingPrestige||{}).some(v=>v>=3)},
+  {id:'presAll',n:'✨ Prestige Master',       d:'Prestige every building at least once',f:2,c:()=>BLDG.every(b=>(S.buildingPrestige||{})[b.id]>=1)},
+  {id:'pres_5', n:'⭐ Veteran Baker',        d:'Prestige any 5 buildings to max',   f:4, c:()=>Object.values(S.buildingPrestige||{}).filter(v=>v>=3).length>=5},
+  {id:'pres_all3',n:'✨ True Prestige',      d:'Max prestige every single building', f:8, c:()=>BLDG.every(b=>(S.buildingPrestige||{})[b.id]>=3)},
   // ── Transcendent ──
-  {id:'tr1',    n:'🌈 Transcendent',          d:'Unlock your first Transcendent upgrade',f:2,c:()=>TRANSCENDENT.some(t=>S[t.sk])},
-  {id:'trAll',  n:'🌈 The Crumb Awakens',     d:'Unlock all 15 Transcendent upgrades',f:2,c:()=>TRANSCENDENT.every(t=>S[t.sk])},
+  {id:'tr1',    n:'🌈 Transcendent',         d:'Unlock your first Transcendent upgrade',f:2,c:()=>TRANSCENDENT.some(t=>S[t.sk])},
+  {id:'trAll',  n:'🌈 The Crumb Awakens',    d:'Unlock all 15 Transcendent upgrades',f:2,c:()=>TRANSCENDENT.every(t=>S[t.sk])},
+  {id:'tr_half',n:'🌈 Half Transcended',     d:'Unlock 8 Transcendent upgrades',    f:3, c:()=>TRANSCENDENT.filter(t=>S[t.sk]).length>=8},
+  {id:'tr_twice',n:'🌈 Double Transcend',    d:'Unlock all Transcendents twice over (rebake)', f:5,c:()=>TRANSCENDENT.every(t=>S[t.sk])&&(S.rebakeLevel||0)>=2},
   // ── Sandwich T2 ──
-  {id:'sw2_1',  n:'🥪 Tier 2 Unlocked',      d:'Buy your first Tier 2 Sandwich upgrade',f:2,c:()=>SANDWICH_T2.some(u=>S[u.id])},
-  {id:'sw2_all',n:'🥪 Full Stack',            d:'Own all Tier 2 Sandwich upgrades',f:2,c:()=>SANDWICH_T2.every(u=>S[u.id])},
-  // ── T4 Ores ──
-  {id:'sf1',    n:'⭐ Starborn',              d:'Find your first Starforge',      f:2,c:()=>(S.ores.starforge||0)>=1},
-  {id:'nu1',    n:'🖤 Into Nothing',           d:'Find your first Nullite',        f:2,c:()=>(S.ores.nullite||0)>=1},
-  {id:'tc1',    n:'🌈 The Crumb',             d:'Find your first The Crumb',      f:2,c:()=>(S.ores.the_crumb||0)>=1},
-  {id:'abyss1', n:'🌑 Into the Abyss',        d:'Unlock Tier 4 mining',           f:2,c:()=>S.intoAbyssDone},
-  {id:'rt_unlock',n:'🌳 The Tree Awakens',    d:'Unlock the Rebake Upgrade Tree',  f:2,c:()=>rtIsUnlocked()},
-  {id:'rt_10',    n:'🌳 Sapling',             d:'Buy 10 tree nodes',               f:2,c:()=>RT_NODES.filter(n=>S[n.id]).length>=10},
-  {id:'rt_50',    n:'🌳 Ancient Oak',         d:'Buy 50 tree nodes',               f:2,c:()=>RT_NODES.filter(n=>S[n.id]).length>=50},
-  {id:'rt_99',    n:'🌳 The Full Tree',        d:'Buy all 99 non-Star nodes',       f:2,c:()=>RT_NODES.filter(n=>n.id!=='rt_star'&&S[n.id]).length>=99},
-  {id:'rt_star',  n:'🌟 Star Crafter',         d:'Unlock Star Crafting',            f:2,c:()=>!!S.rt_star},
-  {id:'drill_full',n:'⛡ Full Rig',            d:'Fill all 12 drill plots',        f:2,c:()=>(S.drillPlots||[]).filter(d=>d!==null).length>=12},
-  {id:'drill_omni',n:'🌟 Omni Driller',        d:'Place an Omni Drill',            f:2,c:()=>(S.drillPlots||[]).some(d=>d==='omni')},
-  {id:'boost1',  n:'⚡ First Boost',           d:'Activate a Breadfuel boost',     f:2,c:()=>(S.breadfuel||0)>0&&S.activeBoostId!=null||(S.boostEndMs||0)>0},
-  {id:'the_burn',n:'🔥 The Burn',              d:'Activate The Burn boost',        f:2,c:()=>false}, // tracked via activateBoost
-  {id:'bvoid1', n:'🌀 Beyond the Void',       d:'Unlock Tier 5 mining',           f:2,c:()=>S.beyondVoidDone},
-  {id:'unob1',  n:'🌀 It Exists',             d:'Find your first Unobtainium',    f:2,c:()=>(S.ores.unobtainium||0)>=1},
-  {id:'unob5',  n:'🌀 Impossible Hoarder',    d:'Collect 5 Unobtainium',          f:2,c:()=>(S.ores.unobtainium||0)>=5},
-  {id:'unob10', n:'🌀 You Should Not Exist',  d:'Collect 10 Unobtainium',         f:2,c:()=>(S.ores.unobtainium||0)>=10},
-  {id:'vs1',    n:'🟣 Void Touch',           d:'Find your first Void Shard',f:2,c:()=>(S.ores.void_shard||0)>=1},
-  {id:'ec1',    n:'🔥 Ember Strike',         d:'Find your first Ember Core',f:2,c:()=>(S.ores.ember_core||0)>=1},
-  {id:'ac1',    n:'🔷 Aether Sight',         d:'Find your first Aether Crystal',f:2,c:()=>(S.ores.aether_crystal||0)>=1},
-  {id:'allore3',n:'⛏️ True Completionist',  d:'Own all 12 ore types',f:2,c:()=>ALL_ORES.every(o=>(S.ores[o]||0)>=1)},
+  {id:'sw2_1',  n:'🥪 Tier 2 Unlocked',     d:'Buy your first Tier 2 Sandwich upgrade',f:2,c:()=>SANDWICH_T2.some(u=>S[u.id])},
+  {id:'sw2_all',n:'🥪 Full Stack',           d:'Own all Tier 2 Sandwich upgrades',   f:2, c:()=>SANDWICH_T2.every(u=>S[u.id])},
+  {id:'sw_t1_1',n:'🥪 Sandwich Novice',     d:'Buy your first Tier 1 Sandwich upgrade',f:2,c:()=>['sw_blueprint','sw_livingArchive','sw_frenzyRecall','sw_minersEye'].some(k=>S[k])},
+  // ── T4-5 Ores ──
+  {id:'sf1',    n:'⭐ Starborn',             d:'Find your first Starforge',          f:2, c:()=>(S.ores.starforge||0)>=1},
+  {id:'nu1',    n:'🖤 Into Nothing',          d:'Find your first Nullite',            f:2, c:()=>(S.ores.nullite||0)>=1},
+  {id:'tc1',    n:'🌈 The Crumb',            d:'Find your first The Crumb',          f:2, c:()=>(S.ores.the_crumb||0)>=1},
+  {id:'abyss1', n:'🌑 Into the Abyss',       d:'Unlock Tier 4 mining',               f:2, c:()=>S.intoAbyssDone},
+  {id:'bvoid1', n:'🌀 Beyond the Void',      d:'Unlock Tier 5 mining',               f:2, c:()=>S.beyondVoidDone},
+  {id:'unob1',  n:'🌀 It Exists',            d:'Find your first Unobtainium',        f:2, c:()=>(S.ores.unobtainium||0)>=1},
+  {id:'unob5',  n:'🌀 Impossible Hoarder',   d:'Collect 20 Unobtainium',             f:3, c:()=>(S.ores.unobtainium||0)>=20},
+  {id:'unob10', n:'🌀 You Should Not Exist', d:'Collect 50 Unobtainium',             f:4, c:()=>(S.ores.unobtainium||0)>=50},
+  {id:'vs1',    n:'🟣 Void Touch',           d:'Find your first Void Shard',         f:2, c:()=>(S.ores.void_shard||0)>=1},
+  {id:'ec1',    n:'🔥 Ember Strike',         d:'Find your first Ember Core',         f:2, c:()=>(S.ores.ember_core||0)>=1},
+  {id:'ac1',    n:'🔷 Aether Sight',         d:'Find your first Aether Crystal',     f:2, c:()=>(S.ores.aether_crystal||0)>=1},
+  {id:'allore3',n:'⛏️ True Completionist',   d:'Own all 12 ore types',               f:2, c:()=>ALL_ORES.every(o=>(S.ores[o]||0)>=1)},
+  // ── Rebake Tree ──
+  {id:'rt_unlock',n:'🌳 The Tree Awakens',   d:'Unlock the Rebake Upgrade Tree',     f:2, c:()=>rtIsUnlocked()},
+  {id:'rt_10',   n:'🌳 Sapling',             d:'Buy 25 tree nodes',                  f:2, c:()=>RT_NODES.filter(n=>S[n.id]).length>=25},
+  {id:'rt_50',   n:'🌳 Ancient Oak',         d:'Buy 75 tree nodes',                  f:2, c:()=>RT_NODES.filter(n=>S[n.id]).length>=75},
+  {id:'rt_99',   n:'🌳 The Full Tree',       d:'Buy all 99 non-Star nodes',          f:2, c:()=>RT_NODES.filter(n=>n.id!=='rt_star'&&S[n.id]).length>=99},
+  {id:'rt_star', n:'🌟 Star Crafter',        d:'Unlock Star Crafting',               f:2, c:()=>!!S.rt_star},
+  {id:'rt_40',   n:'🌳 Branching Out',       d:'Buy 40 tree nodes',                  f:2, c:()=>RT_NODES.filter(n=>S[n.id]).length>=40},
+  {id:'rt_60',   n:'🌳 Deep Roots',          d:'Buy 60 tree nodes',                  f:3, c:()=>RT_NODES.filter(n=>S[n.id]).length>=60},
+  {id:'rt_90',   n:'🌳 Almost Complete',     d:'Buy 90 tree nodes',                  f:4, c:()=>RT_NODES.filter(n=>S[n.id]).length>=90},
+  // ── Rebake levels (new) ──
+  {id:'rebake1', n:'🔄 First Rebake',        d:'Reach Rebake level 1',               f:2, c:()=>(S.rebakeLevel||0)>=1},
+  {id:'rebake5', n:'🔄 Five Rebirths',       d:'Reach Rebake level 5',               f:3, c:()=>(S.rebakeLevel||0)>=5},
+  {id:'rebake10',n:'🔄 Decade of Dough',     d:'Reach Rebake level 10',              f:4, c:()=>(S.rebakeLevel||0)>=10},
+  {id:'rebake20',n:'🔄 Eternal Cycle',       d:'Reach Rebake level 20',              f:6, c:()=>(S.rebakeLevel||0)>=20},
+  {id:'rebake35',n:'🔄 The Loop',            d:'Reach Rebake level 35',              f:8, c:()=>(S.rebakeLevel||0)>=35},
+  {id:'rebake50',n:'🔄 Infinite Baker',      d:'Reach Rebake level 50',              f:10,c:()=>(S.rebakeLevel||0)>=50},
+  {id:'rebake75',n:'🔄 Beyond Time',         d:'Reach Rebake level 75',              f:13,c:()=>(S.rebakeLevel||0)>=75},
+  {id:'rebake100',n:'🔄 Rebake Eternal',     d:'Reach Rebake level 100',             f:18,c:()=>(S.rebakeLevel||0)>=100},
+  {id:'rebake150',n:'🔄 The Infinite Oven',  d:'Reach Rebake level 150',             f:25,c:()=>(S.rebakeLevel||0)>=150},
+  // ── Drill ──
+  {id:'drill_full',n:'⛡ Full Rig',          d:'Fill all 12 drill plots',            f:2, c:()=>(S.drillPlots||[]).filter(d=>d!==null).length>=12},
+  {id:'drill_omni',n:'🌟 Omni Driller',      d:'Place an Omni Drill',                f:2, c:()=>(S.drillPlots||[]).some(d=>d==='omni')},
+  {id:'drill_5', n:'⛡ Getting Established', d:'Fill 5 drill plots',                 f:2, c:()=>(S.drillPlots||[]).filter(d=>d!==null).length>=5},
+  {id:'drill_bf',n:'⛡ Breadfuel Miner',     d:'Mine 1,000 breadfuel via drills',    f:3, c:()=>(S.breadfuel||0)>=1000},
+  {id:'drill_bf5k',n:'⛡ Fuel Monarch',      d:'Mine 5,000 breadfuel via drills',    f:5, c:()=>(S.breadfuel||0)>=5000},
+  // ── Breadfuel / Boost ──
+  {id:'boost1',  n:'⚡ First Boost',         d:'Activate a Breadfuel boost',         f:2, c:()=>(S.breadfuel||0)>0&&S.activeBoostId!=null||(S.boostEndMs||0)>0},
+  {id:'the_burn',n:'🔥 The Burn',            d:'Activate The Burn boost',            f:2, c:()=>false},
   // ── Loaves & Powerloaf ──
-  {id:'l1',    n:'🥖 First Loaf',         d:'Bake 1 loaf',f:2,c:()=>S.loaves>=1},
-  {id:'l50',   n:'🥖 Loaf Legend',        d:'50 loaves',f:2,c:()=>S.loaves>=50},
-  {id:'l200',  n:'🥖 Loaf Hoarder',       d:'200 loaves',f:2,c:()=>S.loaves>=200},
-  {id:'l500',  n:'🥖 Loaf Lord',          d:'500 loaves',f:2,c:()=>S.loaves>=500},
-  {id:'loafrich',n:'🥖 Loaf Life',        d:'Own more loaves than bread',f:2,c:()=>S.loaves>Math.floor(S.bread)&&S.loaves>10},
-  {id:'pl1',   n:'⚡ Powerloaf I',        d:'Reach Powerloaf 1',f:2,c:()=>S.powerloafLevel>=1},
-  {id:'pl5',   n:'⚡ Powerloaf V',        d:'Reach Powerloaf 5',f:2,c:()=>S.powerloafLevel>=5},
-  {id:'pl10',  n:'⚡ Powerloaf X',        d:'Reach Powerloaf 10',f:2,c:()=>S.powerloafLevel>=10},
-  {id:'pl20',  n:'⚡ Powerloaf XX',       d:'Reach Powerloaf 20',f:2,c:()=>S.powerloafLevel>=20},
-  {id:'pl50',  n:'⚡ Powerloaf L',        d:'Reach Powerloaf 50 — the cap',f:2,c:()=>S.powerloafLevel>=50},
+  {id:'l1',     n:'🥖 First Loaf',          d:'Bake 1 loaf',                        f:2, c:()=>S.loaves>=1},
+  {id:'l50',    n:'🥖 Loaf Legend',         d:'500 loaves',                         f:2, c:()=>S.loaves>=500},
+  {id:'l200',   n:'🥖 Loaf Hoarder',        d:'5,000 loaves',                       f:2, c:()=>S.loaves>=5000},
+  {id:'l500',   n:'🥖 Loaf Lord',           d:'50,000 loaves',                      f:2, c:()=>S.loaves>=50000},
+  {id:'loafrich',n:'🥖 Loaf Life',          d:'Own more loaves than bread',         f:2, c:()=>S.loaves>Math.floor(S.bread)&&S.loaves>100},
+  {id:'l2k',    n:'🥖 Loaf Empire',         d:'500,000 loaves',                     f:3, c:()=>S.loaves>=500000},
+  {id:'l10k',   n:'🥖 Loaf Transcendent',   d:'5,000,000 loaves',                   f:5, c:()=>S.loaves>=5000000},
+  {id:'l50k',   n:'🥖 Loaf Eternal',        d:'50,000,000 loaves',                  f:8, c:()=>S.loaves>=50000000},
+  {id:'pl1',    n:'⚡ Powerloaf I',         d:'Reach Powerloaf 1',                  f:2, c:()=>S.powerloafLevel>=1},
+  {id:'pl5',    n:'⚡ Powerloaf V',         d:'Reach Powerloaf 15',                 f:2, c:()=>S.powerloafLevel>=15},
+  {id:'pl10',   n:'⚡ Powerloaf X',         d:'Reach Powerloaf 35',                 f:2, c:()=>S.powerloafLevel>=35},
+  {id:'pl20',   n:'⚡ Powerloaf XX',        d:'Reach Powerloaf 75',                 f:3, c:()=>S.powerloafLevel>=75},
+  {id:'pl50',   n:'⚡ Powerloaf L',         d:'Reach Powerloaf 150',                f:4, c:()=>S.powerloafLevel>=150},
+  {id:'pl100',  n:'⚡ Powerloaf C',         d:'Reach Powerloaf 300',                f:6, c:()=>S.powerloafLevel>=300},
   // ── Buildings & BpS ──
-  {id:'fb',    n:'🏗️ Foundations',        d:'Buy your first building',f:2,c:()=>totalBldgs()>=1},
-  {id:'b10',   n:'🏗️ Early Investor',     d:'10 buildings total',f:2,c:()=>totalBldgs()>=10},
-  {id:'b50',   n:'🏗️ City Planner',       d:'50 buildings total',f:2,c:()=>totalBldgs()>=50},
-  {id:'b200',  n:'🏗️ Bread Metropolis',   d:'200 buildings total',f:2,c:()=>totalBldgs()>=200},
-  {id:'bps1',  n:'🏗️ First BpS',          d:'Reach 1 BpS',f:2,c:()=>totalBps()>=1},
-  {id:'bps10', n:'🏗️ Assembly Line',      d:'10 BpS',f:2,c:()=>totalBps()>=10},
-  {id:'bps100',n:'🏗️ Bread Factory',      d:'100 BpS',f:2,c:()=>totalBps()>=100},
-  {id:'bps1k', n:'🏗️ Industrial Empire',  d:'1,000 BpS',f:2,c:()=>totalBps()>=1000},
-  {id:'bps100k',n:'🏗️ Megacorp',          d:'100,000 BpS',f:2,c:()=>totalBps()>=100000},
-  {id:'bps1m', n:'🏗️ Bread Singularity',  d:'1,000,000 BpS',f:2,c:()=>totalBps()>=1000000},
+  {id:'fb',     n:'🏗️ Foundations',         d:'Buy your first building',            f:2, c:()=>totalBldgs()>=1},
+  {id:'b10',    n:'🏗️ Early Investor',      d:'30 buildings total',                 f:2, c:()=>totalBldgs()>=30},
+  {id:'b50',    n:'🏗️ City Planner',        d:'200 buildings total',                f:2, c:()=>totalBldgs()>=200},
+  {id:'b200',   n:'🏗️ Bread Metropolis',    d:'1,000 buildings total',              f:2, c:()=>totalBldgs()>=1000},
+  {id:'bldg5k', n:'🏗️ Bread Continent',     d:'5,000 buildings total',              f:3, c:()=>totalBldgs()>=5000},
+  {id:'b2000',  n:'🏗️ Bread Planet',        d:'20,000 buildings total',             f:5, c:()=>totalBldgs()>=20000},
+  {id:'b10k_bldg',n:'🏗️ Bread Dimension',  d:'100,000 buildings total',            f:8, c:()=>totalBldgs()>=100000},
+  {id:'bps1',   n:'🏗️ First BpS',           d:'Reach 1 BpS',                        f:2, c:()=>totalBps()>=1},
+  {id:'bps10',  n:'🏗️ Assembly Line',       d:'100 BpS',                            f:2, c:()=>totalBps()>=100},
+  {id:'bps100', n:'🏗️ Bread Factory',       d:'2,000 BpS',                          f:2, c:()=>totalBps()>=2000},
+  {id:'bps1k',  n:'🏗️ Industrial Empire',   d:'50,000 BpS',                         f:2, c:()=>totalBps()>=50000},
+  {id:'bps100k',n:'🏗️ Megacorp',            d:'5,000,000 BpS',                      f:2, c:()=>totalBps()>=5000000},
+  {id:'bps1m',  n:'🏗️ Bread Singularity',   d:'500,000,000 BpS',                    f:2, c:()=>totalBps()>=500000000},
+  {id:'bps1b',  n:'🏗️ BpS Sovereign',       d:'1,000,000,000 BpS',                  f:3, c:()=>totalBps()>=1000000000},
+  {id:'bps1t',  n:'🏗️ BpS Transcendent',    d:'1,000,000,000,000 BpS',              f:5, c:()=>totalBps()>=1000000000000},
+  // ── Single building milestones (new) ──
+  {id:'cursor100',n:'👆 Finger Army',       d:'Own 100 Wandering Fingers',          f:3, c:()=>bCount('b_cursor')>=100},
+  {id:'toaster200',n:'🔥 Ember Grid',       d:'Own 200 Ember Coils',                f:3, c:()=>bCount('b_toaster')>=200},
+  {id:'omni10',  n:'✨ Omni Cluster',        d:'Own 10 Omniforges',                  f:5, c:()=>bCount('b_omnibake')>=10},
   // ── Upgrades ──
-  {id:'shop5', n:'🛒 Window Shopper',     d:'Buy 5 upgrades',f:2,c:()=>countUpg()>=5},
-  {id:'shop15',n:'🛒 Shopaholic',         d:'Buy 15 upgrades',f:2,c:()=>countUpg()>=15},
-  {id:'shop30',n:'🛒 Shopping Spree',     d:'Buy 30 upgrades',f:2,c:()=>countUpg()>=30},
-  {id:'nova',  n:'💥 Supernova',          d:'Unlock Bread Nova',f:2,c:()=>S.breadNovaDone},
-  {id:'cosmic',n:'🌌 Cosmic Baker',       d:'Unlock Cosmic Crust',f:2,c:()=>S.cosmicCrustDone},
-  {id:'warp',  n:'🌀 Time Bender',        d:'Purchase the Warp',f:2,c:()=>S.flourShop.warp>=1},
-  {id:'maxpr', n:'🥧 Pastry Obsessed',    d:'Max out Pastry Resonance',f:2,c:()=>S.flourShop.pastryResonance>=5},
-  // ── Speed ──
-  {id:'spd',   n:'🏎️ Speed Demon',        d:'Bread tick below 1.2s',f:2,c:()=>S.breadTickMs<1200},
-  {id:'speed05',n:'🏎️ Sonic Bread',       d:'Bread tick below 0.5s',f:2,c:()=>S.breadTickMs<500},
-  {id:'speedmax',n:'🏎️ Light Speed',      d:'Bread tick at minimum (0.2s)',f:2,c:()=>S.breadTickMs<=200},
-  // ── Clicking ──
-  {id:'ck1',   n:'👆 First Tap',          d:'Click the bread once',f:2,c:()=>(S.totalClicks||0)>=1},
-  {id:'cl100', n:'👆 Knead It',           d:'Click 100 times',f:2,c:()=>(S.totalClicks||0)>=100},
-  {id:'cl500', n:'👆 Repetitive Strain',  d:'Click 500 times',f:2,c:()=>(S.totalClicks||0)>=500},
-  {id:'cl2000',n:'👆 Carpal Loaf',        d:'Click 2,000 times',f:2,c:()=>(S.totalClicks||0)>=2000},
-  {id:'ck50',  n:'👆 Click King',         d:'Click value of 50+ bread',f:2,c:()=>getClick()>=50},
+  {id:'shop5',  n:'🛒 Window Shopper',      d:'Buy 12 upgrades',                    f:2, c:()=>countUpg()>=12},
+  {id:'shop15', n:'🛒 Shopaholic',          d:'Buy 28 upgrades',                    f:2, c:()=>countUpg()>=28},
+  {id:'shop30', n:'🛒 Shopping Spree',      d:'Buy 38 upgrades',                    f:2, c:()=>countUpg()>=38},
+  {id:'nova',   n:'💥 Supernova',           d:'Unlock Bread Nova',                  f:2, c:()=>S.breadNovaDone},
+  {id:'cosmic', n:'🌌 Cosmic Baker',        d:'Unlock Cosmic Crust',                f:2, c:()=>S.cosmicCrustDone},
+  {id:'warp',   n:'🌀 Time Bender',         d:'Purchase the Warp',                  f:2, c:()=>S.flourShop.warp>=1},
+  {id:'maxpr',  n:'🥧 Pastry Obsessed',     d:'Max out Pastry Resonance',           f:2, c:()=>S.flourShop.pastryResonance>=5},
   // ── Garden ──
-  {id:'gh1',   n:'🌱 Green Thumb',        d:'Harvest your first plant',f:2,c:()=>(S.totalHarvests||0)>=1},
-  {id:'hv10',  n:'🌱 Gardener',           d:'Harvest 10 plants',f:2,c:()=>(S.totalHarvests||0)>=10},
-  {id:'hv50',  n:'🌱 Master Gardener',    d:'Harvest 50 plants',f:2,c:()=>(S.totalHarvests||0)>=50},
-  {id:'fullgarden',n:'🌱 Full Bloom',     d:'All 6 plots planted at once',f:2,c:()=>S.gardenPlots.filter(p=>p!==null).length>=6},
-  {id:'gfull', n:'🌱 Plant Collector',    d:'Own all 6 plant types',f:2,c:()=>PLANTS.filter(p=>p.id!=='ancient_seed').every(p=>S.plants[p.id]>0)},
-  {id:'ganc',  n:'🌑 The Ancient',        d:'Harvest an Ancient Seed',f:2,c:()=>(S.plants['ancient_seed']||0)>=1},
-  {id:'glv25', n:'🌱 Breadplant Sage',    d:'Breadplant level 25',f:2,c:()=>(S.gardenLevel||0)>=25},
-  {id:'glv50', n:'🌱 Breadplant Master',  d:'Breadplant level 50 (MAX)',f:2,c:()=>(S.gardenLevel||0)>=50},
+  {id:'gh1',    n:'🌱 Green Thumb',         d:'Harvest your first plant',           f:2, c:()=>(S.totalHarvests||0)>=1},
+  {id:'hv10',   n:'🌱 Gardener',            d:'Harvest 50 plants',                  f:2, c:()=>(S.totalHarvests||0)>=50},
+  {id:'hv50',   n:'🌱 Master Gardener',     d:'Harvest 250 plants',                 f:2, c:()=>(S.totalHarvests||0)>=250},
+  {id:'fullgarden',n:'🌱 Full Bloom',       d:'All 6 plots planted at once',        f:2, c:()=>S.gardenPlots.filter(p=>p!==null).length>=6},
+  {id:'gfull',  n:'🌱 Plant Collector',     d:'Own all 6 plant types',              f:2, c:()=>PLANTS.filter(p=>p.id!=='ancient_seed').every(p=>S.plants[p.id]>0)},
+  {id:'ganc',   n:'🌑 The Ancient',         d:'Harvest an Ancient Seed',            f:2, c:()=>(S.plants['ancient_seed']||0)>=1},
+  {id:'glv25',  n:'🌱 Breadplant Sage',     d:'Breadplant level 35',                f:2, c:()=>(S.gardenLevel||0)>=35},
+  {id:'glv50',  n:'🌱 Breadplant Master',   d:'Breadplant level 65 (challenge)',    f:3, c:()=>(S.gardenLevel||0)>=65},
+  {id:'hv500',  n:'🌱 Garden God',          d:'Harvest 500 plants',                 f:3, c:()=>(S.totalHarvests||0)>=500},
+  {id:'hv2k',   n:'🌱 Garden Eternal',      d:'Harvest 2,000 plants',               f:5, c:()=>(S.totalHarvests||0)>=2000},
+  {id:'ganc10', n:'🌑 Ancient Awakened',    d:'Harvest Ancient Seed 10 times',      f:3, c:()=>(S.harvestCounts&&S.harvestCounts.ancient_seed||0)>=10},
+  {id:'ganc50', n:'🌑 Ancient Devoured',    d:'Harvest Ancient Seed 50 times',      f:6, c:()=>(S.harvestCounts&&S.harvestCounts.ancient_seed||0)>=50},
+  {id:'glv100', n:'🌱 Breadplant Eternal',  d:'Breadplant level 100',               f:6, c:()=>(S.gardenLevel||0)>=100},
+  {id:'glv150', n:'🌱 Breadplant Legend',   d:'Breadplant level 150',               f:10,c:()=>(S.gardenLevel||0)>=150},
   // ── Synergies ──
-  {id:'syn1',  n:'🔗 Chain Reaction',     d:'Buy your first Synergy upgrade',f:2,c:()=>(S.synergyCount||0)>=1},
-  {id:'syn5',  n:'🔗 Fully Linked',       d:'Buy 5 Synergy upgrades',f:2,c:()=>(S.synergyCount||0)>=5},
-  {id:'syn_all',n:'🔗 Grand Synthesis',   d:'Buy all 10 Synergy upgrades',f:2,c:()=>(S.synergyCount||0)>=10},
+  {id:'syn1',   n:'🔗 Chain Reaction',      d:'Buy your first Synergy upgrade',     f:2, c:()=>(S.synergyCount||0)>=1},
+  {id:'syn5',   n:'🔗 Fully Linked',        d:'Buy 5 Synergy upgrades',             f:2, c:()=>(S.synergyCount||0)>=5},
+  {id:'syn_all',n:'🔗 Grand Synthesis',     d:'Buy all 10 Synergy upgrades',        f:2, c:()=>(S.synergyCount||0)>=10},
+  // ── Forged upgrades (new) ──
+  {id:'forged1',n:'⚒️ First Forging',       d:'Buy your first Forged upgrade',      f:2, c:()=>typeof FORGED!=='undefined'&&FORGED.some(f=>S[f.id])},
+  {id:'forged5',n:'⚒️ Forge Master',        d:'Buy 5 Forged upgrades',              f:3, c:()=>typeof FORGED!=='undefined'&&FORGED.filter(f=>S[f.id]).length>=5},
+  {id:'forged_all',n:'⚒️ Forge God',        d:'Buy all Forged upgrades',            f:6, c:()=>typeof FORGED!=='undefined'&&FORGED.every(f=>S[f.id])},
   // ── Playtime ──
-  {id:'pt5m',  n:'⏱️ Just Warming Up',    d:'Play for 5 minutes',f:2,c:()=>totalPlaySec()>=300},
-  {id:'pt30m', n:'⏱️ Dedicated Baker',    d:'Play for 30 minutes',f:2,c:()=>totalPlaySec()>=1800},
-  {id:'pt2h',  n:'⏱️ Bread Addict',       d:'Play for 2 hours total',f:2,c:()=>totalPlaySec()>=7200},
-  {id:'pt8h',  n:'⏱️ The Long Rise',      d:'Play for 8 hours total',f:2,c:()=>totalPlaySec()>=28800},
+  {id:'pt5m',   n:'⏱️ Just Warming Up',     d:'Play for 15 minutes',                f:2, c:()=>totalPlaySec()>=900},
+  {id:'pt30m',  n:'⏱️ Dedicated Baker',     d:'Play for 2 hours',                   f:2, c:()=>totalPlaySec()>=7200},
+  {id:'pt2h',   n:'⏱️ Bread Addict',        d:'Play for 8 hours total',             f:2, c:()=>totalPlaySec()>=28800},
+  {id:'pt8h',   n:'⏱️ The Long Rise',       d:'Play for 24 hours total',            f:2, c:()=>totalPlaySec()>=86400},
+  {id:'pt3d',   n:'⏱️ Bread Devotee',       d:'Play for 3 days total',              f:3, c:()=>totalPlaySec()>=259200},
+  {id:'pt7d',   n:'⏱️ Week of Dough',       d:'Play for 7 days total',              f:5, c:()=>totalPlaySec()>=604800},
+  {id:'pt30d',  n:'⏱️ Month of Bread',      d:'Play for 30 days total',             f:8, c:()=>totalPlaySec()>=2592000},
+  // ── Clicking ──
+  {id:'ck1',    n:'👆 First Tap',           d:'Click the bread once',               f:2, c:()=>(S.totalClicks||0)>=1},
+  {id:'cl100',  n:'👆 Knead It',            d:'Click 1,000 times',                  f:2, c:()=>(S.totalClicks||0)>=1000},
+  {id:'cl500',  n:'👆 Repetitive Strain',   d:'Click 10,000 times',                 f:2, c:()=>(S.totalClicks||0)>=10000},
+  {id:'cl2000', n:'👆 Carpal Loaf',         d:'Click 75,000 times',                 f:2, c:()=>(S.totalClicks||0)>=75000},
+  {id:'cl10k',  n:'👆 Click Emperor',       d:'Click 500,000 times',                f:3, c:()=>(S.totalClicks||0)>=500000},
+  {id:'cl100k', n:'👆 Click Eternal',       d:'Click 5,000,000 times',              f:5, c:()=>(S.totalClicks||0)>=5000000},
+  {id:'ck50',   n:'👆 Click King',          d:'Click value of 50+ bread',           f:2, c:()=>getClick()>=50},
+  {id:'ck500',  n:'👆 Click Baron',         d:'Click value of 500+ bread',          f:3, c:()=>getClick()>=500},
+  {id:'ck10k',  n:'👆 Click Tyrant',        d:'Click value of 10,000+ bread',       f:5, c:()=>getClick()>=10000},
+  {id:'ck1m',   n:'👆 Click God',           d:'Click value of 1,000,000+ bread',    f:8, c:()=>getClick()>=1000000},
+  // ── Combo ──
+  {id:'combo10',n:'👆 Combo Master',        d:'Build a 20-click combo',             f:2, c:()=>comboCount>=20},
+  {id:'combo30',n:'👆 Combo God',           d:'Build a 50-click combo',             f:3, c:()=>comboCount>=50},
+  {id:'combo100',n:'👆 Infinite Combo',     d:'Build a 100-click combo',            f:6, c:()=>comboCount>=100},
+  // ── Lucky crumbs ──
+  {id:'lucky1', n:'✨ Lucky Baker',         d:'Receive a Lucky Crumb drop',         f:2, c:()=>(S.luckyDrops||0)>=1},
+  {id:'lucky10',n:'✨ Fortune\'s Favourite',d:'Receive 30 Lucky Crumb drops',       f:2, c:()=>(S.luckyDrops||0)>=30},
+  {id:'lucky50',n:'✨ Blessed Oven',        d:'Receive 100 Lucky Crumb drops',      f:4, c:()=>(S.luckyDrops||0)>=100},
+  {id:'lucky200',n:'✨ The Luck Eternal',   d:'Receive 500 Lucky Crumb drops',      f:7, c:()=>(S.luckyDrops||0)>=500},
+  // ── Ore Rush ──
+  {id:'oreRush1',n:'⚡ Rush Hour',          d:'Trigger an Ore Rush',                f:2, c:()=>(S.oreRushCount||0)>=1},
+  {id:'oreRush10',n:'⚡ Rush Addict',       d:'Trigger 10 Ore Rushes',              f:3, c:()=>(S.oreRushCount||0)>=10},
+  {id:'oreRush50',n:'⚡ Rush Eternal',      d:'Trigger 50 Ore Rushes',              f:6, c:()=>(S.oreRushCount||0)>=50},
+  // ── Frenzy ──
+  {id:'frenzy1', n:'🌟 Golden Loaf',        d:'Click your first Golden Bread',      f:2, c:()=>(S.frenzyCount||0)>=1},
+  {id:'frenzy10',n:'🌟 Frenzy Addict',      d:'Trigger 10 Bread Frenzies',          f:3, c:()=>(S.frenzyCount||0)>=10},
+  {id:'frenzy50',n:'🌟 Frenzy Eternal',     d:'Trigger 50 Bread Frenzies',          f:5, c:()=>(S.frenzyCount||0)>=50},
+  {id:'frenzy100',n:'🌟 Bread Rage God',    d:'Trigger 100 Bread Frenzies',         f:8, c:()=>(S.frenzyCount||0)>=100},
+  // ── Bakery Day ──
+  {id:'bk1',    n:'🏪 Open for Business',   d:'Complete your first Bakery Day',     f:2, c:()=>(S.bakeryDaysCompleted||0)>=1},
+  {id:'bk5',    n:'🏪 Five-Star Bakery',    d:'Complete 5 Bakery Days',             f:2, c:()=>(S.bakeryDaysCompleted||0)>=5},
+  {id:'bk15',   n:'🏪 Bread Institution',   d:'Complete 15 Bakery Days',            f:3, c:()=>(S.bakeryDaysCompleted||0)>=15},
+  {id:'bk50',   n:'🏪 Bread Empire',        d:'Complete 50 Bakery Days',            f:5, c:()=>(S.bakeryDaysCompleted||0)>=50},
+  {id:'bk100',  n:'🏪 Bakery Legend',       d:'Complete 100 Bakery Days',           f:8, c:()=>(S.bakeryDaysCompleted||0)>=100},
+  {id:'bk_crumbs',n:'🏪 Crumb Collector',   d:'Earn 10,000 lifetime bakery crumbs', f:3, c:()=>(S.bakeryLifetimeCrumbs||0)>=10000},
+  // ── Contracts ──
+  {id:'ct1',    n:'📜 Contractor',          d:'Complete your first contract',       f:2, c:()=>(S.contractsCompleted||0)>=1},
+  {id:'ct10',   n:'📜 Serial Contractor',   d:'Complete 10 contracts',              f:3, c:()=>(S.contractsCompleted||0)>=10},
+  {id:'ct50',   n:'📜 Contract King',       d:'Complete 50 contracts',              f:5, c:()=>(S.contractsCompleted||0)>=50},
+  {id:'ct100',  n:'📜 Contract Legend',     d:'Complete 100 contracts',             f:7, c:()=>(S.contractsCompleted||0)>=100},
+  {id:'ct250',  n:'📜 Contract Eternal',    d:'Complete 250 contracts',             f:12,c:()=>(S.contractsCompleted||0)>=250},
+  // ── Speed ──
+  {id:'spd',    n:'🏎️ Speed Demon',         d:'Bread tick below 1.2s',              f:2, c:()=>S.breadTickMs<1200},
+  {id:'speed05',n:'🏎️ Sonic Bread',         d:'Bread tick below 0.5s',              f:2, c:()=>S.breadTickMs<500},
+  {id:'speedmax',n:'🏎️ Light Speed',        d:'Bread tick at minimum (0.2s)',        f:2, c:()=>S.breadTickMs<=200},
+  // ── Ore tick speed (new) ──
+  {id:'otick1', n:'⛏️ Fast Miner',          d:'Ore tick below 1.5s',                f:2, c:()=>S.oreTickMs<1500},
+  {id:'otick2', n:'⛏️ Turbo Miner',         d:'Ore tick below 0.8s',                f:3, c:()=>S.oreTickMs<800},
+  {id:'otick3', n:'⛏️ Ore Machine',         d:'Ore tick below 0.4s',                f:5, c:()=>S.oreTickMs<400},
   // ── Secrets / fun ──
-  {id:'broke', n:'💸 Worth It',           d:'Spend down to 0 bread',f:2,c:()=>Math.floor(S.bread)===0&&countUpg()>0},
-  {id:'syn_allbldg',n:'🏗️ One of Everything',d:'Own at least 1 of every building',f:2,c:()=>BLDG.every(b=>bCount(b.id)>=1)},
-  {id:'flourninja',n:'🌾 Flour Ninja',    d:'Spend exactly 0 flour remaining',f:2,c:()=>S.flour===0&&countUpg()>5},
-  // ── New Events ──
-  {id:'frenzy1',  n:'🌟 Golden Loaf',      d:'Click your first Golden Bread',f:2,c:()=>isFrenzy()||(S.frenzyEndMs||0)>0},
-  {id:'combo10',  n:'👆 Combo Master',     d:'Build a 10-click combo',f:2,c:()=>comboCount>=10},
-  {id:'lucky1',   n:'✨ Lucky Baker',      d:'Receive a Lucky Crumb drop',f:2,c:()=>(S.luckyDrops||0)>=1},
-  {id:'lucky10',  n:'✨ Fortune\'s Favourite',d:'Receive 10 Lucky Crumb drops',f:2,c:()=>(S.luckyDrops||0)>=10},
-  {id:'oreRush1', n:'⚡ Rush Hour',        d:'Trigger an Ore Rush',f:2,c:()=>(S.oreRushEndMs||0)>0},
-  {id:'void1',    n:'⬛ Void Walker',      d:'Survive the Void event',f:2,c:()=>S.voidTriggered===true},
-  {id:'bldgmile', n:'🏗️ Milestone Setter', d:'Hit a building ×10 milestone',f:2,c:()=>Object.values(S.buildingMilestones||{}).some(v=>v>=1)},
-  {id:'bldgmile5',n:'🏗️ Production Line',  d:'Hit five building milestones',f:2,c:()=>Object.values(S.buildingMilestones||{}).reduce((s,v)=>s+v,0)>=5},
+  {id:'broke',  n:'💸 Worth It',            d:'Spend down to 0 bread',              f:2, c:()=>Math.floor(S.bread)===0&&countUpg()>0},
+  {id:'syn_allbldg',n:'🏗️ One of Everything',d:'Own at least 1 of every building', f:2, c:()=>BLDG.every(b=>bCount(b.id)>=1)},
+  {id:'flourninja',n:'🌾 Flour Ninja',      d:'Spend exactly 0 flour remaining',    f:2, c:()=>S.flour===0&&countUpg()>5},
+  // ── Void ──
+  {id:'void1',  n:'⬛ Void Walker',         d:'Survive the Void event',             f:2, c:()=>S.voidTriggered===true},
+  // ── Building milestones ──
+  {id:'bldgmile',n:'🏗️ Milestone Setter',  d:'Hit a building ×10 milestone',       f:2, c:()=>Object.values(S.buildingMilestones||{}).some(v=>v>=1)},
+  {id:'bldgmile5',n:'🏗️ Production Line',  d:'Hit five building milestones',        f:2, c:()=>Object.values(S.buildingMilestones||{}).reduce((s,v)=>s+v,0)>=5},
+  {id:'bldgmile20',n:'🏗️ Milestone Maniac',d:'Hit 20 building milestones total',   f:4, c:()=>Object.values(S.buildingMilestones||{}).reduce((s,v)=>s+v,0)>=20},
+  // ── Bread tick milestones (new extreme) ──
+  {id:'btick_1e12',n:'🍞 Bread Storm',      d:'Bake 1 trillion bread in a single tick',f:5,c:()=>false},
+  {id:'btick_1e18',n:'🍞 Bread Tsunami',    d:'Bake 1 quintillion bread in a single tick',f:10,c:()=>false},
+  // ── Endgame achievements ──
+  {id:'b1t',    n:'🍞 Bread Trillionaire',  d:'1 Trillion bread baked',             f:2, c:()=>S.bread>=1e12},
+  {id:'b1qa',   n:'🍞 Quadrillionaire',     d:'1 Quadrillion bread',                f:2, c:()=>S.bread>=1e15},
+  {id:'b1qi',   n:'🍞 Quintillionaire',     d:'1 Quintillion bread',                f:2, c:()=>S.bread>=1e18},
+  {id:'b1sx',   n:'🍞 Sextillion Club',     d:'1 Sextillion bread',                 f:2, c:()=>S.bread>=1e21},
+  {id:'b1sp',   n:'🍞 Beyond Reason',       d:'1 Septillion bread',                 f:2, c:()=>S.bread>=1e24},
+  {id:'b1oc',   n:'🍞 Octillion Baker',     d:'1 Octillion bread',                  f:2, c:()=>S.bread>=1e27},
+  {id:'b1no',   n:'🍞 Nonillionaire',       d:'1 Nonillion bread',                  f:2, c:()=>S.bread>=1e30},
+  // ── Warp buys (new) ──
+  {id:'warp5',  n:'🌀 Warp Addict',         d:'Buy the Warp 5 times',               f:3, c:()=>(S.warpBuys||0)>=5},
+  {id:'warp20', n:'🌀 Warp Lord',           d:'Buy the Warp 20 times',              f:6, c:()=>(S.warpBuys||0)>=20},
+  // ── Extreme compound (new) ──
+  {id:'ex_allpres_all_tr',n:'🏆 The Absolute Baker',d:'Max prestige all buildings AND unlock all Transcendents',f:20,c:()=>BLDG.every(b=>(S.buildingPrestige||{})[b.id]>=3)&&TRANSCENDENT.every(t=>S[t.sk])},
+  {id:'ex_rt_full_rebake',n:'🏆 Cycle Complete',d:'Full rebake tree AND rebake level 50+',f:15,c:()=>RT_NODES.filter(n=>n.id!=='rt_star'&&S[n.id]).length>=99&&(S.rebakeLevel||0)>=50},
+  {id:'ex_all_ores_1k',n:'⛏️ Ore Absolutist',d:'1,000 of every ore type',          f:12,c:()=>ALL_ORES.every(o=>(S.ores[o]||0)>=1000)},
+  {id:'ex_bk100_ct100',n:'🏆 Grand Operator',d:'100 Bakery Days AND 100 contracts', f:15,c:()=>(S.bakeryDaysCompleted||0)>=100&&(S.contractsCompleted||0)>=100},
+  {id:'ex_1e40_bread',n:'🍞 Bread Transcended',d:'1e40 bread',                     f:12,c:()=>S.bread>=1e40},
+  {id:'ex_1e50_bread',n:'🍞 The Loaf Absolute',d:'1e50 bread — bread itself cannot contain you',f:18,c:()=>S.bread>=1e50},
+  {id:'ex_1e65_bread',n:'🍞 Post-Bread',    d:'1e65 bread',                         f:25,c:()=>S.bread>=1e65},
+  {id:'ex_1e80_bread',n:'🍞 Bread Singularity',d:'1e80 bread — the heat death of bread',f:35,c:()=>S.bread>=1e80},
+  {id:'ex_1e100_bread',n:'🍞 The Unbakeable',d:'1e100 bread',                      f:50,c:()=>S.bread>=1e100},
+  {id:'ex_rebake200',n:'🔄 The Infinite Rebake',d:'Reach Rebake level 200',        f:40,c:()=>(S.rebakeLevel||0)>=200},
+  {id:'ex_ore10t',n:'⛏️ Ore Without End', d:'10 trillion total ore',               f:30,c:()=>S.totalOre>=10000000000000},
+  {id:'ex_combo200',n:'👆 The Unbroken Chain',d:'Build a 200-click combo',         f:20,c:()=>comboCount>=200},
+  {id:'ex_frenzy250',n:'🌟 Eternal Golden Loaf',d:'Trigger 250 Bread Frenzies',    f:20,c:()=>(S.frenzyCount||0)>=250},
+  {id:'ex_oreRush200',n:'⚡ Rush God',      d:'Trigger 200 Ore Rushes',             f:20,c:()=>(S.oreRushCount||0)>=200},
+  {id:'ex_moon500',n:'🌕 Moon Absolute',   d:'Harvest the Loaf Moon 500 times',    f:20,c:()=>(S.loafMoonClicks||0)>=500},
+  {id:'ex_lucky1k',n:'✨ The Chosen Baker',d:'Receive 1,000 Lucky Crumb drops',    f:15,c:()=>(S.luckyDrops||0)>=1000},
+  {id:'ex_click10m',n:'👆 Infinite Click', d:'Click 10,000,000 times',             f:20,c:()=>(S.totalClicks||0)>=10000000},
+  {id:'ex_bps1qa',n:'🏗️ BpS Absolute',    d:'1 Quadrillion BpS',                  f:20,c:()=>totalBps()>=1e15},
+  {id:'ex_loaves100m',n:'🥖 Loaf Absolute',d:'100 million loaves',                 f:15,c:()=>S.loaves>=100000000},
+  {id:'ex_gardenmax',n:'🌱 Garden Absolute',d:'Breadplant level 200',              f:15,c:()=>(S.gardenLevel||0)>=200},
+  {id:'ex_harv10k',n:'🌱 Harvest Eternal', d:'Harvest 10,000 plants',              f:12,c:()=>(S.totalHarvests||0)>=10000},
+  {id:'ex_pl500',n:'⚡ Powerloaf Absolute',d:'Reach Powerloaf 500',               f:15,c:()=>S.powerloafLevel>=500},
+  {id:'ex_bldg500k',n:'🏗️ Building Absolute',d:'500,000 buildings total',         f:20,c:()=>totalBldgs()>=500000},
+  {id:'ex_ct500',n:'📜 Contract Absolute', d:'Complete 500 contracts',             f:20,c:()=>(S.contractsCompleted||0)>=500},
+  {id:'ex_bk500',n:'🏪 Bakery Absolute',   d:'Complete 500 Bakery Days',           f:20,c:()=>(S.bakeryDaysCompleted||0)>=500},
+  {id:'ex_unob200',n:'🌀 Unobtainium God', d:'200 Unobtainium',                    f:25,c:()=>(S.ores.unobtainium||0)>=200},
+  {id:'ex_rebake300',n:'🔄 Ourobread',     d:'Reach Rebake level 300 — you are the bread',f:60,c:()=>(S.rebakeLevel||0)>=300},
+  {id:'ex_1e120',n:'🍞 The Number',        d:'1e120 bread — a googol loaf',        f:75,c:()=>S.bread>=1e120},
+  // ── 18 more to reach exactly 300 ──
+  {id:'bps10t',  n:'🏗️ BpS Sovereign II',  d:'10 Trillion BpS',                    f:8, c:()=>totalBps()>=1e13},
+  {id:'bps1qa2', n:'🏗️ BpS Eternal',       d:'1 Quadrillion BpS',                  f:12,c:()=>totalBps()>=1e15},
+  {id:'l1m',     n:'🥖 Loaf God',           d:'1,000,000 loaves',                   f:6, c:()=>S.loaves>=1000000},
+  {id:'pl200',   n:'⚡ Powerloaf Surge',    d:'Reach Powerloaf 200',                f:8, c:()=>S.powerloafLevel>=200},
+  {id:'pt60d',   n:'⏱️ Bread Season',       d:'Play for 60 days total',             f:12,c:()=>totalPlaySec()>=5184000},
+  {id:'cl500k',  n:'👆 Click Sovereign',    d:'Click 2,000,000 times',              f:7, c:()=>(S.totalClicks||0)>=2000000},
+  {id:'ct200',   n:'📜 Contract Master',    d:'Complete 200 contracts',             f:9, c:()=>(S.contractsCompleted||0)>=200},
+  {id:'bk200',   n:'🏪 Grand Baker',        d:'Complete 200 Bakery Days',           f:10,c:()=>(S.bakeryDaysCompleted||0)>=200},
+  {id:'oreRush100',n:'⚡ Rush Sovereign',   d:'Trigger 100 Ore Rushes',             f:9, c:()=>(S.oreRushCount||0)>=100},
+  {id:'frenzy150',n:'🌟 Frenzy Sovereign',  d:'Trigger 150 Bread Frenzies',         f:11,c:()=>(S.frenzyCount||0)>=150},
+  {id:'lucky100',n:'✨ Luck Sovereign',     d:'Receive 200 Lucky Crumb drops',      f:5, c:()=>(S.luckyDrops||0)>=200},
+  {id:'hv5k',    n:'🌱 Garden Sovereign',   d:'Harvest 5,000 plants',               f:8, c:()=>(S.totalHarvests||0)>=5000},
+  {id:'glv75',   n:'🌱 Breadplant Sovereign',d:'Breadplant level 75',               f:5, c:()=>(S.gardenLevel||0)>=75},
+  {id:'o_500b',  n:'⛏️ Ore Sovereign II',   d:'500,000,000,000 total ore',          f:9, c:()=>S.totalOre>=500000000000},
+  {id:'rebake25',n:'🔄 Quarter Century',    d:'Reach Rebake level 25',              f:5, c:()=>(S.rebakeLevel||0)>=25},
+  {id:'b_1e45',  n:'🍞 Quattuordecillion', d:'1e45 bread',                          f:7, c:()=>S.bread>=1e45},
+  {id:'rock1m',  n:'🪨 The Bedrock',        d:'1,000,000 rock ore',                 f:6, c:()=>(S.ores.rock||0)>=1000000},
+  {id:'iron500k',n:'⚙️ Iron Absolute',      d:'500,000 iron ore',                   f:6, c:()=>(S.ores.iron||0)>=500000},
+  // ── Mining upgrades ──
+  {id:'u_ironpick',    n:'⛏️ Iron Miner',         d:'Unlock the Iron Pickaxe',            f:2, c:()=>S.ironPickaxeDone},
+  {id:'u_diapick',     n:'💎 Diamond Miner',      d:'Unlock the Diamond Pickaxe',         f:2, c:()=>S.diamondPickaxeDone},
+  {id:'u_voidpick',    n:'🌀 Void Miner',          d:'Unlock the Void Pickaxe',            f:3, c:()=>S.voidPickaxeDone},
+  {id:'u_mineglove',   n:'🧤 Gentle Touch',        d:'Unlock Mining Gloves',               f:2, c:()=>S.miningGlovesDone},
+  {id:'u_veintap',     n:'⛏️ Vein Tapper',         d:'Unlock Vein Tap',                    f:2, c:()=>S.veinTapDone},
+  {id:'u_deepore',     n:'⛏️ Deep Ore Mastery',    d:'Unlock Deep Ore Mastery',            f:3, c:()=>S.deepOreMasteryDone},
+  {id:'u_oreamp',      n:'⛏️ Amplified',           d:'Unlock Ore Amplify',                 f:2, c:()=>S.oreAmplifyDone},
+  {id:'u_oremag',      n:'🧲 Ore Magnet',          d:'Unlock Ore Magnet',                  f:2, c:()=>S.oreMagnetDone},
+  {id:'u_orebreed',    n:'⛏️ Ore Breeding',        d:'Unlock Ore Breed Loop',              f:3, c:()=>S.oreBreedLoopDone},
+  // ── Core bread upgrades ──
+  {id:'u_sour',        n:'🍞 Sourdough',           d:'Unlock Sourdough',                   f:2, c:()=>S.sourdoughDone},
+  {id:'u_dblknead',    n:'🍞 Double Knead',        d:'Unlock Double Knead',                f:2, c:()=>S.doubleKneadDone},
+  {id:'u_yeastb',      n:'🍞 Yeast Boost',         d:'Unlock Yeast Boost',                 f:2, c:()=>S.yeastBoostDone},
+  {id:'u_yeastc',      n:'🍞 Yeast Cascade',       d:'Unlock Yeast Cascade',               f:2, c:()=>S.yeastCascadeDone},
+  {id:'u_infy',        n:'🍞 Infinite Yeast',      d:'Unlock Infinite Yeast',              f:3, c:()=>S.infiniteYeastDone},
+  {id:'u_cake',        n:'🍰 Cake Mix',            d:'Unlock Cake Mix',                    f:2, c:()=>S.cakeMixDone},
+  {id:'u_wheat',       n:'🌾 Wheat Fields',        d:'Unlock Wheat Fields',                f:2, c:()=>S.wheatFieldsDone},
+  {id:'u_ancgrain',    n:'🌾 Ancient Grain',       d:'Unlock Ancient Grain',               f:3, c:()=>S.ancientGrainDone},
+  {id:'u_loafrush',    n:'🍞 Loaf Rush',           d:'Unlock Loaf Rush',                   f:2, c:()=>S.loafRushDone},
+  {id:'u_loafsurge',   n:'🍞 Loaf Surge',          d:'Unlock Loaf Surge',                  f:2, c:()=>S.loafSurgeDone},
+  {id:'u_loafcyc',     n:'🍞 Power Cycle',         d:'Unlock Loaf Power Cycle',            f:2, c:()=>S.loafPowerCycleDone},
+  {id:'u_swift',       n:'🍞 Swift Loaves',        d:'Unlock Swift Loaves',                f:2, c:()=>S.swiftLoavesDone},
+  {id:'u_mill',        n:'⚙️ Mill Momentum',       d:'Unlock Mill Momentum',               f:2, c:()=>S.millMomentumDone},
+  {id:'u_gluten',      n:'🍞 Gluten Overdrive',    d:'Unlock Gluten Overdrive',            f:3, c:()=>S.glutenOverdriveDone},
+  {id:'u_doughasc',    n:'🍞 Dough Ascension',     d:'Unlock Dough Ascension',             f:3, c:()=>S.doughAscensionDone},
+  {id:'u_infrise',     n:'🍞 Infinite Rise',       d:'Unlock Infinite Rise',               f:3, c:()=>S.infiniteRiseDone},
+  {id:'u_hearth',      n:'🔥 Hearth Strike',       d:'Unlock Hearth Strike',               f:3, c:()=>S.hearthStrikeDone},
+  {id:'u_goldratio',   n:'✨ Golden Ratio',        d:'Unlock Golden Ratio',                f:3, c:()=>S.goldenRatioDone},
+  {id:'u_goldoven',    n:'✨ Golden Oven',          d:'Unlock Golden Oven',                 f:3, c:()=>S.goldenOvenDone},
+  {id:'u_goldloop',    n:'✨ Golden Loop',          d:'Unlock Golden Loop',                 f:3, c:()=>S.goldenLoopDone},
+  {id:'u_prism',       n:'🌈 Prism Bake',          d:'Unlock Prism Bake',                  f:4, c:()=>S.prismBakeDone},
+  {id:'u_singular',    n:'💥 Singularity Tap',     d:'Unlock Singularity Tap',             f:4, c:()=>S.singularityTapDone},
+  {id:'u_transbake',   n:'🌈 Transcend Bake',      d:'Unlock Transcend Bake',              f:4, c:()=>S.transcendBakeDone},
+  {id:'u_titans',      n:'⚡ Titan\'s Oven',       d:'Unlock Titan\'s Oven',              f:4, c:()=>S.titansOvenDone},
+  {id:'u_orbital',     n:'🌌 Orbital Strike',      d:'Unlock Orbital Strike',              f:4, c:()=>S.orbitalStrikeDone},
+  {id:'u_enchbread',   n:'✨ Enchanted Bread',     d:'Unlock Enchanted Bread',             f:4, c:()=>S.enchantedBreadDone},
+  {id:'u_breadstorm',  n:'🌩️ Bread Storm',         d:'Unlock Bread Storm',                 f:4, c:()=>S.breadStormDone},
+  {id:'u_bstormsurge', n:'🌩️ Storm Surge',         d:'Unlock Bread Storm Surge',           f:5, c:()=>S.breadStormSurgeDone},
+  {id:'u_nimble',      n:'👆 Nimble Digits',       d:'Unlock Nimble Digits',               f:2, c:()=>S.nimbleDigitsDone},
+  {id:'u_crusthard',   n:'🍞 Crust Hardening',     d:'Unlock Crust Hardening',             f:2, c:()=>S.crustHardeningDone},
+  // ── Building upgrades ──
+  {id:'u_steadfast',   n:'🏗️ Steadfast Ovenery',  d:'Unlock Steadfast Ovenery',           f:3, c:()=>S.steadfastOveneryDone},
+  {id:'u_reslink',     n:'🔗 Resonance Link',      d:'Unlock Resonance Link',              f:3, c:()=>S.resonanceLinkDone},
+  {id:'u_thermal',     n:'🔥 Thermal Expansion',   d:'Unlock Thermal Expansion',           f:3, c:()=>S.thermalExpansionDone},
+  {id:'u_thermalrec',  n:'🔥 Thermal Recipe',      d:'Unlock Thermal Recipe',              f:3, c:()=>S.thermalRecipeDone},
+  {id:'u_crustecho',   n:'🍞 Crust Echo',          d:'Unlock Crust Echo',                  f:3, c:()=>S.crustEchoDone},
+  {id:'u_chamber',     n:'🏗️ Chamber Echo',        d:'Unlock Chamber Echo',                f:3, c:()=>S.chamberEchoDone},
+  {id:'u_coremelt',    n:'🔥 Core Meltdown',       d:'Unlock Core Meltdown',               f:4, c:()=>S.coreMeltdownDone},
+  // ── Garden upgrades (flags) ──
+  {id:'u_resgar',      n:'🌱 Resonant Garden',     d:'Unlock Resonant Garden',             f:3, c:()=>S.resonantGardenDone},
+  {id:'u_garover',     n:'🌱 Garden Overdrive',    d:'Unlock Garden Overdrive',            f:3, c:()=>S.gardenOverdriveDone},
+  {id:'u_compharv',    n:'🌱 Compound Harvest',    d:'Unlock Compound Harvest',            f:3, c:()=>S.compoundHarvestDone},
+  {id:'u_harvmoon',    n:'🌕 Harvest Moon',        d:'Unlock Harvest Moon',                f:3, c:()=>S.harvestMoonDone},
+  {id:'u_temple',      n:'🌱 Temple Rhythm',       d:'Unlock Temple Rhythm',               f:3, c:()=>S.templeRhythmDone},
+  {id:'u_deepferm',    n:'🌱 Deep Ferment',        d:'Unlock Deep Ferment',                f:3, c:()=>S.deepFermentDone},
+  {id:'u_fermfury',    n:'🌱 Ferment Fury',        d:'Unlock Ferment Fury',                f:3, c:()=>S.fermentFuryDone},
+  {id:'u_comprise',    n:'🌱 Compound Rise',       d:'Unlock Compound Rise',               f:3, c:()=>S.compoundRiseDone},
+  // ── Garden upgrades (gUpg_) ──
+  {id:'gu_ancecho',    n:'🌱 Ancient Echo',        d:'Unlock gUpg Ancient Echo',           f:3, c:()=>S.gUpg_ancientEcho},
+  {id:'gu_barley',     n:'🌱 Barley Resonance',    d:'Unlock gUpg Barley Resonance',       f:3, c:()=>S.gUpg_barleyResonance},
+  {id:'gu_bloom',      n:'🌱 Bloom Surge',         d:'Unlock gUpg Bloom Surge',            f:3, c:()=>S.gUpg_bloomSurge},
+  {id:'gu_clover',     n:'🍀 Clover Fortune',      d:'Unlock gUpg Clover Fortune',         f:3, c:()=>S.gUpg_cloverFortune},
+  {id:'gu_sprout',     n:'🌱 Sprout Memory',       d:'Unlock gUpg Sprout Memory',          f:3, c:()=>S.gUpg_sproutMemory},
+  {id:'gu_verdant',    n:'🌿 Verdant Flow',        d:'Unlock gUpg Verdant Flow',           f:3, c:()=>S.gUpg_verdantFlow},
+  {id:'gu_all',        n:'🌱 Garden Upgrade Master',d:'Unlock all garden upgrades',        f:6, c:()=>S.gUpg_ancientEcho&&S.gUpg_barleyResonance&&S.gUpg_bloomSurge&&S.gUpg_cloverFortune&&S.gUpg_sproutMemory&&S.gUpg_verdantFlow},
+  // ── Loaf Spirit stages ──
+  {id:'spirit2',       n:'🌾 Spirit Rising',       d:'Reach Loaf Spirit stage 2',          f:2, c:()=>S.loafSpiritStage>=2},
+  {id:'spirit3',       n:'🌟 Spirit Blazing',      d:'Reach Loaf Spirit stage 3',          f:3, c:()=>S.loafSpiritStage>=3},
+  {id:'spirit4',       n:'🔥 Spirit Transcending', d:'Reach Loaf Spirit stage 4',          f:4, c:()=>S.loafSpiritStage>=4},
+  // ── System unlocks ──
+  {id:'u_drilling',    n:'⛡ First Drill Rig',     d:'Unlock Drilling',                    f:2, c:()=>S.drillingUnlocked},
+  {id:'u_bakery',      n:'🏪 Bakery Open',         d:'Unlock the Bakery',                  f:2, c:()=>S.bakeryUnlocked},
+  {id:'u_contracts',   n:'📜 Office Hours',        d:'Unlock the Contract Office',         f:2, c:()=>S.taskofficeUnlocked},
+  {id:'u_stargate',    n:'⭐ Star Gate',            d:'Unlock the Star Crafting Gate',      f:3, c:()=>S.starCraftingGateUnlocked},
+  {id:'u_starcraft',   n:'⭐ Star Crafter',         d:'Unlock Star Crafting',               f:4, c:()=>S.starCraftingUnlocked},
+  // ── Sandwich T1 individual ──
+  {id:'sw_bp',         n:'🥪 Blueprint',           d:'Unlock Blueprint sandwich',          f:2, c:()=>S.sw_blueprint},
+  {id:'sw_la',         n:'🥪 Living Archive',      d:'Unlock Living Archive sandwich',     f:2, c:()=>S.sw_livingArchive},
+  {id:'sw_fr',         n:'🥪 Frenzy Recall',       d:'Unlock Frenzy Recall sandwich',      f:2, c:()=>S.sw_frenzyRecall},
+  {id:'sw_me',         n:'🥪 Miner\'s Eye',        d:'Unlock Miner\'s Eye sandwich',       f:2, c:()=>S.sw_minersEye},
+  {id:'sw_ai',         n:'🥪 Ancient Intuition',   d:'Unlock Ancient Intuition sandwich',  f:2, c:()=>S.sw_ancientIntuition},
+  {id:'sw_gt',         n:'🥪 Green Thumb',         d:'Unlock Green Thumb sandwich',        f:2, c:()=>S.sw_greenThumb},
+  {id:'sw_fg',         n:'🥪 Fertile Ground',      d:'Unlock Fertile Ground sandwich',     f:2, c:()=>S.sw_fertileGround},
+  {id:'sw_oa',         n:'🥪 Ore Attunement',      d:'Unlock Ore Attunement sandwich',     f:2, c:()=>S.sw_oreAttunement},
+  {id:'sw_di',         n:'🥪 Deep Instinct',       d:'Unlock Deep Instinct sandwich',      f:2, c:()=>S.sw_deepInstinct},
+  {id:'sw_dm',         n:'🥪 Dough Memory',        d:'Unlock Dough Memory sandwich',       f:2, c:()=>S.sw_doughMemory},
+  {id:'sw_tlb',        n:'🥪 The Long Bake',       d:'Unlock The Long Bake sandwich',      f:2, c:()=>S.sw_theLongBake},
+  {id:'sw_el',         n:'🥪 Endless Loaf',        d:'Unlock Endless Loaf sandwich',       f:3, c:()=>S.sw_endlessLoaf},
+  {id:'sw_fs',         n:'🥪 Foundation Stone',    d:'Unlock Foundation Stone sandwich',   f:2, c:()=>S.sw_foundationStone},
+  {id:'sw_rl',         n:'🥪 Rooted Legacy',       d:'Unlock Rooted Legacy sandwich',      f:2, c:()=>S.sw_rootedLegacy},
+  {id:'sw_fl',         n:'🥪 Forged Legacy',       d:'Unlock Forged Legacy sandwich',      f:2, c:()=>S.sw_forgedLegacy},
+  {id:'sw_frl',        n:'🥪 Fractured Legacy',    d:'Unlock Fractured Legacy sandwich',   f:3, c:()=>S.sw_fracturedLegacy},
+  {id:'sw_vm',         n:'🥪 Vein Memory',         d:'Unlock Vein Memory sandwich',        f:2, c:()=>S.sw_veinMemory},
+  {id:'sw_sv',         n:'🥪 Seed Vault',          d:'Unlock Seed Vault sandwich',         f:2, c:()=>S.sw_seedVault},
+  {id:'sw_ws',         n:'🥪 Warm Start',          d:'Unlock Warm Start sandwich',         f:2, c:()=>S.sw_warmStart},
+  {id:'sw_t1_all',     n:'🥪 Sandwich Chef',       d:'Unlock all Tier 1 Sandwich upgrades',f:8,c:()=>['sw_blueprint','sw_livingArchive','sw_frenzyRecall','sw_minersEye','sw_ancientIntuition','sw_greenThumb','sw_fertileGround','sw_oreAttunement','sw_deepInstinct','sw_doughMemory','sw_theLongBake','sw_endlessLoaf','sw_foundationStone','sw_rootedLegacy','sw_forgedLegacy','sw_fracturedLegacy','sw_veinMemory','sw_seedVault','sw_warmStart'].every(k=>S[k])},
+  // ── Transcendent individual unlocks ──
+  {id:'tr_omnibake',   n:'🌈 Omni Bake',           d:'Unlock tr_omniBake Transcendent',    f:4, c:()=>S.tr_omniBake},
+  {id:'tr_bsingular',  n:'💥 Bread Singularity',   d:'Unlock tr_breadSingularity',         f:4, c:()=>S.tr_breadSingularity},
+  {id:'tr_nheart',     n:'🖤 Nullite Heart',        d:'Unlock tr_nulliteHeart',             f:5, c:()=>S.tr_nulliteHeart},
+  {id:'tr_vharvest',   n:'🌀 Void Harvest',         d:'Unlock tr_voidHarvest',              f:5, c:()=>S.tr_voidHarvest},
+  {id:'tr_crumbawn',   n:'🌈 The Crumb Awakens',   d:'Unlock tr_theCrumbAwakens',          f:5, c:()=>S.tr_theCrumbAwakens},
+  {id:'tr_sforgecore', n:'⭐ Starforge Core',       d:'Unlock tr_starforgeCore',            f:4, c:()=>S.tr_starforgeCore},
+  {id:'tr_etloaf',     n:'🌾 Eternity Loaf',        d:'Unlock tr_eternityLoaf',             f:4, c:()=>S.tr_eternityLoaf},
+  {id:'tr_aforge',     n:'🌑 Abyssal Forge',        d:'Unlock tr_abyssalForge',             f:4, c:()=>S.tr_abyssalForge},
+  {id:'tr_nres',       n:'🖤 Null Resonance',       d:'Unlock tr_nullResonance',            f:4, c:()=>S.tr_nullResonance},
+  {id:'tr_cosyeast',   n:'🌌 Cosmic Yeast',         d:'Unlock tr_cosmicYeast',              f:4, c:()=>S.tr_cosmicYeast},
+  {id:'tr_abecho',     n:'🌑 Abyssal Echo',         d:'Unlock tr_abyssalEcho',              f:4, c:()=>S.tr_abyssalEcho},
+  {id:'tr_infknead',   n:'🍞 Infinite Knead',       d:'Unlock tr_infiniteKnead',            f:4, c:()=>S.tr_infiniteKnead},
+  {id:'tr_cfusion',    n:'🌈 Crumb Fusion',         d:'Unlock tr_crumbFusion',              f:4, c:()=>S.tr_crumbFusion},
+  {id:'tr_fbloom',     n:'🌿 Forge Bloom',          d:'Unlock tr_forgeBloom',               f:4, c:()=>S.tr_forgeBloom},
+  {id:'tr_stellcrust', n:'⭐ Stellar Crust',        d:'Unlock tr_stellarCrust',             f:4, c:()=>S.tr_stellarCrust},
+  // ── Sandwiches eaten / created ──
+  {id:'sand1',         n:'🥪 First Bite',           d:'Make your first sandwich',           f:2, c:()=>(S.sandwiches||0)>=1},
+  {id:'sand10',        n:'🥪 Sandwich Addict',      d:'Make 10 sandwiches',                 f:3, c:()=>(S.sandwiches||0)>=10},
+  {id:'sand50',        n:'🥪 Sandwich Lord',        d:'Make 50 sandwiches',                 f:5, c:()=>(S.sandwiches||0)>=50},
 ];
 function checkAch(){let n=false;for(const a of ACH){if(!S.achievements[a.id]&&a.c()){S.achievements[a.id]=true;S.flour+=a.f;sfx('achievement');showNotif(`🏆 ${a.n} (+${a.f}🌾)`);n=true}}if(n){updateAchUI();saveGame()}}
 function updateAchUI(){const c=document.getElementById('ach-list');if(!c)return;const u=ACH.filter(a=>S.achievements[a.id]),l=ACH.filter(a=>!S.achievements[a.id]);c.innerHTML=`<div style="font-size:0.68rem;color:rgba(232,201,122,0.3);font-weight:700;margin-bottom:6px;">${u.length}/${ACH.length} · 🌾 ${S.flour}</div>${u.map(a=>`<div class="ach-item ach-done"><span class="ach-icon">✓</span><div><div class="ach-name">${a.n}</div><div class="ach-desc">${a.d} +${a.f}🌾</div></div></div>`).join('')}${l.map(a=>`<div class="ach-item ach-locked"><span class="ach-icon">?</span><div><div class="ach-name" style="opacity:0.35">${a.n}</div><div class="ach-desc" style="opacity:0.25">${a.d}</div></div></div>`).join('')}`}
@@ -1070,7 +1389,7 @@ function bCount(id){return S.buildings[id]||0}
 function bPrice(b){
   let discount=1;
   if(S.sw_foundationStone)discount*=0.90;
-  return Math.ceil(b.price*Math.pow(1.22,bCount(b.id))*discount);
+  return Math.ceil(b.price*Math.pow(1.23,bCount(b.id))*discount);
 }
 function bBps(b){return b.bps*bCount(b.id)}
 function totalBps(){let t=0;BLDG.forEach(b=>t+=bBps(b));return t}
@@ -1078,26 +1397,26 @@ function buyBldg(id){const b=BLDG.find(x=>x.id===id);if(!b)return;const p=bPrice
 
 // ===== FORGED UPGRADES (Part 2 — mine-locked, ore threshold checked not spent) =====
 const FORGED=[
-  {id:'fg_cursor',    bld:'b_cursor',    icon:'⛏️',name:'Worn Groove',      ore:'rock',    need:50,   cost:500,    desc:'+0.5 BpS per Wandering Finger',   mult:()=>1+bCount('b_cursor')*0.05},
-  {id:'fg_toaster',   bld:'b_toaster',   icon:'🔥',name:'Heat Sink',        ore:'iron',    need:30,   cost:2000,   desc:'Ember Coil BpS ×1.5',             mult:()=>1.5},
-  {id:'fg_oven',      bld:'b_oven',      icon:'🏚️',name:'Golden Hearth',    ore:'gold',    need:20,   cost:8000,   desc:'Stone Hearth BpS ×2',             mult:()=>2},
-  {id:'fg_bakery',    bld:'b_bakery',    icon:'🏪',name:'Display Case',     ore:'diamond', need:10,   cost:30000,  desc:'Corner Shop BpS ×2.5',            mult:()=>2.5},
-  {id:'fg_mill',      bld:'b_mill',      icon:'⚙️',name:'Sapphire Grind',   ore:'sapphire',need:5,    cost:100000, desc:'Iron Grinder ×2 + ore tick -0.1s',mult:()=>2},
-  {id:'fg_farm',      bld:'b_farm',      icon:'🌾',name:'Jade Soil',        ore:'jade',    need:5,    cost:400000, desc:'Harvest Field ×2 + plant bonus +5%',mult:()=>2},
-  {id:'fg_mine2',     bld:'b_mine2',     icon:'⛏️',name:'Ruby Furnace',     ore:'ruby',    need:5,    cost:1500000,desc:'Ore Crucible BpS ×3',             mult:()=>3},
-  {id:'fg_temple',    bld:'b_temple',    icon:'🏛️',name:'Sacred Flame',     ore:'ruby',    need:3,    cost:5000000,desc:'Gilded Sanctum ×2.5 · +2% bread', mult:()=>2.5},
-  {id:'fg_lab',       bld:'b_lab',       icon:'🧪',name:'Topaz Catalyst',   ore:'topaz',   need:3,    cost:20000000,desc:'Alchemic Chamber BpS ×3',         mult:()=>3},
-  {id:'fg_portal',    bld:'b_portal',    icon:'🌀',name:'Jewel Rift',       ore:'jewel',   need:2,    cost:80000000,desc:'Rift Engine ×3 · +1% bread',      mult:()=>3},
-  {id:'fg_station',   bld:'b_station',   icon:'🛸',name:'Ion Lens',         ore:'jewel',   need:2,    cost:300000000,desc:'Orbital Platform BpS ×3',         mult:()=>3},
-  {id:'fg_dimension', bld:'b_dimension', icon:'🌌',name:'Void Lattice',     ore:'jewel',   need:2,    cost:1000000000,desc:'Void Cradle ×3 · +2% global BpS',mult:()=>3},
-  {id:'fg_antimatter',bld:'b_antimatter',icon:'⚛️',name:'Antimatter Feed',  ore:'jewel',   need:5,    cost:5000000000,desc:'Antimatter Core BpS ×2.5',       mult:()=>2.5},
-  {id:'fg_prism',     bld:'b_prism',     icon:'💎',name:'Spectral Focus',   ore:'jewel',   need:5,    cost:20000000000,desc:'Prism Array BpS ×2.5',           mult:()=>2.5},
-  {id:'fg_infinity',  bld:'b_infinity',  icon:'♾️',name:'Recursive Echo',   ore:'jewel',   need:8,    cost:100000000000,desc:'Infinite Loop ×2 · +0.1%/rebake',mult:()=>2},
-  {id:'fg_nebula',    bld:'b_nebula',    icon:'🌠',name:'Nebula Bloom',     ore:'jewel',   need:8,    cost:500000000000,desc:'Nebula Forge BpS ×2',            mult:()=>2},
-  {id:'fg_quasar',    bld:'b_quasar',    icon:'🔆',name:'Quasar Lens',      ore:'jewel',   need:10,   cost:2000000000000,desc:'Quasar Tap BpS ×2',            mult:()=>2},
-  {id:'fg_singularity',bld:'b_singularity',icon:'🕳️',name:'Collapse Point',ore:'jewel',   need:10,   cost:10000000000000,desc:'Singularity Well ×2 · +5% BpS',mult:()=>2},
-  {id:'fg_multiverse',bld:'b_multiverse',icon:'🌐',name:'Shard Cascade',   ore:'jewel',   need:15,   cost:50000000000000,desc:'Multiverse Shard BpS ×2',      mult:()=>2},
-  {id:'fg_omnibake',  bld:'b_omnibake',  icon:'✨',name:'Omniforge Core',   ore:'jewel',   need:20,   cost:250000000000000,desc:'The Omniforge ×2 · +10% global BpS',mult:()=>2},
+  {id:'fg_cursor',    bld:'b_cursor',    icon:'⛏️',name:'Worn Groove',      ore:'rock',    need:50,   cost:550,    desc:'+0.5 BpS per Wandering Finger',   mult:()=>1+bCount('b_cursor')*0.05},
+  {id:'fg_toaster',   bld:'b_toaster',   icon:'🔥',name:'Heat Sink',        ore:'iron',    need:30,   cost:2200,   desc:'Ember Coil BpS ×1.5',             mult:()=>1.5},
+  {id:'fg_oven',      bld:'b_oven',      icon:'🏚️',name:'Golden Hearth',    ore:'gold',    need:20,   cost:8800,   desc:'Stone Hearth BpS ×2',             mult:()=>2},
+  {id:'fg_bakery',    bld:'b_bakery',    icon:'🏪',name:'Display Case',     ore:'diamond', need:10,   cost:33000,  desc:'Corner Shop BpS ×2.5',            mult:()=>2.5},
+  {id:'fg_mill',      bld:'b_mill',      icon:'⚙️',name:'Sapphire Grind',   ore:'sapphire',need:5,    cost:110000, desc:'Iron Grinder ×2 + ore tick -0.1s',mult:()=>2},
+  {id:'fg_farm',      bld:'b_farm',      icon:'🌾',name:'Jade Soil',        ore:'jade',    need:5,    cost:440000, desc:'Harvest Field ×2 + plant bonus +5%',mult:()=>2},
+  {id:'fg_mine2',     bld:'b_mine2',     icon:'⛏️',name:'Ruby Furnace',     ore:'ruby',    need:5,    cost:1650000,desc:'Ore Crucible BpS ×3',             mult:()=>3},
+  {id:'fg_temple',    bld:'b_temple',    icon:'🏛️',name:'Sacred Flame',     ore:'ruby',    need:3,    cost:5500000,desc:'Gilded Sanctum ×2.5 · +2% bread', mult:()=>2.5},
+  {id:'fg_lab',       bld:'b_lab',       icon:'🧪',name:'Topaz Catalyst',   ore:'topaz',   need:3,    cost:22000000,desc:'Alchemic Chamber BpS ×3',         mult:()=>3},
+  {id:'fg_portal',    bld:'b_portal',    icon:'🌀',name:'Jewel Rift',       ore:'jewel',   need:2,    cost:88000000,desc:'Rift Engine ×3 · +1% bread',      mult:()=>3},
+  {id:'fg_station',   bld:'b_station',   icon:'🛸',name:'Ion Lens',         ore:'jewel',   need:2,    cost:330000000,desc:'Orbital Platform BpS ×3',         mult:()=>3},
+  {id:'fg_dimension', bld:'b_dimension', icon:'🌌',name:'Void Lattice',     ore:'jewel',   need:2,    cost:1100000000,desc:'Void Cradle ×3 · +2% global BpS',mult:()=>3},
+  {id:'fg_antimatter',bld:'b_antimatter',icon:'⚛️',name:'Antimatter Feed',  ore:'jewel',   need:5,    cost:5500000000,desc:'Antimatter Core BpS ×2.5',       mult:()=>2.5},
+  {id:'fg_prism',     bld:'b_prism',     icon:'💎',name:'Spectral Focus',   ore:'jewel',   need:5,    cost:22000000000,desc:'Prism Array BpS ×2.5',           mult:()=>2.5},
+  {id:'fg_infinity',  bld:'b_infinity',  icon:'♾️',name:'Recursive Echo',   ore:'jewel',   need:8,    cost:110000000000,desc:'Infinite Loop ×2 · +0.1%/rebake',mult:()=>2},
+  {id:'fg_nebula',    bld:'b_nebula',    icon:'🌠',name:'Nebula Bloom',     ore:'jewel',   need:8,    cost:550000000000,desc:'Nebula Forge BpS ×2',            mult:()=>2},
+  {id:'fg_quasar',    bld:'b_quasar',    icon:'🔆',name:'Quasar Lens',      ore:'jewel',   need:10,   cost:2200000000000,desc:'Quasar Tap BpS ×2',            mult:()=>2},
+  {id:'fg_singularity',bld:'b_singularity',icon:'🕳️',name:'Collapse Point',ore:'jewel',   need:10,   cost:11000000000000,desc:'Singularity Well ×2 · +5% BpS',mult:()=>2},
+  {id:'fg_multiverse',bld:'b_multiverse',icon:'🌐',name:'Shard Cascade',   ore:'jewel',   need:15,   cost:55000000000000,desc:'Multiverse Shard BpS ×2',      mult:()=>2},
+  {id:'fg_omnibake',  bld:'b_omnibake',  icon:'✨',name:'Omniforge Core',   ore:'jewel',   need:20,   cost:275000000000000,desc:'The Omniforge ×2 · +10% global BpS',mult:()=>2},
 ];
 let lastBF=0;function bpsTick(ts){if(!lastBF)lastBF=ts;const dt=(ts-lastBF)/1000;lastBF=ts;const bps=totalBps();const sm=(S.surgeTokenEnd||0)>Date.now()?2:1;if(bps>0)S.bread+=bps*dt*sm;requestAnimationFrame(bpsTick)}
 // bpsTick is started after loadGame() below
@@ -1396,8 +1715,8 @@ function getBreadGain(){
   if(S.titansOvenDone)      p+=0.007;  // Greaaaat Bread Output +0.7%
   if(S.breadStormDone)      p+=S.powerloafLevel*0.0004; // Powerloaf Increase I +0.04%/PL
   if(S.cosmicCrustDone)     p+=0.010;  // Amazing Bread Output +1.0% (hard cap)
-  if(S.furnaceIgnitionDone) p+=0.003;  // Furnace Ignition +10%
-  if(S.infernalMixDone)     p+=0.005;  // Infernal Mix +18%
+  if(S.furnaceIgnitionDone) p+=0.003;  // Furnace Ignition +25% bread gain
+  if(S.infernalMixDone)     p+=0.005;  // Infernal Mix +45% bread gain
   if(S.furnaceAscensionDone)p+=Math.min(0.010,(S.breadfuel||0)/1000*0.001); // Furnace Ascension BF-scaled
   if(S.transcendBakeDone)   p+=0.008;  // Ascendant Breadarts +0.8% (was 75%)
   if(S.doughAscensionDone)  p+=0.015;  // Ascendant Breadarts I +1.5% (was 150%, capped at ~1%)
@@ -1588,6 +1907,7 @@ function spawnGoldenBread(){
       sfx('tileCrack');showNotif(`🔴 CURSED LOAF! Lost ${fmt(stolen)} bread to the Ovenkind!`);
       scheduleGoldenBread();updateUI();return;
     }
+    S.frenzyCount=(S.frenzyCount||0)+1;
     S.frenzyEndMs=Date.now()+(S.rt_b7a?180000:90000);
     goldenBreadEl.remove();ring.remove();banner.remove();
     goldenBreadEl=null;
@@ -1747,12 +2067,128 @@ document.head.appendChild(moonStyle);
 setInterval(updateFrenzyDisplay,500);
 
 // ===== ORE RUSH =====
-function triggerOreRush(){const dur=S.sw_minersEye?40000:30000;S.oreRushEndMs=Date.now()+dur;showNotif(`⚡ ORE RUSH! 10× ore speed for ${dur/1000}s!`);const old=S.oreTickMs;const fast=Math.max(100,Math.floor(S.oreTickMs/10));if(oTT)clearInterval(oTT);oTT=setInterval(()=>{const w=getOreW(),tot=w.reduce((s,e)=>s+e.w,0),r=Math.random()*tot;let c=0,ore='rock';for(const e of w){c+=e.w;if(r<c){ore=e.n;break}}let drop=1;if(S.veinTapDone&&Math.random()<0.15)drop=2;if(S.deepOreMasteryDone)drop=Math.max(drop,2);S.ores[ore]+=drop;S.totalOre+=drop;if(S.oreBreedLoopDone)S.bread+=drop*0.5;flashOre(ore);updateLastOre(ore);checkAch()},fast);setTimeout(()=>{startOreTick();showNotif('⚡ Ore Rush ended.')},30000)}
+function triggerOreRush(){S.oreRushCount=(S.oreRushCount||0)+1;const dur=S.sw_minersEye?40000:30000;S.oreRushEndMs=Date.now()+dur;showNotif(`⚡ ORE RUSH! 10× ore speed for ${dur/1000}s!`);const old=S.oreTickMs;const fast=Math.max(100,Math.floor(S.oreTickMs/10));if(oTT)clearInterval(oTT);oTT=setInterval(()=>{const w=getOreW(),tot=w.reduce((s,e)=>s+e.w,0),r=Math.random()*tot;let c=0,ore='rock';for(const e of w){c+=e.w;if(r<c){ore=e.n;break}}let drop=1;if(S.veinTapDone&&Math.random()<0.15)drop=2;if(S.deepOreMasteryDone)drop=Math.max(drop,2);S.ores[ore]+=drop;S.totalOre+=drop;if(S.oreBreedLoopDone)S.bread+=drop*0.5;flashOre(ore);updateLastOre(ore);checkAch()},fast);setTimeout(()=>{startOreTick();showNotif('⚡ Ore Rush ended.')},30000)}
 
 // ===== BUILDING MILESTONES =====
 function checkBldgMilestones(){let bonus=false;BLDG.forEach(b=>{const c=bCount(b.id);const prev=S.buildingMilestones[b.id]||0;const step=S.sw_blueprint?8:10;const milestone=Math.floor(c/step);if(milestone>prev){S.buildingMilestones[b.id]=milestone;showNotif(`🏗️ ${b.icon} ${b.name} milestone! +0.1% BpS`);bonus=true}});if(bonus)saveGame()}
 // BpS milestone bonus: +0.1% per milestone
 function bldgMilestoneBonus(){return Object.values(S.buildingMilestones||{}).reduce((s,v)=>s+v,0)*0.001}
+// ===== BUILDING UPGRADES (Cookie Clicker-style doublers — 4 tiers per building) =====
+const BLDG_UPGS=[
+  // Wandering Finger (b_cursor, base 20)
+  {id:'bu_c1',bld:'b_cursor',   icon:'👆',name:'Cursor Upgrade I',      sk:'buC1', need:1,  cost:200,        desc:'Wandering Finger production ×2'},
+  {id:'bu_c2',bld:'b_cursor',   icon:'👆',name:'Cursor Upgrade II',     sk:'buC2', need:5,  cost:2000,       desc:'Wandering Finger production ×2'},
+  {id:'bu_c3',bld:'b_cursor',   icon:'👆',name:'Cursor Upgrade III',    sk:'buC3', need:25, cost:20000,      desc:'Wandering Finger production ×2'},
+  {id:'bu_c4',bld:'b_cursor',   icon:'👆',name:'Cursor Upgrade IV',     sk:'buC4', need:50, cost:200000,     desc:'Wandering Finger production ×2'},
+  // Ember Coil (b_toaster, base 198)
+  {id:'bu_t1',bld:'b_toaster',  icon:'🔥',name:'Coil Upgrade I',        sk:'buT1', need:1,  cost:2000,       desc:'Ember Coil production ×2'},
+  {id:'bu_t2',bld:'b_toaster',  icon:'🔥',name:'Coil Upgrade II',       sk:'buT2', need:5,  cost:20000,      desc:'Ember Coil production ×2'},
+  {id:'bu_t3',bld:'b_toaster',  icon:'🔥',name:'Coil Upgrade III',      sk:'buT3', need:25, cost:200000,     desc:'Ember Coil production ×2'},
+  {id:'bu_t4',bld:'b_toaster',  icon:'🔥',name:'Coil Upgrade IV',       sk:'buT4', need:50, cost:2000000,    desc:'Ember Coil production ×2'},
+  // Stone Hearth (b_oven, base 1320)
+  {id:'bu_o1',bld:'b_oven',     icon:'🏚️',name:'Hearth Upgrade I',      sk:'buO1', need:1,  cost:13000,      desc:'Stone Hearth production ×2'},
+  {id:'bu_o2',bld:'b_oven',     icon:'🏚️',name:'Hearth Upgrade II',     sk:'buO2', need:5,  cost:130000,     desc:'Stone Hearth production ×2'},
+  {id:'bu_o3',bld:'b_oven',     icon:'🏚️',name:'Hearth Upgrade III',    sk:'buO3', need:25, cost:1300000,    desc:'Stone Hearth production ×2'},
+  {id:'bu_o4',bld:'b_oven',     icon:'🏚️',name:'Hearth Upgrade IV',     sk:'buO4', need:50, cost:13000000,   desc:'Stone Hearth production ×2'},
+  // Corner Shop (b_bakery, base 7920)
+  {id:'bu_b1',bld:'b_bakery',   icon:'🏪',name:'Shop Upgrade I',        sk:'buB1', need:1,  cost:80000,      desc:'Corner Shop production ×2'},
+  {id:'bu_b2',bld:'b_bakery',   icon:'🏪',name:'Shop Upgrade II',       sk:'buB2', need:5,  cost:800000,     desc:'Corner Shop production ×2'},
+  {id:'bu_b3',bld:'b_bakery',   icon:'🏪',name:'Shop Upgrade III',      sk:'buB3', need:25, cost:8000000,    desc:'Corner Shop production ×2'},
+  {id:'bu_b4',bld:'b_bakery',   icon:'🏪',name:'Shop Upgrade IV',       sk:'buB4', need:50, cost:80000000,   desc:'Corner Shop production ×2'},
+  // Iron Grinder (b_mill, base 39600)
+  {id:'bu_m1',bld:'b_mill',     icon:'⚙️',name:'Grinder Upgrade I',     sk:'buM1', need:1,  cost:400000,     desc:'Iron Grinder production ×2'},
+  {id:'bu_m2',bld:'b_mill',     icon:'⚙️',name:'Grinder Upgrade II',    sk:'buM2', need:5,  cost:4000000,    desc:'Iron Grinder production ×2'},
+  {id:'bu_m3',bld:'b_mill',     icon:'⚙️',name:'Grinder Upgrade III',   sk:'buM3', need:25, cost:40000000,   desc:'Iron Grinder production ×2'},
+  {id:'bu_m4',bld:'b_mill',     icon:'⚙️',name:'Grinder Upgrade IV',    sk:'buM4', need:50, cost:400000000,  desc:'Iron Grinder production ×2'},
+  // Harvest Field (b_farm, base 198000)
+  {id:'bu_f1',bld:'b_farm',     icon:'🌾',name:'Field Upgrade I',       sk:'buF1', need:1,  cost:2000000,    desc:'Harvest Field production ×2'},
+  {id:'bu_f2',bld:'b_farm',     icon:'🌾',name:'Field Upgrade II',      sk:'buF2', need:5,  cost:20000000,   desc:'Harvest Field production ×2'},
+  {id:'bu_f3',bld:'b_farm',     icon:'🌾',name:'Field Upgrade III',     sk:'buF3', need:25, cost:200000000,  desc:'Harvest Field production ×2'},
+  {id:'bu_f4',bld:'b_farm',     icon:'🌾',name:'Field Upgrade IV',      sk:'buF4', need:50, cost:2000000000, desc:'Harvest Field production ×2'},
+  // Ore Crucible (b_mine2, base 924000)
+  {id:'bu_n1',bld:'b_mine2',    icon:'⛏️',name:'Crucible Upgrade I',    sk:'buN1', need:1,  cost:9240000,    desc:'Ore Crucible production ×2'},
+  {id:'bu_n2',bld:'b_mine2',    icon:'⛏️',name:'Crucible Upgrade II',   sk:'buN2', need:5,  cost:92400000,   desc:'Ore Crucible production ×2'},
+  {id:'bu_n3',bld:'b_mine2',    icon:'⛏️',name:'Crucible Upgrade III',  sk:'buN3', need:25, cost:924000000,  desc:'Ore Crucible production ×2'},
+  {id:'bu_n4',bld:'b_mine2',    icon:'⛏️',name:'Crucible Upgrade IV',   sk:'buN4', need:50, cost:9240000000, desc:'Ore Crucible production ×2'},
+  // Gilded Sanctum (b_temple, base 3960000)
+  {id:'bu_s1',bld:'b_temple',   icon:'🏛️',name:'Sanctum Upgrade I',     sk:'buS1', need:1,  cost:40000000,   desc:'Gilded Sanctum production ×2'},
+  {id:'bu_s2',bld:'b_temple',   icon:'🏛️',name:'Sanctum Upgrade II',    sk:'buS2', need:5,  cost:400000000,  desc:'Gilded Sanctum production ×2'},
+  {id:'bu_s3',bld:'b_temple',   icon:'🏛️',name:'Sanctum Upgrade III',   sk:'buS3', need:25, cost:4000000000, desc:'Gilded Sanctum production ×2'},
+  {id:'bu_s4',bld:'b_temple',   icon:'🏛️',name:'Sanctum Upgrade IV',    sk:'buS4', need:50, cost:40000000000,desc:'Gilded Sanctum production ×2'},
+  // Alchemic Chamber (b_lab, base 19800000)
+  {id:'bu_l1',bld:'b_lab',      icon:'🧪',name:'Chamber Upgrade I',     sk:'buL1', need:1,  cost:200000000,  desc:'Alchemic Chamber production ×2'},
+  {id:'bu_l2',bld:'b_lab',      icon:'🧪',name:'Chamber Upgrade II',    sk:'buL2', need:5,  cost:2000000000, desc:'Alchemic Chamber production ×2'},
+  {id:'bu_l3',bld:'b_lab',      icon:'🧪',name:'Chamber Upgrade III',   sk:'buL3', need:25, cost:20000000000,desc:'Alchemic Chamber production ×2'},
+  {id:'bu_l4',bld:'b_lab',      icon:'🧪',name:'Chamber Upgrade IV',    sk:'buL4', need:50, cost:2e11,       desc:'Alchemic Chamber production ×2'},
+  // Rift Engine (b_portal, base 92400000)
+  {id:'bu_r1',bld:'b_portal',   icon:'🌀',name:'Rift Upgrade I',        sk:'buR1', need:1,  cost:924000000,  desc:'Rift Engine production ×2'},
+  {id:'bu_r2',bld:'b_portal',   icon:'🌀',name:'Rift Upgrade II',       sk:'buR2', need:5,  cost:9240000000, desc:'Rift Engine production ×2'},
+  {id:'bu_r3',bld:'b_portal',   icon:'🌀',name:'Rift Upgrade III',      sk:'buR3', need:25, cost:9.24e10,    desc:'Rift Engine production ×2'},
+  {id:'bu_r4',bld:'b_portal',   icon:'🌀',name:'Rift Upgrade IV',       sk:'buR4', need:50, cost:9.24e11,    desc:'Rift Engine production ×2'},
+  // Orbital Platform (b_station, base 462000000)
+  {id:'bu_p1',bld:'b_station',  icon:'🛸',name:'Platform Upgrade I',    sk:'buP1', need:1,  cost:4620000000, desc:'Orbital Platform production ×2'},
+  {id:'bu_p2',bld:'b_station',  icon:'🛸',name:'Platform Upgrade II',   sk:'buP2', need:5,  cost:4.62e10,    desc:'Orbital Platform production ×2'},
+  {id:'bu_p3',bld:'b_station',  icon:'🛸',name:'Platform Upgrade III',  sk:'buP3', need:25, cost:4.62e11,    desc:'Orbital Platform production ×2'},
+  {id:'bu_p4',bld:'b_station',  icon:'🛸',name:'Platform Upgrade IV',   sk:'buP4', need:50, cost:4.62e12,    desc:'Orbital Platform production ×2'},
+  // Void Cradle (b_dimension, base 2640000000)
+  {id:'bu_d1',bld:'b_dimension',icon:'🌌',name:'Cradle Upgrade I',      sk:'buD1', need:1,  cost:2.64e10,    desc:'Void Cradle production ×2'},
+  {id:'bu_d2',bld:'b_dimension',icon:'🌌',name:'Cradle Upgrade II',     sk:'buD2', need:5,  cost:2.64e11,    desc:'Void Cradle production ×2'},
+  {id:'bu_d3',bld:'b_dimension',icon:'🌌',name:'Cradle Upgrade III',    sk:'buD3', need:25, cost:2.64e12,    desc:'Void Cradle production ×2'},
+  {id:'bu_d4',bld:'b_dimension',icon:'🌌',name:'Cradle Upgrade IV',     sk:'buD4', need:50, cost:2.64e13,    desc:'Void Cradle production ×2'},
+  // Antimatter Core (b_antimatter, base 15840000000)
+  {id:'bu_a1',bld:'b_antimatter',icon:'⚛️',name:'Core Upgrade I',       sk:'buA1', need:1,  cost:1.584e11,   desc:'Antimatter Core production ×2'},
+  {id:'bu_a2',bld:'b_antimatter',icon:'⚛️',name:'Core Upgrade II',      sk:'buA2', need:5,  cost:1.584e12,   desc:'Antimatter Core production ×2'},
+  {id:'bu_a3',bld:'b_antimatter',icon:'⚛️',name:'Core Upgrade III',     sk:'buA3', need:25, cost:1.584e13,   desc:'Antimatter Core production ×2'},
+  {id:'bu_a4',bld:'b_antimatter',icon:'⚛️',name:'Core Upgrade IV',      sk:'buA4', need:50, cost:1.584e14,   desc:'Antimatter Core production ×2'},
+  // Prism Array (b_prism, base 92400000000)
+  {id:'bu_pr1',bld:'b_prism',   icon:'💎',name:'Prism Upgrade I',       sk:'buPr1',need:1,  cost:9.24e11,    desc:'Prism Array production ×2'},
+  {id:'bu_pr2',bld:'b_prism',   icon:'💎',name:'Prism Upgrade II',      sk:'buPr2',need:5,  cost:9.24e12,    desc:'Prism Array production ×2'},
+  {id:'bu_pr3',bld:'b_prism',   icon:'💎',name:'Prism Upgrade III',     sk:'buPr3',need:25, cost:9.24e13,    desc:'Prism Array production ×2'},
+  {id:'bu_pr4',bld:'b_prism',   icon:'💎',name:'Prism Upgrade IV',      sk:'buPr4',need:50, cost:9.24e14,    desc:'Prism Array production ×2'},
+  // Infinite Loop (b_infinity, base 660000000000)
+  {id:'bu_i1',bld:'b_infinity', icon:'♾️',name:'Loop Upgrade I',        sk:'buI1', need:1,  cost:6.6e12,     desc:'Infinite Loop production ×2'},
+  {id:'bu_i2',bld:'b_infinity', icon:'♾️',name:'Loop Upgrade II',       sk:'buI2', need:5,  cost:6.6e13,     desc:'Infinite Loop production ×2'},
+  {id:'bu_i3',bld:'b_infinity', icon:'♾️',name:'Loop Upgrade III',      sk:'buI3', need:25, cost:6.6e14,     desc:'Infinite Loop production ×2'},
+  {id:'bu_i4',bld:'b_infinity', icon:'♾️',name:'Loop Upgrade IV',       sk:'buI4', need:50, cost:6.6e15,     desc:'Infinite Loop production ×2'},
+  // Nebula Forge (b_nebula, base 5280000000000)
+  {id:'bu_nb1',bld:'b_nebula',  icon:'🌠',name:'Nebula Upgrade I',      sk:'buNb1',need:1,  cost:5.28e13,    desc:'Nebula Forge production ×2'},
+  {id:'bu_nb2',bld:'b_nebula',  icon:'🌠',name:'Nebula Upgrade II',     sk:'buNb2',need:5,  cost:5.28e14,    desc:'Nebula Forge production ×2'},
+  {id:'bu_nb3',bld:'b_nebula',  icon:'🌠',name:'Nebula Upgrade III',    sk:'buNb3',need:25, cost:5.28e15,    desc:'Nebula Forge production ×2'},
+  {id:'bu_nb4',bld:'b_nebula',  icon:'🌠',name:'Nebula Upgrade IV',     sk:'buNb4',need:50, cost:5.28e16,    desc:'Nebula Forge production ×2'},
+  // Quasar Tap (b_quasar, base 39600000000000)
+  {id:'bu_q1',bld:'b_quasar',   icon:'🔆',name:'Quasar Upgrade I',      sk:'buQ1', need:1,  cost:3.96e14,    desc:'Quasar Tap production ×2'},
+  {id:'bu_q2',bld:'b_quasar',   icon:'🔆',name:'Quasar Upgrade II',     sk:'buQ2', need:5,  cost:3.96e15,    desc:'Quasar Tap production ×2'},
+  {id:'bu_q3',bld:'b_quasar',   icon:'🔆',name:'Quasar Upgrade III',    sk:'buQ3', need:25, cost:3.96e16,    desc:'Quasar Tap production ×2'},
+  {id:'bu_q4',bld:'b_quasar',   icon:'🔆',name:'Quasar Upgrade IV',     sk:'buQ4', need:50, cost:3.96e17,    desc:'Quasar Tap production ×2'},
+  // Singularity Well (b_singularity, base 396000000000000)
+  {id:'bu_sg1',bld:'b_singularity',icon:'🕳️',name:'Well Upgrade I',    sk:'buSg1',need:1,  cost:3.96e15,    desc:'Singularity Well production ×2'},
+  {id:'bu_sg2',bld:'b_singularity',icon:'🕳️',name:'Well Upgrade II',   sk:'buSg2',need:5,  cost:3.96e16,    desc:'Singularity Well production ×2'},
+  {id:'bu_sg3',bld:'b_singularity',icon:'🕳️',name:'Well Upgrade III',  sk:'buSg3',need:25, cost:3.96e17,    desc:'Singularity Well production ×2'},
+  {id:'bu_sg4',bld:'b_singularity',icon:'🕳️',name:'Well Upgrade IV',   sk:'buSg4',need:50, cost:3.96e18,    desc:'Singularity Well production ×2'},
+  // Multiverse Shard (b_multiverse, base 3960000000000000)
+  {id:'bu_mv1',bld:'b_multiverse',icon:'🌐',name:'Shard Upgrade I',     sk:'buMv1',need:1,  cost:3.96e16,    desc:'Multiverse Shard production ×2'},
+  {id:'bu_mv2',bld:'b_multiverse',icon:'🌐',name:'Shard Upgrade II',    sk:'buMv2',need:5,  cost:3.96e17,    desc:'Multiverse Shard production ×2'},
+  {id:'bu_mv3',bld:'b_multiverse',icon:'🌐',name:'Shard Upgrade III',   sk:'buMv3',need:25, cost:3.96e18,    desc:'Multiverse Shard production ×2'},
+  {id:'bu_mv4',bld:'b_multiverse',icon:'🌐',name:'Shard Upgrade IV',    sk:'buMv4',need:50, cost:3.96e19,    desc:'Multiverse Shard production ×2'},
+  // The Omniforge (b_omnibake, base 39600000000000000)
+  {id:'bu_om1',bld:'b_omnibake', icon:'✨',name:'Omni Upgrade I',       sk:'buOm1',need:1,  cost:3.96e17,    desc:'The Omniforge production ×2'},
+  {id:'bu_om2',bld:'b_omnibake', icon:'✨',name:'Omni Upgrade II',      sk:'buOm2',need:5,  cost:3.96e18,    desc:'The Omniforge production ×2'},
+  {id:'bu_om3',bld:'b_omnibake', icon:'✨',name:'Omni Upgrade III',     sk:'buOm3',need:25, cost:3.96e19,    desc:'The Omniforge production ×2'},
+  {id:'bu_om4',bld:'b_omnibake', icon:'✨',name:'Omni Upgrade IV',      sk:'buOm4',need:50, cost:3.96e20,    desc:'The Omniforge production ×2'},
+  // Temporal Kiln (b_temporal, base 3.96e17)
+  {id:'bu_tk1',bld:'b_temporal', icon:'⏳',name:'Kiln Upgrade I',        sk:'buTk1',need:1,  cost:3.96e18,    desc:'Temporal Kiln production ×2'},
+  {id:'bu_tk2',bld:'b_temporal', icon:'⏳',name:'Kiln Upgrade II',       sk:'buTk2',need:5,  cost:3.96e19,    desc:'Temporal Kiln production ×2'},
+  {id:'bu_tk3',bld:'b_temporal', icon:'⏳',name:'Kiln Upgrade III',      sk:'buTk3',need:25, cost:3.96e20,    desc:'Temporal Kiln production ×2'},
+  {id:'bu_tk4',bld:'b_temporal', icon:'⏳',name:'Kiln Upgrade IV',       sk:'buTk4',need:50, cost:3.96e21,    desc:'Temporal Kiln production ×2'},
+  // Eternal Core (b_eternal, base 3.96e18)
+  {id:'bu_ec1',bld:'b_eternal',  icon:'🔮',name:'Core Upgrade I',        sk:'buEc1',need:1,  cost:3.96e19,    desc:'Eternal Core production ×2'},
+  {id:'bu_ec2',bld:'b_eternal',  icon:'🔮',name:'Core Upgrade II',       sk:'buEc2',need:5,  cost:3.96e20,    desc:'Eternal Core production ×2'},
+  {id:'bu_ec3',bld:'b_eternal',  icon:'🔮',name:'Core Upgrade III',      sk:'buEc3',need:25, cost:3.96e21,    desc:'Eternal Core production ×2'},
+  {id:'bu_ec4',bld:'b_eternal',  icon:'🔮',name:'Core Upgrade IV',       sk:'buEc4',need:50, cost:3.96e22,    desc:'Eternal Core production ×2'},
+];
+function getBldgShopMult(bldId){let m=1;BLDG_UPGS.filter(u=>u.bld===bldId&&S[u.sk]).forEach(()=>m*=2);return m;}
+function buyBldgUpg(id){const u=BLDG_UPGS.find(x=>x.id===id);if(!u||S[u.sk])return;if(S.bread<u.cost){showNotif('Not enough bread!');return}S.bread-=u.cost;S[u.sk]=true;sfx('buy');showNotif(`${u.icon} ${u.name}!`);checkAch();buildShop();updateUI();saveGame();}
+
 // v1.3: inter-tier synergy — each building type boosts next tier +0.5% per owned (cap 100%)
 function bBpsWithSynergy(b){
   const idx=BLDG.findIndex(x=>x.id===b.id);
@@ -1770,7 +2206,7 @@ function bBpsWithSynergy(b){
     if(S.millMomentumDone) clickMult*=(1+Math.min(1,bCount('b_mill')*0.05));
     if(S.singularityTapDone) clickMult*=3;
   }
-  return b.bps*bCount(b.id)*(1+prevBoost)*fgMult*clickMult*prestigeMult;
+  return b.bps*bCount(b.id)*(1+prevBoost)*fgMult*clickMult*prestigeMult*getBldgShopMult(b.id);
 }
 const _totalBpsOrig=totalBps;
 function totalBps(){
@@ -1814,7 +2250,7 @@ function buyBldg(id){
   let totalCost=0;
   for(let i=0;i<qty;i++){
     let discount=1;if(S.sw_foundationStone)discount*=0.90;
-    totalCost+=Math.ceil(b.price*Math.pow(1.22,bCount(b.id)+i)*discount);
+    totalCost+=Math.ceil(b.price*Math.pow(1.23,bCount(b.id)+i)*discount);
   }
   if(S.bread<totalCost)return;
   S.bread-=totalCost;
@@ -1870,85 +2306,85 @@ function buildOreGrid(){
 const SHOP=[
   {section:'🔨 Crafting',items:[]},
   {section:'⭐ Upgrades',items:[
-    {id:'cakemix',icon:'🎂',name:'Good Bread I',desc:'+1 Bread base',sk:'cakeMixDone',act:()=>{S.bread-=100;S.baseBreadGain++;S.cakeMixDone=true},costs:[{l:'100',c:()=>S.bread>=100}],st:'buy'},
-    {id:'wheatf',icon:'🌾',name:'Good Bread II',desc:'+2 Bread base',sk:'wheatFieldsDone',act:()=>{S.bread-=300;S.baseBreadGain+=2;S.wheatFieldsDone=true},costs:[{l:'300',c:()=>S.bread>=300}],st:'buy'},
-    {id:'gloves',icon:'🧤',name:'Reinforced Grip',desc:'+1 ore/break',sk:'miningGlovesDone',act:()=>{S.bread-=400;S.ores.iron-=2;S.mineOreBonus++;S.miningGlovesDone=true},costs:[{l:'400',c:()=>S.bread>=400},{l:'2 Iron',c:()=>S.ores.iron>=2}],st:'buy'},
-    {id:'sour',icon:'🫙',name:'Good Bread III',desc:'+2 Bread base',sk:'sourdoughDone',act:()=>{S.bread-=500;S.baseBreadGain+=2;S.sourdoughDone=true},costs:[{l:'500',c:()=>S.bread>=500}],st:'buy'},
-    {id:'swift',icon:'⚡',name:'Loaf Tick I',desc:'Loaf tick 45s',sk:'swiftLoavesDone',act:()=>{S.bread-=600;S.loafTickMs=45000;S.swiftLoavesDone=true;startLoafTick()},costs:[{l:'600',c:()=>S.bread>=600}],st:'buy'},
-    {id:'yeast',icon:'🧫',name:'Fast Bake',desc:'Tick -0.05s',sk:'yeastBoostDone',act:()=>{S.bread-=750;S.breadTickMs=Math.max(TICK_MIN,S.breadTickMs-50);S.yeastBoostDone=true;startBreadTick()},costs:[{l:'750',c:()=>S.bread>=750}],st:'buy'},
-    {id:'mag',icon:'🧲',name:'Quick Ores',desc:'Ore -0.3s',sk:'oreMagnetDone',act:()=>{S.bread-=800;S.ores.iron-=2;S.oreTickMs=Math.max(500,S.oreTickMs-300);S.oreMagnetDone=true;startOreTick()},costs:[{l:'800',c:()=>S.bread>=800},{l:'2 Iron',c:()=>S.ores.iron>=2}],st:'buy'},
-    {id:'rush',icon:'💨',name:'Loaf Tick II',desc:'Loaf tick 40s',sk:'loafRushDone',act:()=>{S.bread-=1000;S.loafTickMs=40000;S.loafRushDone=true;startLoafTick()},costs:[{l:'1K',c:()=>S.bread>=1000}],st:'buy'},
-    {id:'dknead',icon:'👊',name:'Fast Bake II',desc:'Tick -0.03s',sk:'doubleKneadDone',act:()=>{S.bread-=1200;S.breadTickMs=Math.max(TICK_MIN,S.breadTickMs-30);S.doubleKneadDone=true;startBreadTick()},costs:[{l:'1.2K',c:()=>S.bread>=1200}],st:'buy'},
-    {id:'gratio',icon:'📐',name:'Powerloaf Increase',desc:'+3%/PL',sk:'goldenRatioDone',act:()=>{S.bread-=2000;S.ores.gold-=4;S.goldenRatioDone=true},costs:[{l:'2K',c:()=>S.bread>=2000},{l:'4 Gold',c:()=>S.ores.gold>=4}],st:'buy'},
-    {id:'ffury',icon:'🍺',name:'Great Bread I',desc:'+15% bread',sk:'fermentFuryDone',act:()=>{S.bread-=2800;S.ores.iron-=6;S.baseBreadGain+=Math.max(1,Math.floor(S.baseBreadGain*0.15));S.fermentFuryDone=true},costs:[{l:'2.8K',c:()=>S.bread>=2800},{l:'6 Iron',c:()=>S.ores.iron>=6}],st:'buy'},
-    {id:'crust',icon:'🛡️',name:'Efficient Mining',desc:'+2dmg +1ore',sk:'crustHardeningDone',act:()=>{S.bread-=3000;S.ores.rock-=15;S.ores.iron-=5;S.mineClickDmg+=2;S.mineOreBonus++;S.crustHardeningDone=true},costs:[{l:'3K',c:()=>S.bread>=3000},{l:'15 Rock',c:()=>S.ores.rock>=15},{l:'5 Iron',c:()=>S.ores.iron>=5}],st:'buy'},
-    {id:'ench',icon:'✨',name:'Great Bread II',desc:'+5%',sk:'enchantedBreadDone',act:()=>{S.bread-=3500;S.ores.jade-=2;S.ores.diamond-=1;S.enchantedBreadDone=true},costs:[{l:'3.5K',c:()=>S.bread>=3500},{l:'2 Jade',c:()=>S.ores.jade>=2},{l:'1 Dia',c:()=>S.ores.diamond>=1}],st:'buy'},
-    {id:'gluten',icon:'⚡',name:'Loaf N Bread',desc:'-0.05s +0.2%',sk:'glutenOverdriveDone',act:()=>{S.bread-=4500;S.ores.sapphire-=3;S.breadTickMs=Math.max(TICK_MIN,S.breadTickMs-50);S.glutenOverdriveDone=true;startBreadTick()},costs:[{l:'4.5K',c:()=>S.bread>=4500},{l:'3 Sapph',c:()=>S.ores.sapphire>=3}],st:'buy'},
-    {id:'therm',icon:'🌡️',name:'Swift Bakery Work',desc:'Loaf-20% Ore-15%',sk:'thermalExpansionDone',act:()=>{S.bread-=6000;S.ores.gold-=8;S.ores.diamond-=2;S.loafTickMs=Math.max(LOAF_MIN,Math.floor(S.loafTickMs*0.8));S.oreTickMs=Math.max(ORE_MIN,Math.floor(S.oreTickMs*0.85));S.thermalExpansionDone=true;startLoafTick();startOreTick()},costs:[{l:'6K',c:()=>S.bread>=6000},{l:'8 Gold',c:()=>S.ores.gold>=8},{l:'2 Dia',c:()=>S.ores.diamond>=2}],st:'buy'},
-    {id:'yield',icon:'📈',name:'Bread Output',desc:'+8%',sk:'yieldMultiplyDone',act:()=>{S.bread-=8000;S.ores.jade-=4;S.yieldMultiplyDone=true},costs:[{l:'8K',c:()=>S.bread>=8000},{l:'4 Jade',c:()=>S.ores.jade>=4}],st:'buy'},
-    {id:'comp',icon:'🧬',name:'Advanced Baking',desc:'+2%/upgrade',sk:'compoundRiseDone',act:()=>{S.bread-=12000;S.ores.sapphire-=6;S.ores.jade-=5;S.compoundRiseDone=true},costs:[{l:'12K',c:()=>S.bread>=12000},{l:'6 Sapph',c:()=>S.ores.sapphire>=6},{l:'5 Jade',c:()=>S.ores.jade>=5}],st:'buy'},
-    {id:'agrain',icon:'🌿',name:'Good Bread Output!',desc:'+12% bread',sk:'ancientGrainDone',act:()=>{S.bread-=20000;S.ores.jade-=6;S.ancientGrainDone=true},costs:[{l:'20K',c:()=>S.bread>=20000},{l:'6 Jade',c:()=>S.ores.jade>=6}],st:'buy'},
-    {id:'prism',icon:'🔷',name:'Bread Conversion',desc:'+0.0001% per BpS',sk:'prismBakeDone',act:()=>{S.bread-=50000;S.ores.diamond-=8;S.prismBakeDone=true},costs:[{l:'50K',c:()=>S.bread>=50000},{l:'8 Dia',c:()=>S.ores.diamond>=8}],st:'buy'},
-    {id:'vein',icon:'💎',name:'Ore Yield',desc:'15% double ore drop',sk:'veinTapDone',act:()=>{S.bread-=35000;S.ores.ruby-=3;S.veinTapDone=true},costs:[{l:'35K',c:()=>S.bread>=35000},{l:'3 Ruby',c:()=>S.ores.ruby>=3}],st:'buy'},
-    {id:'lsurge',icon:'🌊',name:'Loaf Tick III',desc:'Loaf tick -15%',sk:'loafSurgeDone',act:()=>{S.bread-=40000;S.loafTickMs=Math.max(LOAF_MIN,Math.floor(S.loafTickMs*0.85));S.loafSurgeDone=true;startLoafTick()},costs:[{l:'40K',c:()=>S.bread>=40000}],st:'buy'},
-    {id:'cecho',icon:'🔊',name:'Strong Finger',desc:'Clicks +25%',sk:'crustEchoDone',act:()=>{S.bread-=30000;S.ores.sapphire-=4;S.crustEchoDone=true},costs:[{l:'30K',c:()=>S.bread>=30000},{l:'4 Sapph',c:()=>S.ores.sapphire>=4}],st:'buy'},
-    {id:'dferm',icon:'🍷',name:'Great Bread Output',desc:'+18% bread',sk:'deepFermentDone',act:()=>{S.bread-=75000;S.ores.jade-=8;S.ores.ruby-=2;S.deepFermentDone=true},costs:[{l:'75K',c:()=>S.bread>=75000},{l:'8 Jade',c:()=>S.ores.jade>=8},{l:'2 Ruby',c:()=>S.ores.ruby>=2}],st:'buy'},
-    {id:'oamp',icon:'⛏️',name:'Quicker Ores',desc:'Ore tick -30%',sk:'oreAmplifyDone',act:()=>{S.oreAmplifyDone=true;S.bread-=60000;startOreTick()},costs:[{l:'60K',c:()=>S.bread>=60000}],st:'buy'},
-    {id:'bnova',icon:'💥',name:'Too Much Bread',desc:'+25% bread',sk:'breadNovaDone',act:()=>{S.bread-=150000;S.ores.jewel-=1;S.breadNovaDone=true},costs:[{l:'150K',c:()=>S.bread>=150000},{l:'1 Jewel',c:()=>S.ores.jewel>=1}],st:'buy'},
-    {id:'rlink',icon:'🔗',name:'Building Resonance',desc:'+0.1%/building',sk:'resonanceLinkDone',act:()=>{S.bread-=200000;S.ores.diamond-=10;S.resonanceLinkDone=true},costs:[{l:'200K',c:()=>S.bread>=200000},{l:'10 Dia',c:()=>S.ores.diamond>=10}],st:'buy'},
-    {id:'hmoon',icon:'🌙',name:'Edible Plantstry',desc:'3× plant bonus',sk:'harvestMoonDone',act:()=>{S.bread-=300000;S.ores.jade-=10;S.harvestMoonDone=true},costs:[{l:'300K',c:()=>S.bread>=300000},{l:'10 Jade',c:()=>S.ores.jade>=10}],st:'buy'},
-    {id:'toven',icon:'🏔️',name:'Greaaaat Bread Output',desc:'+30% bread',sk:'titansOvenDone',act:()=>{S.bread-=500000;S.ores.ruby-=5;S.ores.jewel-=2;S.titansOvenDone=true},costs:[{l:'500K',c:()=>S.bread>=500000},{l:'5 Ruby',c:()=>S.ores.ruby>=5},{l:'2 Jewel',c:()=>S.ores.jewel>=2}],st:'buy'},
-    {id:'iyeast',icon:'♾️',name:'The Bread Engine',desc:'Tick -0.08s',sk:'infiniteYeastDone',act:()=>{S.bread-=300000;S.breadTickMs=Math.max(TICK_MIN,S.breadTickMs-80);S.infiniteYeastDone=true;startBreadTick()},costs:[{l:'300K',c:()=>S.bread>=300000}],st:'buy'},
-    {id:'bstorm',icon:'⛈️',name:'Powerloaf Increase I',desc:'+5%/PL bread',sk:'breadStormDone',act:()=>{S.bread-=1000000;S.ores.jewel-=3;S.breadStormDone=true},costs:[{l:'1M',c:()=>S.bread>=1000000},{l:'3 Jewel',c:()=>S.ores.jewel>=3}],st:'buy'},
-    {id:'ccrust',icon:'🌌',name:'Amazing Bread Output',desc:'+50% bread',sk:'cosmicCrustDone',act:()=>{S.bread-=5000000;S.ores.jewel-=5;S.ores.ruby-=10;S.cosmicCrustDone=true},costs:[{l:'5M',c:()=>S.bread>=5000000},{l:'5 Jewel',c:()=>S.ores.jewel>=5},{l:'10 Ruby',c:()=>S.ores.ruby>=10}],st:'buy'},
+    {id:'cakemix',icon:'🎂',name:'Good Bread I',desc:'+1 Bread base',sk:'cakeMixDone',act:()=>{S.bread-=132;S.baseBreadGain++;S.cakeMixDone=true},costs:[{l:'132',c:()=>S.bread>=132}],st:'buy'},
+    {id:'wheatf',icon:'🌾',name:'Good Bread II',desc:'+2 Bread base',sk:'wheatFieldsDone',act:()=>{S.bread-=396;S.baseBreadGain+=2;S.wheatFieldsDone=true},costs:[{l:'396',c:()=>S.bread>=396}],st:'buy'},
+    {id:'gloves',icon:'🧤',name:'Reinforced Grip',desc:'+1 ore/break',sk:'miningGlovesDone',act:()=>{S.bread-=528;S.ores.iron-=2;S.mineOreBonus++;S.miningGlovesDone=true},costs:[{l:'528',c:()=>S.bread>=528},{l:'2 Iron',c:()=>S.ores.iron>=2}],st:'buy'},
+    {id:'sour',icon:'🫙',name:'Good Bread III',desc:'+2 Bread base',sk:'sourdoughDone',act:()=>{S.bread-=660;S.baseBreadGain+=2;S.sourdoughDone=true},costs:[{l:'660',c:()=>S.bread>=660}],st:'buy'},
+    {id:'swift',icon:'⚡',name:'Loaf Tick I',desc:'Loaf tick 45s',sk:'swiftLoavesDone',act:()=>{S.bread-=792;S.loafTickMs=45000;S.swiftLoavesDone=true;startLoafTick()},costs:[{l:'792',c:()=>S.bread>=792}],st:'buy'},
+    {id:'yeast',icon:'🧫',name:'Fast Bake',desc:'Tick -0.05s',sk:'yeastBoostDone',act:()=>{S.bread-=990;S.breadTickMs=Math.max(TICK_MIN,S.breadTickMs-50);S.yeastBoostDone=true;startBreadTick()},costs:[{l:'990',c:()=>S.bread>=990}],st:'buy'},
+    {id:'mag',icon:'🧲',name:'Quick Ores',desc:'Ore -0.3s',sk:'oreMagnetDone',act:()=>{S.bread-=1056;S.ores.iron-=2;S.oreTickMs=Math.max(500,S.oreTickMs-300);S.oreMagnetDone=true;startOreTick()},costs:[{l:'1.06K',c:()=>S.bread>=1056},{l:'2 Iron',c:()=>S.ores.iron>=2}],st:'buy'},
+    {id:'rush',icon:'💨',name:'Loaf Tick II',desc:'Loaf tick 40s',sk:'loafRushDone',act:()=>{S.bread-=1320;S.loafTickMs=40000;S.loafRushDone=true;startLoafTick()},costs:[{l:'1.32K',c:()=>S.bread>=1320}],st:'buy'},
+    {id:'dknead',icon:'👊',name:'Fast Bake II',desc:'Tick -0.03s',sk:'doubleKneadDone',act:()=>{S.bread-=1584;S.breadTickMs=Math.max(TICK_MIN,S.breadTickMs-30);S.doubleKneadDone=true;startBreadTick()},costs:[{l:'1.58K',c:()=>S.bread>=1584}],st:'buy'},
+    {id:'gratio',icon:'📐',name:'Powerloaf Increase',desc:'+3%/PL',sk:'goldenRatioDone',act:()=>{S.bread-=2640;S.ores.gold-=4;S.goldenRatioDone=true},costs:[{l:'2.64K',c:()=>S.bread>=2640},{l:'4 Gold',c:()=>S.ores.gold>=4}],st:'buy'},
+    {id:'ffury',icon:'🍺',name:'Great Bread I',desc:'+15% bread',sk:'fermentFuryDone',act:()=>{S.bread-=3740;S.ores.iron-=6;S.baseBreadGain+=Math.max(1,Math.floor(S.baseBreadGain*0.15));S.fermentFuryDone=true},costs:[{l:'3.74K',c:()=>S.bread>=3740},{l:'6 Iron',c:()=>S.ores.iron>=6}],st:'buy'},
+    {id:'crust',icon:'🛡️',name:'Efficient Mining',desc:'+2dmg +1ore',sk:'crustHardeningDone',act:()=>{S.bread-=3960;S.ores.rock-=15;S.ores.iron-=5;S.mineClickDmg+=2;S.mineOreBonus++;S.crustHardeningDone=true},costs:[{l:'3.96K',c:()=>S.bread>=3960},{l:'15 Rock',c:()=>S.ores.rock>=15},{l:'5 Iron',c:()=>S.ores.iron>=5}],st:'buy'},
+    {id:'ench',icon:'✨',name:'Great Bread II',desc:'+5%',sk:'enchantedBreadDone',act:()=>{S.bread-=4620;S.ores.jade-=2;S.ores.diamond-=1;S.enchantedBreadDone=true},costs:[{l:'4.62K',c:()=>S.bread>=4620},{l:'2 Jade',c:()=>S.ores.jade>=2},{l:'1 Dia',c:()=>S.ores.diamond>=1}],st:'buy'},
+    {id:'gluten',icon:'⚡',name:'Loaf N Bread',desc:'-0.05s +0.2%',sk:'glutenOverdriveDone',act:()=>{S.bread-=5940;S.ores.sapphire-=3;S.breadTickMs=Math.max(TICK_MIN,S.breadTickMs-50);S.glutenOverdriveDone=true;startBreadTick()},costs:[{l:'5.94K',c:()=>S.bread>=5940},{l:'3 Sapph',c:()=>S.ores.sapphire>=3}],st:'buy'},
+    {id:'therm',icon:'🌡️',name:'Swift Bakery Work',desc:'Loaf-20% Ore-15%',sk:'thermalExpansionDone',act:()=>{S.bread-=7920;S.ores.gold-=8;S.ores.diamond-=2;S.loafTickMs=Math.max(LOAF_MIN,Math.floor(S.loafTickMs*0.8));S.oreTickMs=Math.max(ORE_MIN,Math.floor(S.oreTickMs*0.85));S.thermalExpansionDone=true;startLoafTick();startOreTick()},costs:[{l:'7.92K',c:()=>S.bread>=7920},{l:'8 Gold',c:()=>S.ores.gold>=8},{l:'2 Dia',c:()=>S.ores.diamond>=2}],st:'buy'},
+    {id:'yield',icon:'📈',name:'Bread Output',desc:'+8%',sk:'yieldMultiplyDone',act:()=>{S.bread-=10560;S.ores.jade-=4;S.yieldMultiplyDone=true},costs:[{l:'10.6K',c:()=>S.bread>=10560},{l:'4 Jade',c:()=>S.ores.jade>=4}],st:'buy'},
+    {id:'comp',icon:'🧬',name:'Advanced Baking',desc:'+2%/upgrade',sk:'compoundRiseDone',act:()=>{S.bread-=15840;S.ores.sapphire-=6;S.ores.jade-=5;S.compoundRiseDone=true},costs:[{l:'15.8K',c:()=>S.bread>=15840},{l:'6 Sapph',c:()=>S.ores.sapphire>=6},{l:'5 Jade',c:()=>S.ores.jade>=5}],st:'buy'},
+    {id:'agrain',icon:'🌿',name:'Good Bread Output!',desc:'+12% bread',sk:'ancientGrainDone',act:()=>{S.bread-=26400;S.ores.jade-=6;S.ancientGrainDone=true},costs:[{l:'26.4K',c:()=>S.bread>=26400},{l:'6 Jade',c:()=>S.ores.jade>=6}],st:'buy'},
+    {id:'prism',icon:'🔷',name:'Bread Conversion',desc:'+0.0001% per BpS',sk:'prismBakeDone',act:()=>{S.bread-=66000;S.ores.diamond-=8;S.prismBakeDone=true},costs:[{l:'66K',c:()=>S.bread>=66000},{l:'8 Dia',c:()=>S.ores.diamond>=8}],st:'buy'},
+    {id:'vein',icon:'💎',name:'Ore Yield',desc:'15% double ore drop',sk:'veinTapDone',act:()=>{S.bread-=46200;S.ores.ruby-=3;S.veinTapDone=true},costs:[{l:'46.2K',c:()=>S.bread>=46200},{l:'3 Ruby',c:()=>S.ores.ruby>=3}],st:'buy'},
+    {id:'lsurge',icon:'🌊',name:'Loaf Tick III',desc:'Loaf tick -15%',sk:'loafSurgeDone',act:()=>{S.bread-=52800;S.loafTickMs=Math.max(LOAF_MIN,Math.floor(S.loafTickMs*0.85));S.loafSurgeDone=true;startLoafTick()},costs:[{l:'52.8K',c:()=>S.bread>=52800}],st:'buy'},
+    {id:'cecho',icon:'🔊',name:'Strong Finger',desc:'Clicks +25%',sk:'crustEchoDone',act:()=>{S.bread-=39600;S.ores.sapphire-=4;S.crustEchoDone=true},costs:[{l:'39.6K',c:()=>S.bread>=39600},{l:'4 Sapph',c:()=>S.ores.sapphire>=4}],st:'buy'},
+    {id:'dferm',icon:'🍷',name:'Great Bread Output',desc:'+18% bread',sk:'deepFermentDone',act:()=>{S.bread-=99000;S.ores.jade-=8;S.ores.ruby-=2;S.deepFermentDone=true},costs:[{l:'99K',c:()=>S.bread>=99000},{l:'8 Jade',c:()=>S.ores.jade>=8},{l:'2 Ruby',c:()=>S.ores.ruby>=2}],st:'buy'},
+    {id:'oamp',icon:'⛏️',name:'Quicker Ores',desc:'Ore tick -30%',sk:'oreAmplifyDone',act:()=>{S.oreAmplifyDone=true;S.bread-=79200;startOreTick()},costs:[{l:'79.2K',c:()=>S.bread>=79200}],st:'buy'},
+    {id:'bnova',icon:'💥',name:'Too Much Bread',desc:'+25% bread',sk:'breadNovaDone',act:()=>{S.bread-=198000;S.ores.jewel-=1;S.breadNovaDone=true},costs:[{l:'198K',c:()=>S.bread>=198000},{l:'1 Jewel',c:()=>S.ores.jewel>=1}],st:'buy'},
+    {id:'rlink',icon:'🔗',name:'Building Resonance',desc:'+0.1%/building',sk:'resonanceLinkDone',act:()=>{S.bread-=264000;S.ores.diamond-=10;S.resonanceLinkDone=true},costs:[{l:'264K',c:()=>S.bread>=264000},{l:'10 Dia',c:()=>S.ores.diamond>=10}],st:'buy'},
+    {id:'hmoon',icon:'🌙',name:'Edible Plantstry',desc:'3× plant bonus',sk:'harvestMoonDone',act:()=>{S.bread-=396000;S.ores.jade-=10;S.harvestMoonDone=true},costs:[{l:'396K',c:()=>S.bread>=396000},{l:'10 Jade',c:()=>S.ores.jade>=10}],st:'buy'},
+    {id:'toven',icon:'🏔️',name:'Greaaaat Bread Output',desc:'+30% bread',sk:'titansOvenDone',act:()=>{S.bread-=660000;S.ores.ruby-=5;S.ores.jewel-=2;S.titansOvenDone=true},costs:[{l:'660K',c:()=>S.bread>=660000},{l:'5 Ruby',c:()=>S.ores.ruby>=5},{l:'2 Jewel',c:()=>S.ores.jewel>=2}],st:'buy'},
+    {id:'iyeast',icon:'♾️',name:'The Bread Engine',desc:'Tick -0.08s',sk:'infiniteYeastDone',act:()=>{S.bread-=396000;S.breadTickMs=Math.max(TICK_MIN,S.breadTickMs-80);S.infiniteYeastDone=true;startBreadTick()},costs:[{l:'396K',c:()=>S.bread>=396000}],st:'buy'},
+    {id:'bstorm',icon:'⛈️',name:'Powerloaf Increase I',desc:'+5%/PL bread',sk:'breadStormDone',act:()=>{S.bread-=1320000;S.ores.jewel-=3;S.breadStormDone=true},costs:[{l:'1.32M',c:()=>S.bread>=1320000},{l:'3 Jewel',c:()=>S.ores.jewel>=3}],st:'buy'},
+    {id:'ccrust',icon:'🌌',name:'Amazing Bread Output',desc:'+50% bread',sk:'cosmicCrustDone',act:()=>{S.bread-=6600000;S.ores.jewel-=5;S.ores.ruby-=10;S.cosmicCrustDone=true},costs:[{l:'6.6M',c:()=>S.bread>=6600000},{l:'5 Jewel',c:()=>S.ores.jewel>=5},{l:'10 Ruby',c:()=>S.ores.ruby>=10}],st:'buy'},
     // ── GRAND FURNACE CHAIN ──
-    {id:'furnace1',icon:'🔥',name:'Furnace Ignition',desc:'+25% bread gain',sk:'furnaceIgnitionDone',act:()=>{S.bread-=250000;S.breadfuel=Math.max(0,(S.breadfuel||0)-300);S.furnaceIgnitionDone=true},costs:[{l:'250K',c:()=>S.bread>=250000},{l:'300 BF',c:()=>(S.breadfuel||0)>=300},{l:'Drilling',c:()=>S.drillingUnlocked}],st:'buy'},
-    {id:'furnace2',icon:'🌋',name:'Thermal Recipe',desc:'Loaf tick −6%',sk:'thermalRecipeDone',act:()=>{S.bread-=550000;S.breadfuel=Math.max(0,(S.breadfuel||0)-700);S.loafTickMs=Math.max(LOAF_MIN,Math.floor(S.loafTickMs*0.94));S.thermalRecipeDone=true;startLoafTick()},costs:[{l:'550K',c:()=>S.bread>=550000},{l:'700 BF',c:()=>(S.breadfuel||0)>=700},{l:'Furnace Ignition',c:()=>S.furnaceIgnitionDone}],st:'buy'},
-    {id:'furnace3',icon:'⚗️',name:'Infernal Mix',desc:'+45% bread gain',sk:'infernalMixDone',act:()=>{S.bread-=1300000;S.breadfuel=Math.max(0,(S.breadfuel||0)-1500);S.infernalMixDone=true},costs:[{l:'1.3M',c:()=>S.bread>=1300000},{l:'1.5K BF',c:()=>(S.breadfuel||0)>=1500},{l:'Thermal Recipe',c:()=>S.thermalRecipeDone}],st:'buy'},
-    {id:'furnace4',icon:'💥',name:'Core Meltdown',desc:'Frenzy: ×2 bread (was ×1.5)',sk:'coreMeltdownDone',act:()=>{S.bread-=2800000;S.breadfuel=Math.max(0,(S.breadfuel||0)-3000);S.coreMeltdownDone=true},costs:[{l:'2.8M',c:()=>S.bread>=2800000},{l:'3K BF',c:()=>(S.breadfuel||0)>=3000},{l:'Infernal Mix',c:()=>S.infernalMixDone}],st:'buy'},
-    {id:'furnace5',icon:'✨',name:'Furnace Ascension',desc:'+0.2% per 1K BF stored (cap +25%)',sk:'furnaceAscensionDone',act:()=>{S.bread-=6500000;S.breadfuel=Math.max(0,(S.breadfuel||0)-6000);S.furnaceAscensionDone=true},costs:[{l:'6.5M',c:()=>S.bread>=6500000},{l:'6K BF',c:()=>(S.breadfuel||0)>=6000},{l:'Core Meltdown',c:()=>S.coreMeltdownDone}],st:'buy'},
+    {id:'furnace1',icon:'🔥',name:'Furnace Ignition',desc:'+25% bread gain',sk:'furnaceIgnitionDone',act:()=>{S.bread-=300000;S.breadfuel=Math.max(0,(S.breadfuel||0)-300);S.furnaceIgnitionDone=true},costs:[{l:'300K',c:()=>S.bread>=300000},{l:'300 BF',c:()=>(S.breadfuel||0)>=300},{l:'Drilling',c:()=>S.drillingUnlocked}],st:'buy'},
+    {id:'furnace2',icon:'🌋',name:'Thermal Recipe',desc:'Loaf tick −6%',sk:'thermalRecipeDone',act:()=>{S.bread-=660000;S.breadfuel=Math.max(0,(S.breadfuel||0)-700);S.loafTickMs=Math.max(LOAF_MIN,Math.floor(S.loafTickMs*0.94));S.thermalRecipeDone=true;startLoafTick()},costs:[{l:'660K',c:()=>S.bread>=660000},{l:'700 BF',c:()=>(S.breadfuel||0)>=700},{l:'Furnace Ignition',c:()=>S.furnaceIgnitionDone}],st:'buy'},
+    {id:'furnace3',icon:'⚗️',name:'Infernal Mix',desc:'+45% bread gain',sk:'infernalMixDone',act:()=>{S.bread-=1560000;S.breadfuel=Math.max(0,(S.breadfuel||0)-1500);S.infernalMixDone=true},costs:[{l:'1.56M',c:()=>S.bread>=1560000},{l:'1.5K BF',c:()=>(S.breadfuel||0)>=1500},{l:'Thermal Recipe',c:()=>S.thermalRecipeDone}],st:'buy'},
+    {id:'furnace4',icon:'💥',name:'Core Meltdown',desc:'Frenzy: ×2 bread (was ×1.5)',sk:'coreMeltdownDone',act:()=>{S.bread-=3360000;S.breadfuel=Math.max(0,(S.breadfuel||0)-3000);S.coreMeltdownDone=true},costs:[{l:'3.36M',c:()=>S.bread>=3360000},{l:'3K BF',c:()=>(S.breadfuel||0)>=3000},{l:'Infernal Mix',c:()=>S.infernalMixDone}],st:'buy'},
+    {id:'furnace5',icon:'✨',name:'Furnace Ascension',desc:'+0.2% per 1K BF stored (cap +25%)',sk:'furnaceAscensionDone',act:()=>{S.bread-=7800000;S.breadfuel=Math.max(0,(S.breadfuel||0)-6000);S.furnaceAscensionDone=true},costs:[{l:'7.8M',c:()=>S.bread>=7800000},{l:'6K BF',c:()=>(S.breadfuel||0)>=6000},{l:'Core Meltdown',c:()=>S.coreMeltdownDone}],st:'buy'},
     // v1.4 Part 3 — click/cursor scaling
-    {id:'nimble',icon:'👆',name:'Stronger Cursors',desc:'Clicks +1%/Wandering Finger (cap +50%)',sk:'nimbleDigitsDone',act:()=>{S.bread-=5000;S.nimbleDigitsDone=true},costs:[{l:'10 Fingers',c:()=>bCount('b_cursor')>=10},{l:'5K bread',c:()=>S.bread>=5000}],st:'buy'},
-    {id:'hstrike',icon:'🏚️',name:'Warmth',desc:'Clicks +0.5%/Stone Hearth (cap +25%)',sk:'hearthStrikeDone',act:()=>{S.bread-=8000;S.hearthStrikeDone=true},costs:[{l:'5 Hearths',c:()=>bCount('b_oven')>=5},{l:'8K bread',c:()=>S.bread>=8000}],st:'buy'},
-    {id:'millmom',icon:'⚙️',name:'Supportive Mills',desc:'Wandering Finger BpS +5%/Iron Grinder (cap ×2)',sk:'millMomentumDone',act:()=>{S.bread-=20000;S.millMomentumDone=true},costs:[{l:'5 Grinders',c:()=>bCount('b_mill')>=5},{l:'20K bread',c:()=>S.bread>=20000}],st:'buy'},
-    {id:'trhythm',icon:'🏛️',name:'Harmonious',desc:'10% chance each click triggers a free bread tick',sk:'templeRhythmDone',act:()=>{S.bread-=80000;S.templeRhythmDone=true},costs:[{l:'3 Sanctums',c:()=>bCount('b_temple')>=3},{l:'80K bread',c:()=>S.bread>=80000}],st:'buy'},
-    {id:'cecho2',icon:'🧪',name:'Resonant Click',desc:'Clicks add 0.5% of total BpS (cap ×3 bread)',sk:'chamberEchoDone',act:()=>{S.bread-=300000;S.chamberEchoDone=true},costs:[{l:'3 Chambers',c:()=>bCount('b_lab')>=3},{l:'300K bread',c:()=>S.bread>=300000}],st:'buy'},
-    {id:'orstrike',icon:'🛸',name:'Frenzied Bake',desc:'Clicks deal ×2.5 during Frenzy instead of ×1.5',sk:'orbitalStrikeDone',act:()=>{S.bread-=2000000;S.orbitalStrikeDone=true},costs:[{l:'2 Platforms',c:()=>bCount('b_station')>=2},{l:'2M bread',c:()=>S.bread>=2000000}],st:'buy'},
-    {id:'singtap',icon:'🕳️',name:'The Production Click',desc:'Wandering Finger BpS ×3 · clicks count as 3 for combo',sk:'singularityTapDone',act:()=>{S.bread-=10000000000;S.singularityTapDone=true},costs:[{l:'1 Singularity',c:()=>bCount('b_singularity')>=1},{l:'10B bread',c:()=>S.bread>=10000000000}],st:'buy'},
-    {id:'tbake',icon:'🌅',name:'Ascendant Breadarts',desc:'+75% bread tick gain',sk:'transcendBakeDone',act:()=>{S.bread-=50000000;S.ores.jewel-=8;S.transcendBakeDone=true},costs:[{l:'50M',c:()=>S.bread>=50000000},{l:'8 Jewel',c:()=>S.ores.jewel>=8},{l:'Amazing Bread Output',c:()=>S.cosmicCrustDone}],st:'buy'},
-    {id:'dasc',icon:'🌊',name:'Ascendant Breadarts I',desc:'+150% bread tick gain',sk:'doughAscensionDone',act:()=>{S.bread-=500000000;S.ores.jewel-=15;S.doughAscensionDone=true},costs:[{l:'500M',c:()=>S.bread>=500000000},{l:'15 Jewel',c:()=>S.ores.jewel>=15},{l:'Ascendant Breadarts',c:()=>S.transcendBakeDone}],st:'buy'},
-    {id:'irise',icon:'♾️',name:'Building Resonance I',desc:'+0.5% bread per building owned',sk:'infiniteRiseDone',act:()=>{S.bread-=5000000000;S.ores.jewel-=25;S.infiniteRiseDone=true},costs:[{l:'5B',c:()=>S.bread>=5000000000},{l:'25 Jewel',c:()=>S.ores.jewel>=25},{l:'Ascendant Breadarts I',c:()=>S.doughAscensionDone}],st:'buy'},
+    {id:'nimble',icon:'👆',name:'Stronger Cursors',desc:'Clicks +1%/Wandering Finger (cap +50%)',sk:'nimbleDigitsDone',act:()=>{S.bread-=6000;S.nimbleDigitsDone=true},costs:[{l:'10 Fingers',c:()=>bCount('b_cursor')>=10},{l:'6K bread',c:()=>S.bread>=6000}],st:'buy'},
+    {id:'hstrike',icon:'🏚️',name:'Warmth',desc:'Clicks +0.5%/Stone Hearth (cap +25%)',sk:'hearthStrikeDone',act:()=>{S.bread-=9600;S.hearthStrikeDone=true},costs:[{l:'5 Hearths',c:()=>bCount('b_oven')>=5},{l:'9.6K bread',c:()=>S.bread>=9600}],st:'buy'},
+    {id:'millmom',icon:'⚙️',name:'Supportive Mills',desc:'Wandering Finger BpS +5%/Iron Grinder (cap ×2)',sk:'millMomentumDone',act:()=>{S.bread-=24000;S.millMomentumDone=true},costs:[{l:'5 Grinders',c:()=>bCount('b_mill')>=5},{l:'24K bread',c:()=>S.bread>=24000}],st:'buy'},
+    {id:'trhythm',icon:'🏛️',name:'Harmonious',desc:'10% chance each click triggers a free bread tick',sk:'templeRhythmDone',act:()=>{S.bread-=96000;S.templeRhythmDone=true},costs:[{l:'3 Sanctums',c:()=>bCount('b_temple')>=3},{l:'96K bread',c:()=>S.bread>=96000}],st:'buy'},
+    {id:'cecho2',icon:'🧪',name:'Resonant Click',desc:'Clicks add 0.5% of total BpS (cap ×3 bread)',sk:'chamberEchoDone',act:()=>{S.bread-=360000;S.chamberEchoDone=true},costs:[{l:'3 Chambers',c:()=>bCount('b_lab')>=3},{l:'360K bread',c:()=>S.bread>=360000}],st:'buy'},
+    {id:'orstrike',icon:'🛸',name:'Frenzied Bake',desc:'Clicks deal ×2.5 during Frenzy instead of ×1.5',sk:'orbitalStrikeDone',act:()=>{S.bread-=2400000;S.orbitalStrikeDone=true},costs:[{l:'2 Platforms',c:()=>bCount('b_station')>=2},{l:'2.4M bread',c:()=>S.bread>=2400000}],st:'buy'},
+    {id:'singtap',icon:'🕳️',name:'The Production Click',desc:'Wandering Finger BpS ×3 · clicks count as 3 for combo',sk:'singularityTapDone',act:()=>{S.bread-=12000000000;S.singularityTapDone=true},costs:[{l:'1 Singularity',c:()=>bCount('b_singularity')>=1},{l:'12B bread',c:()=>S.bread>=12000000000}],st:'buy'},
+    {id:'tbake',icon:'🌅',name:'Ascendant Breadarts',desc:'+75% bread tick gain',sk:'transcendBakeDone',act:()=>{S.bread-=60000000;S.ores.jewel-=8;S.transcendBakeDone=true},costs:[{l:'60M',c:()=>S.bread>=60000000},{l:'8 Jewel',c:()=>S.ores.jewel>=8},{l:'Amazing Bread Output',c:()=>S.cosmicCrustDone}],st:'buy'},
+    {id:'dasc',icon:'🌊',name:'Ascendant Breadarts I',desc:'+150% bread tick gain',sk:'doughAscensionDone',act:()=>{S.bread-=600000000;S.ores.jewel-=15;S.doughAscensionDone=true},costs:[{l:'600M',c:()=>S.bread>=600000000},{l:'15 Jewel',c:()=>S.ores.jewel>=15},{l:'Ascendant Breadarts',c:()=>S.transcendBakeDone}],st:'buy'},
+    {id:'irise',icon:'♾️',name:'Building Resonance I',desc:'+0.5% bread per building owned',sk:'infiniteRiseDone',act:()=>{S.bread-=6000000000;S.ores.jewel-=25;S.infiniteRiseDone=true},costs:[{l:'6B',c:()=>S.bread>=6000000000},{l:'25 Jewel',c:()=>S.ores.jewel>=25},{l:'Ascendant Breadarts I',c:()=>S.doughAscensionDone}],st:'buy'},
     // ── Prestige Echo (achievement scaling like CC's Milk) ──
-    {id:'pecho',icon:'🏆',name:'Prestigious, Renowned Bakery',desc:'Each 5 achievements = +0.05% bread gain',sk:'prestigeEchoDone',act:()=>{S.bread-=10000000;S.ores.jewel-=10;S.prestigeEchoDone=true},costs:[{l:'10M bread',c:()=>S.bread>=10000000},{l:'10 Jewel',c:()=>S.ores.jewel>=10},{l:'25 achievements',c:()=>Object.values(S.achievements).filter(Boolean).length>=25}],st:'buy'},
+    {id:'pecho',icon:'🏆',name:'Prestigious, Renowned Bakery',desc:'Each 5 achievements = +0.05% bread gain',sk:'prestigeEchoDone',act:()=>{S.bread-=12000000;S.ores.jewel-=10;S.prestigeEchoDone=true},costs:[{l:'12M bread',c:()=>S.bread>=12000000},{l:'10 Jewel',c:()=>S.ores.jewel>=10},{l:'25 achievements',c:()=>Object.values(S.achievements).filter(Boolean).length>=25}],st:'buy'},
   ]},
   {section:'🏔️ Persistent',items:[
-    {id:'ironPick',icon:'⛏️',name:'Iron Pickaxe',desc:'+1 mine click damage · survives rebake',sk:'ironPickaxeDone',per:true,act:()=>{S.bread-=400;S.ores.iron-=2;S.ironPickaxeDone=true;S.mineClickDmg+=1},costs:[{l:'400 bread',c:()=>S.bread>=400},{l:'2 Iron',c:()=>S.ores.iron>=2}],st:'craft'},
-    {id:'diamPick',icon:'💎',name:'Diamond Pickaxe',desc:'+2 mine click damage · survives rebake',sk:'diamondPickaxeDone',per:true,act:()=>{S.bread-=2000;S.ores.diamond-=3;S.diamondPickaxeDone=true;S.mineClickDmg+=2},costs:[{l:'Iron Pickaxe',c:()=>S.ironPickaxeDone},{l:'2K bread',c:()=>S.bread>=2000},{l:'3 Diamond',c:()=>S.ores.diamond>=3}],st:'craft'},
-    {id:'voidPick',icon:'🟣',name:'Void Pickaxe',desc:'+5 mine click damage · survives rebake',sk:'voidPickaxeDone',per:true,act:()=>{S.bread-=50000000;S.ores.void_shard-=5;S.voidPickaxeDone=true;S.mineClickDmg+=5},costs:[{l:'Diamond Pickaxe',c:()=>S.diamondPickaxeDone},{l:'Even Further Down',c:()=>S.evenFurtherDone},{l:'50M bread',c:()=>S.bread>=50000000},{l:'5 Void Shard',c:()=>(S.ores.void_shard||0)>=5}],st:'craft'},
-    {id:'stead',icon:'🏔️',name:'Ironclad Rhythm',desc:'PL scales loaf tick · tick -0.05s',sk:'steadfastOveneryDone',per:true,act:()=>{S.bread-=500000;S.ores.jade-=50;S.ores.diamond-=50;S.steadfastOveneryDone=true;S.breadTickMs=Math.max(TICK_MIN,S.breadTickMs-20);startBreadTick();startLoafTick()},costs:[{l:'500K',c:()=>S.bread>=500000},{l:'50 Jade',c:()=>S.ores.jade>=50},{l:'50 Dia',c:()=>S.ores.diamond>=50}],st:'craft'},
-    {id:'explr',icon:'🗺️',name:'Exploring Deeper',desc:'9×9 mine · Unlocks Tier 2 ores',sk:'exploringDeeperDone',per:true,act:()=>{S.bread-=150000;S.flour-=10;ALL_ORES.slice(0,6).forEach(o=>S.ores[o]-=50);S.exploringDeeperDone=true;mineGrid=[];buildOreGrid();startOreTick()},costs:[{l:'150K',c:()=>S.bread>=150000},{l:'10🌾',c:()=>S.flour>=10},...ALL_ORES.slice(0,6).map(o=>({l:`50 ${o}`,c:()=>S.ores[o]>=50}))],st:'craft'},
-    {id:'evenFurther',icon:'🕳️',name:'Even Further Down',desc:'11×11 mine · Unlocks Tier 3 ores',sk:'evenFurtherDone',per:true,act:()=>{S.bread-=5000000;S.flour-=25;['ruby','topaz','jewel'].forEach(o=>S.ores[o]-=30);S.evenFurtherDone=true;mineGrid=[];buildOreGrid();startOreTick()},costs:[{l:'5M',c:()=>S.bread>=5000000},{l:'25🌾',c:()=>S.flour>=25},{l:'Exploring Deeper',c:()=>S.exploringDeeperDone},{l:'30 Ruby',c:()=>S.ores.ruby>=30},{l:'30 Topaz',c:()=>S.ores.topaz>=30},{l:'30 Jewel',c:()=>S.ores.jewel>=30}],st:'craft'},
-    {id:'intoAbyss',icon:'🌑',name:'Into the Abyss',desc:'13×13 mine · Unlocks Tier 4 ores',sk:'intoAbyssDone',per:true,act:()=>{S.bread-=100000000000;S.flour-=100;['void_shard','aether_crystal'].forEach(o=>S.ores[o]-=20);S.ores.ember_core=(S.ores.ember_core||0)-10;S.intoAbyssDone=true;mineGrid=[];buildOreGrid();startOreTick()},costs:[{l:'100B bread',c:()=>S.bread>=100000000000},{l:'100🌾',c:()=>S.flour>=100},{l:'Even Further Down',c:()=>S.evenFurtherDone},{l:'20 Void Shard',c:()=>S.ores.void_shard>=20},{l:'10 Ember Core',c:()=>S.ores.ember_core>=10},{l:'20 Aether Crystal',c:()=>S.ores.aether_crystal>=20}],st:'craft'},
-    {id:'beyondVoid',icon:'🌀',name:'Beyond the Void',desc:'15×15 mine · Unlocks Tier 5: Unobtainium · The true final frontier',sk:'beyondVoidDone',per:true,act:()=>{S.bread-=1e18;S.flour-=500;['starforge','nullite','the_crumb'].forEach(o=>S.ores[o]-=10);S.ores.unobtainium=S.ores.unobtainium||0;S.beyondVoidDone=true;mineGrid=[];buildOreGrid();startOreTick();showNotif('🌀 Beyond the Void unlocked. Good luck.')},costs:[{l:'1 Quintillion bread',c:()=>S.bread>=1e18},{l:'500🌾',c:()=>S.flour>=500},{l:'Into the Abyss',c:()=>S.intoAbyssDone},{l:'10 Starforge',c:()=>(S.ores.starforge||0)>=10},{l:'10 Nullite',c:()=>(S.ores.nullite||0)>=10},{l:'10 The Crumb',c:()=>(S.ores.the_crumb||0)>=10}],st:'craft'},
+    {id:'ironPick',icon:'⛏️',name:'Iron Pickaxe',desc:'+1 mine click damage · survives rebake',sk:'ironPickaxeDone',per:true,act:()=>{S.bread-=700;S.ores.iron-=2;S.ironPickaxeDone=true;S.mineClickDmg+=1},costs:[{l:'700 bread',c:()=>S.bread>=700},{l:'2 Iron',c:()=>S.ores.iron>=2}],st:'craft'},
+    {id:'diamPick',icon:'💎',name:'Diamond Pickaxe',desc:'+2 mine click damage · survives rebake',sk:'diamondPickaxeDone',per:true,act:()=>{S.bread-=3500;S.ores.diamond-=3;S.diamondPickaxeDone=true;S.mineClickDmg+=2},costs:[{l:'Iron Pickaxe',c:()=>S.ironPickaxeDone},{l:'3.5K bread',c:()=>S.bread>=3500},{l:'3 Diamond',c:()=>S.ores.diamond>=3}],st:'craft'},
+    {id:'voidPick',icon:'🟣',name:'Void Pickaxe',desc:'+5 mine click damage · survives rebake',sk:'voidPickaxeDone',per:true,act:()=>{S.bread-=87500000;S.ores.void_shard-=5;S.voidPickaxeDone=true;S.mineClickDmg+=5},costs:[{l:'Diamond Pickaxe',c:()=>S.diamondPickaxeDone},{l:'Even Further Down',c:()=>S.evenFurtherDone},{l:'87.5M bread',c:()=>S.bread>=87500000},{l:'5 Void Shard',c:()=>(S.ores.void_shard||0)>=5}],st:'craft'},
+    {id:'stead',icon:'🏔️',name:'Ironclad Rhythm',desc:'PL scales loaf tick · tick -0.05s',sk:'steadfastOveneryDone',per:true,act:()=>{S.bread-=875000;S.ores.jade-=50;S.ores.diamond-=50;S.steadfastOveneryDone=true;S.breadTickMs=Math.max(TICK_MIN,S.breadTickMs-20);startBreadTick();startLoafTick()},costs:[{l:'875K',c:()=>S.bread>=875000},{l:'50 Jade',c:()=>S.ores.jade>=50},{l:'50 Dia',c:()=>S.ores.diamond>=50}],st:'craft'},
+    {id:'explr',icon:'🗺️',name:'Exploring Deeper',desc:'9×9 mine · Unlocks Tier 2 ores',sk:'exploringDeeperDone',per:true,act:()=>{S.bread-=262500;S.flour-=10;ALL_ORES.slice(0,6).forEach(o=>S.ores[o]-=50);S.exploringDeeperDone=true;mineGrid=[];buildOreGrid();startOreTick()},costs:[{l:'262.5K',c:()=>S.bread>=262500},{l:'10🌾',c:()=>S.flour>=10},...ALL_ORES.slice(0,6).map(o=>({l:`50 ${o}`,c:()=>S.ores[o]>=50}))],st:'craft'},
+    {id:'evenFurther',icon:'🕳️',name:'Even Further Down',desc:'11×11 mine · Unlocks Tier 3 ores',sk:'evenFurtherDone',per:true,act:()=>{S.bread-=8750000;S.flour-=25;['ruby','topaz','jewel'].forEach(o=>S.ores[o]-=30);S.evenFurtherDone=true;mineGrid=[];buildOreGrid();startOreTick()},costs:[{l:'8.75M',c:()=>S.bread>=8750000},{l:'25🌾',c:()=>S.flour>=25},{l:'Exploring Deeper',c:()=>S.exploringDeeperDone},{l:'30 Ruby',c:()=>S.ores.ruby>=30},{l:'30 Topaz',c:()=>S.ores.topaz>=30},{l:'30 Jewel',c:()=>S.ores.jewel>=30}],st:'craft'},
+    {id:'intoAbyss',icon:'🌑',name:'Into the Abyss',desc:'13×13 mine · Unlocks Tier 4 ores',sk:'intoAbyssDone',per:true,act:()=>{S.bread-=175000000000;S.flour-=100;['void_shard','aether_crystal'].forEach(o=>S.ores[o]-=20);S.ores.ember_core=(S.ores.ember_core||0)-10;S.intoAbyssDone=true;mineGrid=[];buildOreGrid();startOreTick()},costs:[{l:'175B bread',c:()=>S.bread>=175000000000},{l:'100🌾',c:()=>S.flour>=100},{l:'Even Further Down',c:()=>S.evenFurtherDone},{l:'20 Void Shard',c:()=>S.ores.void_shard>=20},{l:'10 Ember Core',c:()=>S.ores.ember_core>=10},{l:'20 Aether Crystal',c:()=>S.ores.aether_crystal>=20}],st:'craft'},
+    {id:'beyondVoid',icon:'🌀',name:'Beyond the Void',desc:'15×15 mine · Unlocks Tier 5: Unobtainium · The true final frontier',sk:'beyondVoidDone',per:true,act:()=>{S.bread-=1.75e18;S.flour-=500;['starforge','nullite','the_crumb'].forEach(o=>S.ores[o]-=10);S.ores.unobtainium=S.ores.unobtainium||0;S.beyondVoidDone=true;mineGrid=[];buildOreGrid();startOreTick();showNotif('🌀 Beyond the Void unlocked. Good luck.')},costs:[{l:'1.75 Quintillion bread',c:()=>S.bread>=1.75e18},{l:'500🌾',c:()=>S.flour>=500},{l:'Into the Abyss',c:()=>S.intoAbyssDone},{l:'10 Starforge',c:()=>(S.ores.starforge||0)>=10},{l:'10 Nullite',c:()=>(S.ores.nullite||0)>=10},{l:'10 The Crumb',c:()=>(S.ores.the_crumb||0)>=10}],st:'craft'},
     // ── The Developer's Taskoffice ──
     {id:'taskoffice',icon:'💼',name:"The Developer's Taskoffice",desc:'Unlocks the Contract system — take on up to 4 jobs at once for ore, flour, seeds & loaves · survives rebake',sk:'taskofficeUnlocked',per:true,act:()=>{S.bread-=5000000;S.ores.diamond-=10;S.ores.gold-=50;S.taskofficeUnlocked=true;document.getElementById('taskoffice-btn').style.display=''},costs:[{l:'5M bread',c:()=>S.bread>=5000000},{l:'10 Diamond',c:()=>(S.ores.diamond||0)>=10},{l:'50 Gold',c:()=>(S.ores.gold||0)>=50}],st:'craft'},
     // ── Open Bakery ──
-    {id:'openbakery',icon:'🏬',name:'Open Bakery',desc:'Unlock the Bakery minigame — run 2-min service days, serve customers, earn Crumbs to spend on rare ores & seeds · Crumbs never reset on Rebake',sk:'bakeryUnlocked',per:true,act:()=>{S.bread-=1000000;S.ores.gold-=30;S.bakeryUnlocked=true;document.getElementById('bakery-btn').style.display=''},costs:[{l:'1M bread',c:()=>S.bread>=1000000},{l:'5 Corner Shops',c:()=>bCount('b_bakery')>=5},{l:'30 Gold',c:()=>(S.ores.gold||0)>=30}],st:'craft'},
+    {id:'openbakery',icon:'🏬',name:'Open Bakery',desc:'Unlock the Bakery minigame — run 2-min service days, serve customers, earn Crumbs to spend on rare ores & seeds · Crumbs never reset on Rebake',sk:'bakeryUnlocked',per:true,act:()=>{S.bread-=1750000;S.ores.gold-=30;S.bakeryUnlocked=true;document.getElementById('bakery-btn').style.display=''},costs:[{l:'1.75M bread',c:()=>S.bread>=1750000},{l:'5 Corner Shops',c:()=>bCount('b_bakery')>=5},{l:'30 Gold',c:()=>(S.ores.gold||0)>=30}],st:'craft'},
     // ── The Ovenkind (grandmapocalypse) — unlock only, toggling is elsewhere ──
-    {id:'ovenk',icon:'🔴',name:'The Ovenkind Pact',desc:'Unlock The Ovenkind toggle · +200% BpS when active, but Golden Bread turns hostile',sk:'ovenkindUnlocked',per:true,act:()=>{S.bread-=50000000;S.ores.jewel-=20;S.ovenkindUnlocked=true},costs:[{l:'50M bread',c:()=>S.bread>=50000000},{l:'500 buildings',c:()=>totalBldgs()>=500},{l:'20 Jewel',c:()=>S.ores.jewel>=20}],st:'craft'},
-    {id:'drilling',icon:'⛡',name:'Deep Drilling Rig',desc:'Unlock the Drilling minigame · place drills on 12 plots for passive Breadfuel · start with 500 BF',sk:'drillingUnlocked',per:true,act:()=>{S.bread-=5000000;S.ores.void_shard-=10;S.ores.aether_crystal-=5;S.drillingUnlocked=true;S.breadfuel=(S.breadfuel||0)+500;S.drillPlots=S.drillPlots||Array(12).fill(null);document.getElementById('drilling-btn').style.display='';startDrillTick()},costs:[{l:'5M bread',c:()=>S.bread>=5000000},{l:'Even Further Down',c:()=>S.evenFurtherDone},{l:'10 Void Shard',c:()=>S.ores.void_shard>=10},{l:'5 Aether Crystal',c:()=>S.ores.aether_crystal>=5}],st:'craft'},
+    {id:'ovenk',icon:'🔴',name:'The Ovenkind Pact',desc:'Unlock The Ovenkind toggle · +200% BpS when active, but Golden Bread turns hostile',sk:'ovenkindUnlocked',per:true,act:()=>{S.bread-=87500000;S.ores.jewel-=20;S.ovenkindUnlocked=true},costs:[{l:'87.5M bread',c:()=>S.bread>=87500000},{l:'500 buildings',c:()=>totalBldgs()>=500},{l:'20 Jewel',c:()=>S.ores.jewel>=20}],st:'craft'},
+    {id:'drilling',icon:'⛡',name:'Deep Drilling Rig',desc:'Unlock the Drilling minigame · place drills on 12 plots for passive Breadfuel · start with 500 BF',sk:'drillingUnlocked',per:true,act:()=>{S.bread-=8750000;S.ores.void_shard-=10;S.ores.aether_crystal-=5;S.drillingUnlocked=true;S.breadfuel=(S.breadfuel||0)+500;S.drillPlots=S.drillPlots||Array(12).fill(null);document.getElementById('drilling-btn').style.display='';startDrillTick()},costs:[{l:'8.75M bread',c:()=>S.bread>=8750000},{l:'Even Further Down',c:()=>S.evenFurtherDone},{l:'10 Void Shard',c:()=>S.ores.void_shard>=10},{l:'5 Aether Crystal',c:()=>S.ores.aether_crystal>=5}],st:'craft'},
   ]},
   {section:'🔗 Synergies',items:[
-    {id:'orebreedloop',icon:'🔄',name:'Ore-Breed Loop',desc:'Passive ore → +0.5 bread each drop',sk:'oreBreedLoopDone',syn:true,act:()=>{S.bread-=15000;S.ores.gold-=5;S.ores.iron-=10;S.oreBreedLoopDone=true;S.synergyCount=(S.synergyCount||0)+1;startOreTick()},costs:[{l:'Quick Ores',c:()=>S.oreMagnetDone},{l:'Ore Yield',c:()=>S.veinTapDone},{l:'15K bread',c:()=>S.bread>=15000},{l:'5 Gold',c:()=>S.ores.gold>=5},{l:'10 Iron',c:()=>S.ores.iron>=10}],st:'craft'},
-    {id:'loafpowercycle',icon:'⚡',name:'Power Cycle',desc:'Each new PL level: burst +20× tick gain',sk:'loafPowerCycleDone',syn:true,act:()=>{S.bread-=25000;S.ores.sapphire-=5;S.loafPowerCycleDone=true;S.synergyCount=(S.synergyCount||0)+1},costs:[{l:'Loaf Tick II',c:()=>S.loafRushDone},{l:'Loaf Tick III',c:()=>S.loafSurgeDone},{l:'25K bread',c:()=>S.bread>=25000},{l:'5 Sapph',c:()=>S.ores.sapphire>=5}],st:'craft'},
-    {id:'gardenoverdrive',icon:'🌿',name:'Overgrowth',desc:'All plots always instantly harvestable',sk:'gardenOverdriveDone',syn:true,act:()=>{S.bread-=240000;S.ores.jade-=12;S.gardenOverdriveDone=true;S.synergyCount=(S.synergyCount||0)+1},costs:[{l:'Edible Plantstry',c:()=>S.harvestMoonDone},{l:'Garden of Carbs',c:()=>S.flourShop.gardenOfCarbs>=1},{l:'240K bread',c:()=>S.bread>=240000},{l:'12 Jade',c:()=>S.ores.jade>=12}],st:'craft'},
-    {id:'yeastcascade',icon:'🫧',name:'Cascade Protocol',desc:'Tick -0.1s · needs all 3 speed upgrades',sk:'yeastCascadeDone',syn:true,act:()=>{S.bread-=20000;S.ores.sapphire-=6;S.breadTickMs=Math.max(TICK_MIN,S.breadTickMs-100);S.yeastCascadeDone=true;S.synergyCount=(S.synergyCount||0)+1;startBreadTick()},costs:[{l:'Catalyst Boost',c:()=>S.yeastBoostDone},{l:'Pressure Wave',c:()=>S.doubleKneadDone},{l:'Overclock',c:()=>S.glutenOverdriveDone},{l:'20K bread',c:()=>S.bread>=20000},{l:'6 Sapph',c:()=>S.ores.sapphire>=6}],st:'craft'},
-    {id:'goldenloop',icon:'🌀',name:'Golden Loop',desc:'+0.01% bread per BpS',sk:'goldenLoopDone',syn:true,act:()=>{S.bread-=120000;S.ores.gold-=15;S.ores.diamond-=5;S.goldenLoopDone=true;S.synergyCount=(S.synergyCount||0)+1},costs:[{l:'Powerloaf Increase',c:()=>S.goldenRatioDone},{l:'Bread Conversion',c:()=>S.prismBakeDone},{l:'120K bread',c:()=>S.bread>=120000},{l:'15 Gold',c:()=>S.ores.gold>=15},{l:'5 Dia',c:()=>S.ores.diamond>=5}],st:'craft'},
-    {id:'deeporemastery',icon:'⛏️',name:'Deep Ore Mastery',desc:'Passive ore always drops 2+ at once',sk:'deepOreMasteryDone',syn:true,act:()=>{S.bread-=90000;S.ores.ruby-=4;S.ores.jewel-=1;S.deepOreMasteryDone=true;S.synergyCount=(S.synergyCount||0)+1;startOreTick()},costs:[{l:'Ore Amplify',c:()=>S.oreAmplifyDone},{l:'Ore Yield',c:()=>S.veinTapDone},{l:'Exploring Deeper',c:()=>S.exploringDeeperDone},{l:'90K bread',c:()=>S.bread>=90000},{l:'4 Ruby',c:()=>S.ores.ruby>=4},{l:'1 Jewel',c:()=>S.ores.jewel>=1}],st:'craft'},
-    {id:'breadstormsurge',icon:'🌩️',name:'Storm Surge',desc:'Doubles the PL% bonus from Tempest',sk:'breadStormSurgeDone',syn:true,act:()=>{S.bread-=2000000;S.ores.jewel-=4;S.breadStormSurgeDone=true;S.synergyCount=(S.synergyCount||0)+1},costs:[{l:'Powerloaf Increase I',c:()=>S.breadStormDone},{l:'Amazing Bread Output',c:()=>S.cosmicCrustDone},{l:'2M bread',c:()=>S.bread>=2000000},{l:'4 Jewel',c:()=>S.ores.jewel>=4}],st:'craft'},
-    {id:'compoundharvest',icon:'🌱',name:'Harvest Loop',desc:'Plant bonus applied a 3rd time to bread gain',sk:'compoundHarvestDone',syn:true,act:()=>{S.bread-=600000;S.ores.jade-=15;S.compoundHarvestDone=true;S.synergyCount=(S.synergyCount||0)+1},costs:[{l:'Advanced Baking',c:()=>S.compoundRiseDone},{l:'Edible Plantstry',c:()=>S.harvestMoonDone},{l:'600K bread',c:()=>S.bread>=600000},{l:'15 Jade',c:()=>S.ores.jade>=15}],st:'craft'},
-    {id:'resonantgarden',icon:'🎵',name:'Living Frequency',desc:'+0.5% bread per distinct plant type owned',sk:'resonantGardenDone',syn:true,act:()=>{S.bread-=900000;S.ores.jade-=20;S.ores.sapphire-=8;S.resonantGardenDone=true;S.synergyCount=(S.synergyCount||0)+1},costs:[{l:'Building Resonance',c:()=>S.resonanceLinkDone},{l:'Overgrowth',c:()=>S.gardenOverdriveDone},{l:'900K bread',c:()=>S.bread>=900000},{l:'20 Jade',c:()=>S.ores.jade>=20},{l:'8 Sapph',c:()=>S.ores.sapphire>=8}],st:'craft'},
-    {id:'mineforgelink',icon:'⚒️',name:'Strike Link',desc:'Each manual mine break: gain 10× BpS as bonus bread',sk:'mineForgeLink',syn:true,act:()=>{S.bread-=400000;S.ores.ruby-=6;S.ores.diamond-=8;S.mineForgeLink=true;S.synergyCount=(S.synergyCount||0)+1},costs:[{l:'Efficient Mining',c:()=>S.crustHardeningDone},{l:'Exploring Deeper',c:()=>S.exploringDeeperDone},{l:'400K bread',c:()=>S.bread>=400000},{l:'6 Ruby',c:()=>S.ores.ruby>=6},{l:'8 Dia',c:()=>S.ores.diamond>=8}],st:'craft'},
+    {id:'orebreedloop',icon:'🔄',name:'Ore-Breed Loop',desc:'Passive ore → +0.5 bread each drop',sk:'oreBreedLoopDone',syn:true,act:()=>{S.bread-=18000;S.ores.gold-=5;S.ores.iron-=10;S.oreBreedLoopDone=true;S.synergyCount=(S.synergyCount||0)+1;startOreTick()},costs:[{l:'Quick Ores',c:()=>S.oreMagnetDone},{l:'Ore Yield',c:()=>S.veinTapDone},{l:'18K bread',c:()=>S.bread>=18000},{l:'5 Gold',c:()=>S.ores.gold>=5},{l:'10 Iron',c:()=>S.ores.iron>=10}],st:'craft'},
+    {id:'loafpowercycle',icon:'⚡',name:'Power Cycle',desc:'Each new PL level: burst +20× tick gain',sk:'loafPowerCycleDone',syn:true,act:()=>{S.bread-=30000;S.ores.sapphire-=5;S.loafPowerCycleDone=true;S.synergyCount=(S.synergyCount||0)+1},costs:[{l:'Loaf Tick II',c:()=>S.loafRushDone},{l:'Loaf Tick III',c:()=>S.loafSurgeDone},{l:'30K bread',c:()=>S.bread>=30000},{l:'5 Sapph',c:()=>S.ores.sapphire>=5}],st:'craft'},
+    {id:'gardenoverdrive',icon:'🌿',name:'Overgrowth',desc:'All plots always instantly harvestable',sk:'gardenOverdriveDone',syn:true,act:()=>{S.bread-=288000;S.ores.jade-=12;S.gardenOverdriveDone=true;S.synergyCount=(S.synergyCount||0)+1},costs:[{l:'Edible Plantstry',c:()=>S.harvestMoonDone},{l:'Garden of Carbs',c:()=>S.flourShop.gardenOfCarbs>=1},{l:'288K bread',c:()=>S.bread>=288000},{l:'12 Jade',c:()=>S.ores.jade>=12}],st:'craft'},
+    {id:'yeastcascade',icon:'🫧',name:'Cascade Protocol',desc:'Tick -0.1s · needs all 3 speed upgrades',sk:'yeastCascadeDone',syn:true,act:()=>{S.bread-=24000;S.ores.sapphire-=6;S.breadTickMs=Math.max(TICK_MIN,S.breadTickMs-100);S.yeastCascadeDone=true;S.synergyCount=(S.synergyCount||0)+1;startBreadTick()},costs:[{l:'Catalyst Boost',c:()=>S.yeastBoostDone},{l:'Pressure Wave',c:()=>S.doubleKneadDone},{l:'Overclock',c:()=>S.glutenOverdriveDone},{l:'24K bread',c:()=>S.bread>=24000},{l:'6 Sapph',c:()=>S.ores.sapphire>=6}],st:'craft'},
+    {id:'goldenloop',icon:'🌀',name:'Golden Loop',desc:'+0.01% bread per BpS',sk:'goldenLoopDone',syn:true,act:()=>{S.bread-=144000;S.ores.gold-=15;S.ores.diamond-=5;S.goldenLoopDone=true;S.synergyCount=(S.synergyCount||0)+1},costs:[{l:'Powerloaf Increase',c:()=>S.goldenRatioDone},{l:'Bread Conversion',c:()=>S.prismBakeDone},{l:'144K bread',c:()=>S.bread>=144000},{l:'15 Gold',c:()=>S.ores.gold>=15},{l:'5 Dia',c:()=>S.ores.diamond>=5}],st:'craft'},
+    {id:'deeporemastery',icon:'⛏️',name:'Deep Ore Mastery',desc:'Passive ore always drops 2+ at once',sk:'deepOreMasteryDone',syn:true,act:()=>{S.bread-=108000;S.ores.ruby-=4;S.ores.jewel-=1;S.deepOreMasteryDone=true;S.synergyCount=(S.synergyCount||0)+1;startOreTick()},costs:[{l:'Ore Amplify',c:()=>S.oreAmplifyDone},{l:'Ore Yield',c:()=>S.veinTapDone},{l:'Exploring Deeper',c:()=>S.exploringDeeperDone},{l:'108K bread',c:()=>S.bread>=108000},{l:'4 Ruby',c:()=>S.ores.ruby>=4},{l:'1 Jewel',c:()=>S.ores.jewel>=1}],st:'craft'},
+    {id:'breadstormsurge',icon:'🌩️',name:'Storm Surge',desc:'Doubles the PL% bonus from Tempest',sk:'breadStormSurgeDone',syn:true,act:()=>{S.bread-=2400000;S.ores.jewel-=4;S.breadStormSurgeDone=true;S.synergyCount=(S.synergyCount||0)+1},costs:[{l:'Powerloaf Increase I',c:()=>S.breadStormDone},{l:'Amazing Bread Output',c:()=>S.cosmicCrustDone},{l:'2.4M bread',c:()=>S.bread>=2400000},{l:'4 Jewel',c:()=>S.ores.jewel>=4}],st:'craft'},
+    {id:'compoundharvest',icon:'🌱',name:'Harvest Loop',desc:'Plant bonus applied a 3rd time to bread gain',sk:'compoundHarvestDone',syn:true,act:()=>{S.bread-=720000;S.ores.jade-=15;S.compoundHarvestDone=true;S.synergyCount=(S.synergyCount||0)+1},costs:[{l:'Advanced Baking',c:()=>S.compoundRiseDone},{l:'Edible Plantstry',c:()=>S.harvestMoonDone},{l:'720K bread',c:()=>S.bread>=720000},{l:'15 Jade',c:()=>S.ores.jade>=15}],st:'craft'},
+    {id:'resonantgarden',icon:'🎵',name:'Living Frequency',desc:'+0.5% bread per distinct plant type owned',sk:'resonantGardenDone',syn:true,act:()=>{S.bread-=1080000;S.ores.jade-=20;S.ores.sapphire-=8;S.resonantGardenDone=true;S.synergyCount=(S.synergyCount||0)+1},costs:[{l:'Building Resonance',c:()=>S.resonanceLinkDone},{l:'Overgrowth',c:()=>S.gardenOverdriveDone},{l:'1.08M bread',c:()=>S.bread>=1080000},{l:'20 Jade',c:()=>S.ores.jade>=20},{l:'8 Sapph',c:()=>S.ores.sapphire>=8}],st:'craft'},
+    {id:'mineforgelink',icon:'⚒️',name:'Strike Link',desc:'Each manual mine break: gain 10× BpS as bonus bread',sk:'mineForgeLink',syn:true,act:()=>{S.bread-=480000;S.ores.ruby-=6;S.ores.diamond-=8;S.mineForgeLink=true;S.synergyCount=(S.synergyCount||0)+1},costs:[{l:'Efficient Mining',c:()=>S.crustHardeningDone},{l:'Exploring Deeper',c:()=>S.exploringDeeperDone},{l:'480K bread',c:()=>S.bread>=480000},{l:'6 Ruby',c:()=>S.ores.ruby>=6},{l:'8 Dia',c:()=>S.ores.diamond>=8}],st:'craft'},
   ]},
 ];
 
@@ -1980,7 +2416,7 @@ function buildShop(){
     ${BLDG.map(b=>{
       const c=bCount(b.id),contrib=tb>0?Math.min(100,Math.round(bBpsWithSynergy(b)/tb*100)):0;
       let bulkCost=0,canAfford=true;
-      for(let i=0;i<_bulkBuy;i++){let d=1;if(S.sw_foundationStone)d*=0.90;bulkCost+=Math.ceil(b.price*Math.pow(1.22,c+i)*d);}
+      for(let i=0;i<_bulkBuy;i++){let d=1;if(S.sw_foundationStone)d*=0.90;bulkCost+=Math.ceil(b.price*Math.pow(1.23,c+i)*d);}
       canAfford=S.bread>=bulkCost;
       const ca=canAfford;
       const ttData=JSON.stringify({name:`${b.icon} ${b.name}`,owned:c,each:fmt(b.bps),total:c>0?fmt(bBpsWithSynergy(b)):null,pct:c>0&&tb>0?contrib:null,cost:fmt(bulkCost)}).replace(/"/g,'&quot;');
@@ -2001,7 +2437,7 @@ function buildShop(){
   h+=`<div class="shop-section shop-section-flour">
     <div class="flour-header"><span>🌾 Flour Shop <span style="font-size:0.55rem;opacity:0.4;font-weight:700;margin-left:6px;">spend 🌾 for permanent boosts</span></span><button class="sec-chevron${_collapsed['flour']?' collapsed':''}" data-sec="flour" onclick="event.stopPropagation();toggleSec('flour')">${_collapsed['flour']?'▶ Show':'▼ Hide'}</button></div>
     <div class="sec-body${_collapsed['flour']?' sec-collapsed':''}" data-sec="flour">
-    ${FLOUR.map(f=>{const lv=S.flourShop[f.id]||0,mx=lv>=f.max,co=f.cost*(lv+1),ca=!mx&&S.flour>=co;return`<div class="flour-card${mx?' maxed':(ca?' purchasable':'')}" onclick="buyFlour('${f.id}')"><div class="shop-icon">${f.icon}</div><div class="shop-info"><div class="shop-name">${f.name}</div><div class="shop-desc">${f.desc}</div>${mx?'':`<div class="shop-cost"><span class="cost-chip ${ca?'met':'unmet'}">${co}🌾</span></div>`}</div><div class="flour-lvl-badge">${mx?'MAX':`${lv}/${f.max}`}</div><div class="shop-buy-indicator">${mx?'✓':'▸'}</div></div>`}).join('')}
+    ${FLOUR.map(f=>{const lv=S.flourShop[f.id]||0,mx=lv>=f.max,co=f.max>1?Math.round(f.cost*Math.pow(1.3,lv)*(lv+1)):f.cost*(lv+1),ca=!mx&&S.flour>=co;return`<div class="flour-card${mx?' maxed':(ca?' purchasable':'')}" onclick="buyFlour('${f.id}')"><div class="shop-icon">${f.icon}</div><div class="shop-info"><div class="shop-name">${f.name}</div><div class="shop-desc">${f.desc}</div>${mx?'':`<div class="shop-cost"><span class="cost-chip ${ca?'met':'unmet'}">${co}🌾</span></div>`}</div><div class="flour-lvl-badge">${mx?'MAX':`${lv}/${f.max}`}</div><div class="shop-buy-indicator">${mx?'✓':'▸'}</div></div>`}).join('')}
     </div>
   </div>`;
   // Garden Upgrades (v1.4) — only shown when garden unlocked and at least one unlock met
@@ -2020,6 +2456,32 @@ function buildShop(){
             <div class="shop-name">${u.name}</div>
             <div class="shop-desc">${u.desc}</div>
             ${ch?`<div class="shop-cost">${ch}</div>`:''}
+          </div>
+          <div class="shop-buy-indicator">${d?'✓':'▸'}</div>
+        </div>`;
+      }).join('')}
+      </div>
+    </div>`;
+  }
+  // ── Building Upgrades (Cookie Clicker-style doublers) ──
+  const visibleBU=BLDG_UPGS.filter(u=>bCount(u.bld)>=u.need&&!S[u.sk]);
+  const boughtBU=BLDG_UPGS.filter(u=>S[u.sk]);
+  if(visibleBU.length>0||boughtBU.length>0){
+    const allBU=[...boughtBU,...visibleBU];
+    h+=`<div class="shop-section">
+      <div class="shop-header" style="color:rgba(150,220,255,0.65);background:linear-gradient(135deg,rgba(5,15,30,0.9),rgba(5,10,25,0.8));border-left:3px solid rgba(100,180,255,0.3);"><span>🏗️ Building Upgrades <span style="font-size:0.55rem;opacity:0.4;font-weight:700;margin-left:6px;">own N buildings to unlock · each ×2 production</span></span><button class="sec-chevron${_collapsed['bldgupg']?' collapsed':''}" data-sec="bldgupg" onclick="event.stopPropagation();toggleSec('bldgupg')">${_collapsed['bldgupg']?'▶ Show':'▼ Hide'}</button></div>
+      <div class="sec-body${_collapsed['bldgupg']?' sec-collapsed':''}" data-sec="bldgupg">
+      ${allBU.map(u=>{
+        const d=S[u.sk];
+        const canBuy=!d&&S.bread>=u.cost;
+        const bld=BLDG.find(b=>b.id===u.bld);
+        const cl='shop-card'+(d?' purchased':(canBuy?' purchasable':''));
+        return`<div class="${cl}" onclick="buyBldgUpg('${u.id}')">
+          <div class="shop-icon">${u.icon}</div>
+          <div class="shop-info">
+            <div class="shop-name">${u.name} <span style="font-size:0.5rem;opacity:0.35;">${bld?bld.name:''} · own ${u.need}+</span></div>
+            <div class="shop-desc">${u.desc}</div>
+            ${d?'':`<div class="shop-cost"><span class="cost-chip ${canBuy?'met':'unmet'}">${fmt(u.cost)} bread</span></div>`}
           </div>
           <div class="shop-buy-indicator">${d?'✓':'▸'}</div>
         </div>`;
@@ -2199,7 +2661,7 @@ function buyItem(id){for(const s of SHOP){for(const it of s.items){if(it.id===id
   if(S.yeastBoostDone&&S.glutenOverdriveDone&&!S._cascadeTick){S._cascadeTick=true;S.breadTickMs=Math.max(TICK_MIN,S.breadTickMs-20);startBreadTick()}
   if(S.crustHardeningDone&&S.deepOreMasteryDone&&!S._ironVein){S._ironVein=true;S.mineClickDmg+=1}
   checkAch();buildShop();updateUI();saveGame();return}}}}
-function buyFlour(id){const f=FLOUR.find(x=>x.id===id);if(!f)return;const lv=S.flourShop[f.id]||0;if(lv>=f.max)return;const co=f.cost*(lv+1);if(S.flour<co){showNotif(`Need ${co}🌾`);return}S.flour-=co;S.flourShop[f.id]=lv+1;if(f.onBuy)f.onBuy();sfx('craft');showNotif(`🌾 ${f.name}${f.max>1?' Lv'+(lv+1):''}!`);checkAch();buildShop();updateUI();saveGame()}
+function buyFlour(id){const f=FLOUR.find(x=>x.id===id);if(!f)return;const lv=S.flourShop[f.id]||0;if(lv>=f.max)return;const co=f.max>1?Math.round(f.cost*Math.pow(1.3,lv)*(lv+1)):f.cost*(lv+1);if(S.flour<co){showNotif(`Need ${co}🌾`);return}S.flour-=co;S.flourShop[f.id]=lv+1;if(f.onBuy)f.onBuy();sfx('craft');showNotif(`🌾 ${f.name}${f.max>1?' Lv'+(lv+1):''}!`);checkAch();buildShop();updateUI();saveGame()}
 
 // ===== ACHIEVEMENTS =====
 function totalPlaySec(){return Math.floor(((S.totalPlayMs||0)+(Date.now()-(S.sessionStartMs||Date.now())))/1000)}
@@ -2235,7 +2697,11 @@ function rebakeMultiplier(){
   return m;
 }
 function rebakeCostAt(level){
-  return Math.ceil(5e18*Math.pow(rebakeMultiplier(),level));
+  const m=rebakeMultiplier();
+  if(level<=10) return Math.ceil(5e18*Math.pow(m,level));
+  const cost10=5e18*Math.pow(m,10);
+  const steepM=Math.pow(m,1.15); // ~15% steeper exponent after level 10
+  return Math.ceil(cost10*Math.pow(steepM,level-10));
 }
 function rebakeCost(){return rebakeCostAt(S.rebakeLevel||0);}
 function countAffordableRebakes(){
@@ -2285,6 +2751,8 @@ function doRebake(){
     taskofficeUnlocked:S.taskofficeUnlocked,
     bakeryUnlocked:S.bakeryUnlocked,crumbs:S.crumbs||0,bakeryStaffSlots:S.bakeryStaffSlots||2,bakeryOvenSlots:S.bakeryOvenSlots||3,bakeryDaysCompleted:S.bakeryDaysCompleted||0,bakeryLifetimeCrumbs:S.bakeryLifetimeCrumbs||0,
     drillingUnlocked:S.drillingUnlocked||false,breadfuel:S.breadfuel||0,drillPlots:[...(S.drillPlots||Array(12).fill(null))],activeBoostId:null,boostEndMs:0,
+    starCraftingUnlocked:S.starCraftingUnlocked||false,
+    starCraftingGateUnlocked:S.starCraftingGateUnlocked||false,
     contracts:[],
     buildingPrestige:{...(S.buildingPrestige||{})},
     // Flour shop
@@ -2369,6 +2837,7 @@ function updateUI(){
   const tbfw=document.getElementById('tb-breadfuel-wrap');if(tbfw)tbfw.style.display=S.drillingUnlocked?'':'none';
   const tbf=document.getElementById('tb-breadfuel');if(tbf)tbf.textContent=fmt(Math.floor(S.breadfuel||0));
   const rtBtn=document.getElementById('rebake-tree-btn');if(rtBtn)rtBtn.style.display=rtIsUnlocked()?'':'none';
+  const scBtn=document.getElementById('star-crafting-btn');if(scBtn)scBtn.style.display=S.starCraftingUnlocked?'':'none';
   const sbtn=document.getElementById('sandwich-btn');if(sbtn)sbtn.style.display=((S.sandwiches||0)>0||Object.keys(S).some(k=>(k.startsWith('sw_')||k.startsWith('sw2_'))&&S[k]===true))?'':'none';
   // Spirit panel: show when player has 1B+ bread or already started
   const sp=document.getElementById('spirit-panel');
@@ -3170,7 +3639,7 @@ function rtGetEffect(id){
     rt_b9a:()=>{S.breadTickMs=Math.max(TICK_MIN,S.breadTickMs-10);startBreadTick();},
     rt_m4c:()=>{S.mineClickDmg+=2;},
     rt_m9b:()=>{S.mineClickDmg=Math.ceil(S.mineClickDmg*3);},
-    rt_star:()=>{S.starCraftingUnlocked=true;sfx('achievement');for(let i=0;i<30;i++)setTimeout(()=>spawnP(['🌟','✨','⭐'][Math.floor(Math.random()*3)],Math.random()*window.innerWidth,Math.random()*window.innerHeight),i*50);showNotif('🌟 STAR CRAFTING UNLOCKED. The suffering begins.');}
+    rt_star:()=>{S.starCraftingUnlocked=true;sfx('achievement');for(let i=0;i<30;i++)setTimeout(()=>spawnP(['🌟','✨','⭐'][Math.floor(Math.random()*3)],Math.random()*window.innerWidth,Math.random()*window.innerHeight),i*50);showNotif('🌟 STAR CRAFTING UNLOCKED. The suffering begins.');const scb=document.getElementById('star-crafting-btn');if(scb)scb.style.display='';}
   };
   return effects[id]||null;
 }
@@ -3427,6 +3896,106 @@ function setMobileTab(tab){
     setTimeout(()=>document.getElementById('ios-install-overlay').style.display='none',340);
   };
 })();
+
+// ===== STAR CRAFTING =====
+const SC_TR_KEYS=['tr_crumbFusion','tr_voidHarvest','tr_abyssalEcho','tr_nullResonance',
+  'tr_forgeBloom','tr_infiniteKnead','tr_breadSingularity','tr_omniBake',
+  'tr_cosmicYeast','tr_stellarCrust','tr_eternityLoaf','tr_abyssalForge',
+  'tr_nulliteHeart','tr_starforgeCore','tr_theCrumbAwakens'];
+
+function scReq(met,label,progress){
+  return`<div style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:6px;background:rgba(${met?'255,220,60':'80,80,80'},0.05);border:1px solid rgba(${met?'255,220,60':'80,80,80'},0.12);">
+    <span style="font-size:0.75rem;line-height:1;">${met?'✅':'⬜'}</span>
+    <span style="flex:1;font-size:0.6rem;color:rgba(255,255,200,${met?'0.75':'0.3'});">${label}</span>
+    <span style="font-size:0.55rem;color:rgba(255,255,200,${met?'0.5':'0.18'});white-space:nowrap;">${progress}</span>
+  </div>`;
+}
+
+function starRecipe0Checks(){
+  const sf=S.ores.starforge||0,nu=S.ores.nullite||0,cr=S.ores.the_crumb||0;
+  const trDone=SC_TR_KEYS.filter(k=>S[k]).length;
+  const bldgOwned=BLDG.filter(b=>(S.buildings[b.id]||0)>=1).length;
+  return{
+    starforge:sf>=100,
+    nullite:nu>=100,
+    the_crumb:cr>=100,
+    rebake:(S.rebakeLevel||0)>=15,
+    allBuildings:bldgOwned>=20,
+    lifetimeBread:(S.lifetimeBread||0)>=1e18,
+    allTranscendent:trDone>=15,
+    _sf:sf,_nu:nu,_cr:cr,_tr:trDone,_bldg:bldgOwned,
+  };
+}
+
+function completeStarRecipe0(){
+  const c=starRecipe0Checks();
+  const ok=c.starforge&&c.nullite&&c.the_crumb&&c.rebake&&c.allBuildings&&c.lifetimeBread&&c.allTranscendent;
+  if(!ok){showNotif('❌ Requirements not met!');return;}
+  S.ores.starforge-=100;S.ores.nullite-=100;S.ores.the_crumb-=100;
+  S.starCraftingGateUnlocked=true;
+  saveGame();
+  sfx('achievement');
+  for(let i=0;i<50;i++)setTimeout(()=>spawnP(['🌟','⭐','✨','💫','🌠'][Math.floor(Math.random()*5)],Math.random()*window.innerWidth,Math.random()*window.innerHeight),i*55);
+  showNotif('🌟 THE FIRST STAR! All Star Crafting items are now obtainable.');
+  buildStarCraftingUI();
+  checkAch();updateUI();
+}
+
+function buildStarCraftingUI(){
+  const el=document.getElementById('star-crafting-body');
+  if(!el)return;
+  if(!S.starCraftingGateUnlocked){
+    const c=starRecipe0Checks();
+    const allOk=c.starforge&&c.nullite&&c.the_crumb&&c.rebake&&c.allBuildings&&c.lifetimeBread&&c.allTranscendent;
+    el.innerHTML=`
+      <div style="text-align:center;padding:6px 0 14px;">
+        <div style="font-size:0.6rem;color:rgba(255,255,200,0.35);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">Recipe 0</div>
+        <div style="font-size:0.85rem;font-weight:800;color:rgba(255,230,100,0.6);margin-bottom:4px;">The First Star</div>
+        <div style="font-size:0.55rem;color:rgba(255,255,200,0.25);line-height:1.7;">The entry rite. Completing this unlocks every Star Crafting item, ingredient, and recipe.<br>The listed ores are consumed on completion.</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px;">
+        ${scReq(c.starforge,  '100 Starforge ore consumed',       `${Math.min(c._sf,100)}/100`)}
+        ${scReq(c.nullite,    '100 Nullite ore consumed',         `${Math.min(c._nu,100)}/100`)}
+        ${scReq(c.the_crumb,  '100 The Crumb ore consumed',       `${Math.min(c._cr,100)}/100`)}
+        ${scReq(c.rebake,     'Rebake Level 15',                  `Lv ${S.rebakeLevel||0}`)}
+        ${scReq(c.allBuildings,'Own at least 1 of all 20 buildings',`${c._bldg}/20`)}
+        ${scReq(c.lifetimeBread,'1 Quintillion bread baked total',`${fmt(S.lifetimeBread||0)} / 1Q`)}
+        ${scReq(c.allTranscendent,'All 15 Transcendent upgrades', `${c._tr}/15`)}
+      </div>
+      <button onclick="completeStarRecipe0()" ${allOk?'':'disabled'} style="width:100%;padding:10px;border:none;border-radius:10px;background:${allOk?'rgba(255,220,60,0.12)':'rgba(60,60,60,0.08)'};border:1px solid ${allOk?'rgba(255,220,60,0.35)':'rgba(60,60,60,0.18)'};color:${allOk?'rgba(255,230,100,0.9)':'rgba(100,100,100,0.35)'};font-family:'Nunito',sans-serif;font-size:0.7rem;font-weight:800;cursor:${allOk?'pointer':'default'};letter-spacing:1px;transition:all 0.2s;">
+        ${allOk?'🌟 COMPLETE RECIPE 0 — THE FIRST STAR':'🔒 Requirements not met'}
+      </button>
+      <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.05);">
+        <div style="font-size:0.5rem;color:rgba(255,255,200,0.15);text-align:center;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Locked until Recipe 0 is complete</div>
+        <div style="font-size:0.55rem;color:rgba(255,255,200,0.12);line-height:2;text-align:center;">
+          Breadpieces &nbsp;·&nbsp; Bread Timepieces &nbsp;·&nbsp; Piece of Machine &nbsp;·&nbsp; Piece of Astra &nbsp;·&nbsp; Piece of Constellation<br>
+          Contract Sheets &nbsp;·&nbsp; Pieces of Paper &nbsp;·&nbsp; Homework Forged From Hell's Fire<br>
+          Converters &nbsp;·&nbsp; Ore Crafting Thing &nbsp;·&nbsp; Contract Conversion Machine<br>
+          Unobtainium Starforge &nbsp;·&nbsp; Unobtainable Crumb &nbsp;·&nbsp; Aether Starforge<br>
+          Breadpiece Magnets &nbsp;·&nbsp; Contract Tokens &nbsp;·&nbsp; All 20 Piece types<br>
+          <span style="opacity:0.5;">Recipes 1–20 and all intermediate crafting items</span>
+        </div>
+      </div>`;
+  }else{
+    el.innerHTML=`
+      <div style="text-align:center;padding:10px 0 18px;">
+        <div style="font-size:1.5rem;margin-bottom:6px;">🌟</div>
+        <div style="font-size:0.65rem;font-weight:800;color:rgba(255,230,100,0.8);letter-spacing:2px;text-transform:uppercase;">Recipe 0 — Complete</div>
+        <div style="font-size:0.55rem;color:rgba(255,255,200,0.35);margin-top:6px;line-height:1.7;">All Star Crafting items are now obtainable.<br>Items will drop, appear in shops, and unlock through normal play.</div>
+      </div>
+      <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:14px;text-align:center;">
+        <div style="font-size:0.55rem;color:rgba(255,255,200,0.18);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">Recipes 1–20</div>
+        <div style="font-size:0.6rem;color:rgba(255,255,200,0.12);font-style:italic;">Coming soon…</div>
+      </div>`;
+  }
+}
+
+function toggleStarCrafting(){
+  const m=document.getElementById('star-crafting-modal');if(!m)return;
+  const showing=m.classList.contains('show');
+  document.querySelectorAll('.modal-overlay.show').forEach(e=>e.classList.remove('show'));
+  if(!showing){buildStarCraftingUI();m.classList.add('show');}
+}
 
 // ===== SERVICE WORKER =====
 if('serviceWorker' in navigator && location.protocol !== 'file:'){
